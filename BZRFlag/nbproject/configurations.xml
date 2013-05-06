@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="80">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>../BZRFlag AI/470bot.h</itemPath>
+      <itemPath>../BZRFlag AI/DumbTankAI.h</itemPath>
+      <itemPath>../BZRFlag AI/DumbTeamAI.h</itemPath>
+      <itemPath>../BZRFlag AI/PDController.h</itemPath>
+      <itemPath>../BZRFlag AI/PotentialFieldCalculator.h</itemPath>
+      <itemPath>../BZRFlag AI/TankAI.h</itemPath>
+      <itemPath>../BZRFlag AI/TeamAI.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>../BZRFlag AI/DumbTankAI.cpp</itemPath>
+      <itemPath>../BZRFlag AI/DumbTeamAI.cpp</itemPath>
+      <itemPath>../BZRFlag AI/Lab1_Main.cpp</itemPath>
+      <itemPath>../BZRFlag AI/PDController.cpp</itemPath>
+      <itemPath>../BZRFlag AI/PotentialFieldCalculator.cpp</itemPath>
+      <itemPath>../BZRFlag AI/TankAI.cpp</itemPath>
+      <itemPath>../BZRFlag AI/TeamAI.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>../BZRFlag AI</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+      </compileType>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+    </conf>
+  </confs>
+</configurationDescriptor>

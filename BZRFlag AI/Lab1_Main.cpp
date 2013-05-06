@@ -1,5 +1,7 @@
 #define _CRT_SECURE_NO_DEPRECATE 1
 #include <iostream>
+#include <unistd.h>
+
 #include "470bot.h"
 using namespace std;
 
@@ -35,10 +37,10 @@ int main(int argc, char *argv[]) {
 		robot_pre_update();
 		robot_update();
 		robot_post_update();
-		Sleep(50);
+		sleep(50);
 	}
 
 	MyTeam.Close();
-	free(&MyTeam);
+	//free(&MyTeam);
 	return 0;
 }

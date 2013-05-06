@@ -8,11 +8,28 @@
 #include "PDController.h"
 
 PDController::PDController() {
-	// TODO Auto-generated constructor stub
-
+    pi = 3.14159;
+    maxTurnAng = pi/2;
 }
 
 PDController::~PDController() {
 	// TODO Auto-generated destructor stub
 }
 
+double PDController::calculateIntermediateAngle (double curAng, double tarAng) {
+    double turnAng = tarAng - curAng;
+    double result = -1.0;
+
+    if(turnAng > pi)
+	turnAng = turnAng - (2 * pi);
+    if(turnAng < -1*pi)
+	turnAng = turnAng + (2 * pi);
+
+    if(turnAng > 0)
+	result = 1.0;
+
+    if(turnAng < maxTurnAng && turnAng > -1 * maxTurnAng)
+	result = (turnAng/maxTurnAng);
+
+    return result;
+}

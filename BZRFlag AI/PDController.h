@@ -9,9 +9,11 @@
 #define PDCONTROLLER_H_
 
 class PDController {
+    double pi, maxTurnAng;
 public:
 	PDController();
 	virtual ~PDController();
+        double calculateIntermediateAngle (double, double);
 };
 
 #endif /* PDCONTROLLER_H_ */

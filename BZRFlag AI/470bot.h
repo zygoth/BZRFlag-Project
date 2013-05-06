@@ -10,6 +10,7 @@
 #include <netdb.h>
 #endif
 
+#include <stdio.h>
 #include <string>
 #include <string.h>
 #include <stdlib.h>
@@ -18,7 +19,7 @@
 #include "math.h"
 using namespace std;
 
-#DEFINE MAX_OBSTACLE_CORNERS = 10;
+const int MAX_OBSTACLE_CORNERS = 10;
 const int kBufferSize = 1024;
 
 typedef struct team_t {
@@ -707,8 +708,8 @@ public:
 };
 
 // Prototypes
-double normalize_angle(double angle);
-void world_init(BZRC *my_team);
-void robot_pre_update();
-void robot_update();
-void robot_post_update();
+double normalize_angle(double angle){}
+void world_init(BZRC *my_team){}
+void robot_pre_update(){}
+void robot_update(){}
+void robot_post_update(){}

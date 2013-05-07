@@ -1,42 +1,33 @@
 #define _CRT_SECURE_NO_DEPRECATE 1
 #include <iostream>
 #include <unistd.h>
-
+#include "BZRFlagGame.h"
 #include "470bot.h"
 using namespace std;
 
 const char *kDefaultServerName = "localhost";
 const int kDefaultServerPort = 4000;
 
-int main(int argc, char *argv[]) {
-	const char *pcHost;
-	int nPort;
-
-	if(argc < 2) {
-		pcHost = kDefaultServerName;
-	}
-	else {
-		pcHost = argv[1];
-	}
-    if(argc < 3) {
-		nPort = kDefaultServerPort;
-	}
-	else {
+int main(int argc, char *argv[]) 
+{
+    const char* pcHost = kDefaultServerName;
+    int nPort = kDefaultServerPort;
+    
+    if (argc >= 2)
+    {
+        pcHost = argv[1];
+    }
+    
+    if (argc >= 3)
+    {
         nPort = atoi(argv[2]);
     }
+    
+    string hostName(pcHost);    
+    BZRFlagGame* game = new BZRFlagGame();
+    
+    game->playGame(hostName, nPort);
 
-	BZRC MyTeam = BZRC(pcHost, nPort, false);
-	if(!MyTeam.GetStatus()) {
-		cout << "Can't connect to BZRC server." << endl;
-		exit(1);
-	}
-
-	// Calling agent code
-	for(int i=1; i>0; i++) {
-		sleep(50);
-	}
-
-	MyTeam.Close();
-	//free(&MyTeam);
-	return 0;
+    delete game;
+    return 0;
 }

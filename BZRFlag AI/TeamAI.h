@@ -11,6 +11,7 @@
 class TeamAI {
 public:
 	TeamAI();
+        virtual void controlTeam();
 	virtual ~TeamAI();
 };
 

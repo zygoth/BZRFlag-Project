@@ -8,9 +8,13 @@
 #ifndef DUMBTEAMAI_H_
 #define DUMBTEAMAI_H_
 
-class DumbTeamAI {
+#include "TeamAI.h"
+
+class DumbTeamAI : public TeamAI
+{
 public:
 	DumbTeamAI();
+        void controlTeam();
 	virtual ~DumbTeamAI();
 };
 

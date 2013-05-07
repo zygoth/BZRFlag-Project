@@ -7,12 +7,19 @@
 
 #include "TeamAI.h"
 
-TeamAI::TeamAI() {
-	// TODO Auto-generated constructor stub
+TeamAI::TeamAI()
+{
+    // TODO Auto-generated constructor stub
 
 }
 
-TeamAI::~TeamAI() {
-	// TODO Auto-generated destructor stub
+void TeamAI::controlTeam()
+{
+    
+}
+
+TeamAI::~TeamAI()
+{
+    // TODO Auto-generated destructor stub
 }
 

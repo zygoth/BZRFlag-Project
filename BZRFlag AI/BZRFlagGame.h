@@ -8,13 +8,17 @@
 #ifndef BZRFLAGGAME_H
 #define	BZRFLAGGAME_H
 
+#include <string>
+using namespace std;
+
 class BZRFlagGame
 {
 public:
     BZRFlagGame();
-    BZRFlagGame(const BZRFlagGame& orig);
+    void playGame(string hostName, int portNumber);
     virtual ~BZRFlagGame();
 private:
+    void connectToServer(string hostName, int portNumber);
 
 };
 

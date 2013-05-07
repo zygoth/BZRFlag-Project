@@ -12,6 +12,11 @@ DumbTeamAI::DumbTeamAI() {
 
 }
 
+void DumbTeamAI::controlTeam()
+{
+    
+}
+
 DumbTeamAI::~DumbTeamAI() {
 	// TODO Auto-generated destructor stub
 }

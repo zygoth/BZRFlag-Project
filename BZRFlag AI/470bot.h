@@ -157,7 +157,7 @@ class BZRC {
 
 		if (connect(sd, infop->ai_addr, infop->ai_addrlen) < 0) {
 			perror("Couldn't connect.");
-			close(sd);
+			//close(sd);
 		}
 
 		freeaddrinfo(infop);
@@ -700,7 +700,7 @@ public:
 		closesocket(sd);
 		WSACleanup();
 #else
-		close(sd);
+		//close(sd);
 #endif
 		return 0;
 	}

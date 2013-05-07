@@ -10,6 +10,7 @@
       <itemPath>../BZRFlag AI/PDController.h</itemPath>
       <itemPath>../BZRFlag AI/PotentialFieldCalculator.h</itemPath>
       <itemPath>../BZRFlag AI/TankAI.h</itemPath>
+      <itemPath>../BZRFlag AI/TankVector.h</itemPath>
       <itemPath>../BZRFlag AI/TeamAI.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -25,6 +26,7 @@
       <itemPath>../BZRFlag AI/PDController.cpp</itemPath>
       <itemPath>../BZRFlag AI/PotentialFieldCalculator.cpp</itemPath>
       <itemPath>../BZRFlag AI/TankAI.cpp</itemPath>
+      <itemPath>../BZRFlag AI/TankVector.cpp</itemPath>
       <itemPath>../BZRFlag AI/TeamAI.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"

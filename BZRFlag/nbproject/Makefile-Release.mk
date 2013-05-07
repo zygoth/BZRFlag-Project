@@ -40,7 +40,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/693638321/PDController.o \
 	${OBJECTDIR}/_ext/693638321/TankAI.o \
 	${OBJECTDIR}/_ext/693638321/DumbTeamAI.o \
-	${OBJECTDIR}/_ext/693638321/DumbTankAI.o
+	${OBJECTDIR}/_ext/693638321/DumbTankAI.o \
+	${OBJECTDIR}/_ext/693638321/TankVector.o
 
 
 # C Compiler Flags
@@ -101,6 +102,11 @@ ${OBJECTDIR}/_ext/693638321/DumbTankAI.o: ../BZRFlag\ AI/DumbTankAI.cpp
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/DumbTankAI.o ../BZRFlag\ AI/DumbTankAI.cpp
+
+${OBJECTDIR}/_ext/693638321/TankVector.o: ../BZRFlag\ AI/TankVector.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/TankVector.o ../BZRFlag\ AI/TankVector.cpp
 
 # Subprojects
 .build-subprojects:

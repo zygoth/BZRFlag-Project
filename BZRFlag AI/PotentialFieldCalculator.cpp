@@ -8,11 +8,12 @@
 #include "PotentialFieldCalculator.h"
 
 PotentialFieldCalculator::PotentialFieldCalculator() {
-	// TODO Auto-generated constructor stub
-
 }
 
 PotentialFieldCalculator::~PotentialFieldCalculator() {
-	// TODO Auto-generated destructor stub
+}
+
+TankVector* PotentialFieldCalculator::calculateVector(int x, int y) {
+    return new TankVector((double)x, (double)y);
 }
 

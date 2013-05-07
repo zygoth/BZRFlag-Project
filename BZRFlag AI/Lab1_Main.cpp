@@ -32,11 +32,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	// Calling agent code
-	world_init(&MyTeam);
 	for(int i=1; i>0; i++) {
-		robot_pre_update();
-		robot_update();
-		robot_post_update();
 		sleep(50);
 	}
 

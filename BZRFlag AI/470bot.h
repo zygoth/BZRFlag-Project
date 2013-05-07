@@ -706,10 +706,3 @@ public:
 	}
 
 };
-
-// Prototypes
-double normalize_angle(double angle){}
-void world_init(BZRC *my_team){}
-void robot_pre_update(){}
-void robot_update(){}
-void robot_post_update(){}

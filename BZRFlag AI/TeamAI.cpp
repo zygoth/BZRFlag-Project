@@ -6,13 +6,17 @@
  */
 
 #include "TeamAI.h"
+#include "TankAI.h"
 
-TeamAI::TeamAI()
+TeamAI::TeamAI(BZRC* connection)
 {
-    // TODO Auto-generated constructor stub
-
+    this->connection = connection;
 }
 
+/**
+ * This method should be implemented by subclasses to control the team of
+ * tanks.
+ */
 void TeamAI::controlTeam()
 {
     

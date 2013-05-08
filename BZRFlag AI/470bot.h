@@ -1,3 +1,6 @@
+#ifndef _470BOT_H
+#define	_470BOT_H
+
 //#define WINDOWS
 
 #ifdef WINDOWS
@@ -706,3 +709,5 @@ public:
 	}
 
 };
+
+#endif	/* _470BOT_h */

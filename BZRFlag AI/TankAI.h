@@ -8,9 +8,11 @@
 #ifndef TANKAI_H_
 #define TANKAI_H_
 
-class TankAI {
+class TankAI 
+{
 public:
 	TankAI();
+        virtual void controlTank();
 	virtual ~TankAI();
 };
 

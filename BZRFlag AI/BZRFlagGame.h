@@ -9,6 +9,8 @@
 #define	BZRFLAGGAME_H
 
 #include <string>
+#include "470bot.h"
+
 using namespace std;
 
 class BZRFlagGame
@@ -18,7 +20,7 @@ public:
     void playGame(string hostName, int portNumber);
     virtual ~BZRFlagGame();
 private:
-    void connectToServer(string hostName, int portNumber);
+    BZRC* connectToServer(string hostName, int portNumber);
 
 };
 

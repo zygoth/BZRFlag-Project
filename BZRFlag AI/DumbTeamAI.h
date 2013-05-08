@@ -13,9 +13,12 @@
 class DumbTeamAI : public TeamAI
 {
 public:
-	DumbTeamAI();
+	DumbTeamAI(BZRC* connection);
         void controlTeam();
 	virtual ~DumbTeamAI();
+
+private:
+    vector<TankAI*> tankAIs;
 };
 
 #endif /* DUMBTEAMAI_H_ */

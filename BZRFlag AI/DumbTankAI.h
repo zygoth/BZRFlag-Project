@@ -8,10 +8,21 @@
 #ifndef DUMBTANKAI_H_
 #define DUMBTANKAI_H_
 
-class DumbTankAI {
+#include "TankAI.h"
+#include <time.h>
+#include "470bot.h"
+
+class DumbTankAI : public TankAI
+{
 public:
-	DumbTankAI();
+	DumbTankAI(BZRC* connection, int tankNumber);
+        void controlTank();
 	virtual ~DumbTankAI();
+        
+private:
+    BZRC* connection;
+    clock_t startClock;
+    int tankNumber;
 };
 
 #endif /* DUMBTANKAI_H_ */

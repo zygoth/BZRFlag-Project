@@ -7,12 +7,22 @@
 
 #include "TankAI.h"
 
-TankAI::TankAI() {
-	// TODO Auto-generated constructor stub
-
+TankAI::TankAI() 
+{
+    
 }
 
-TankAI::~TankAI() {
-	// TODO Auto-generated destructor stub
+/**
+ * This method should be overwritten by child classes who want to control
+ * a tank.
+ */
+void TankAI::controlTank()
+{
+    
+}
+
+TankAI::~TankAI() 
+{
+    
 }
 

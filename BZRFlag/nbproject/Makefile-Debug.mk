@@ -37,6 +37,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/693638321/Lab1_Main.o \
 	${OBJECTDIR}/_ext/693638321/TeamAI.o \
 	${OBJECTDIR}/_ext/693638321/PotentialFieldCalculator.o \
+	${OBJECTDIR}/_ext/693638321/BZRFlagGame.o \
 	${OBJECTDIR}/_ext/693638321/PDController.o \
 	${OBJECTDIR}/_ext/693638321/TankAI.o \
 	${OBJECTDIR}/_ext/693638321/DumbTeamAI.o \
@@ -82,6 +83,11 @@ ${OBJECTDIR}/_ext/693638321/PotentialFieldCalculator.o: ../BZRFlag\ AI/Potential
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/PotentialFieldCalculator.o ../BZRFlag\ AI/PotentialFieldCalculator.cpp
+
+${OBJECTDIR}/_ext/693638321/BZRFlagGame.o: ../BZRFlag\ AI/BZRFlagGame.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/BZRFlagGame.o ../BZRFlag\ AI/BZRFlagGame.cpp
 
 ${OBJECTDIR}/_ext/693638321/PDController.o: ../BZRFlag\ AI/PDController.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321

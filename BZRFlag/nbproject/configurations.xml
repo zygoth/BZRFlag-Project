@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>../BZRFlag AI/470bot.h</itemPath>
+      <itemPath>../../../../../../home1/guest/z/zygoth/NetBeansProjects/BZRFlag-Project/BZRFlag AI/BZRFlagGame.h</itemPath>
       <itemPath>../BZRFlag AI/DumbTankAI.h</itemPath>
       <itemPath>../BZRFlag AI/DumbTeamAI.h</itemPath>
       <itemPath>../BZRFlag AI/PDController.h</itemPath>
@@ -20,6 +21,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>../BZRFlag AI/BZRFlagGame.cpp</itemPath>
       <itemPath>../BZRFlag AI/DumbTankAI.cpp</itemPath>
       <itemPath>../BZRFlag AI/DumbTeamAI.cpp</itemPath>
       <itemPath>../BZRFlag AI/Lab1_Main.cpp</itemPath>

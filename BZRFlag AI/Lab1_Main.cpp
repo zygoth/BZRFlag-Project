@@ -1,8 +1,11 @@
+#ifndef MAIN_H
+#define	MAIN_H
+
 #define _CRT_SECURE_NO_DEPRECATE 1
 #include <iostream>
 #include <unistd.h>
+#include <cstdlib>
 #include "BZRFlagGame.h"
-#include "470bot.h"
 using namespace std;
 
 const char *kDefaultServerName = "localhost";
@@ -31,3 +34,5 @@ int main(int argc, char *argv[])
     delete game;
     return 0;
 }
+
+#endif	/* MAIN_H */

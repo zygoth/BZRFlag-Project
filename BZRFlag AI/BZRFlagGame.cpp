@@ -6,10 +6,8 @@
  */
 
 #include "BZRFlagGame.h"
-#include "470bot.h"
 #include "TeamAI.h"
 #include "DumbTeamAI.h"
-#include "TeamAI.h"
 
 BZRFlagGame::BZRFlagGame()
 {
@@ -18,9 +16,9 @@ BZRFlagGame::BZRFlagGame()
 
 void BZRFlagGame::playGame(string hostName, int portNumber)
 {
-    connectToServer(hostName, portNumber);
+    BZRC* connection = connectToServer(hostName, portNumber);
     
-    TeamAI* teamAI = new DumbTeamAI();
+    TeamAI* teamAI = new DumbTeamAI(connection);
     
     try
     {
@@ -35,14 +33,18 @@ void BZRFlagGame::playGame(string hostName, int portNumber)
     }
 }
 
-void BZRFlagGame::connectToServer(string hostName, int portNumber)
+BZRC* BZRFlagGame::connectToServer(string hostName, int portNumber)
 {
-    BZRC MyTeam = BZRC(hostName.c_str(), portNumber, false);
+    BZRC* connection = new BZRC(hostName.c_str(), portNumber, false);
     
-    if (!MyTeam.GetStatus())
+    if (!connection->GetStatus())
     {
+        connection->Close();
+        delete connection;
         throw "Can't connect to BZRC server.";
     }
+    
+    return connection;
 }
 
 BZRFlagGame::~BZRFlagGame()

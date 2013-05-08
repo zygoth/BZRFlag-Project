@@ -9,22 +9,51 @@
 #include <sys/time.h>
 #include <time.h>
 
-DumbTankAI::DumbTankAI(BZRC* connection, int tankNumber) 
+DumbTankAI::DumbTankAI(BZRC* server, int tankNumber) 
 {
     this->tankNumber = tankNumber;
-    this->connection = connection;
+    this->server = server;
     
-    startClock = clock();
+    shotTimer = time(&shotTimer);
+    movementTimer = time(&movementTimer);
+    isTurning = true;
 }
 
+/**
+ * This tank turns for 4 seconds, then moves forward for 4 seconds, shooting
+ * every 3 seconds.
+ */
 void DumbTankAI::controlTank()
 {   
     //clock_t nowClock = clock();
-
-    //int secondsElapsed = (int) (double(nowClock - startClock) / CLOCKS_PER_SEC);
+    time_t nowTime = time(&nowTime);
+    double secondsElapsed = (double(nowTime - shotTimer) / CLOCKS_PER_SEC) * 1000000;
     
-    connection->angvel(tankNumber, 1);
-    connection->speed(tankNumber, 1);
+    if(secondsElapsed >= 3)
+    {
+        server->shoot(tankNumber);
+        shotTimer = time(&shotTimer);
+    }
+    
+    secondsElapsed = (double(nowTime - movementTimer) / CLOCKS_PER_SEC) * 1000000;
+    
+    if(secondsElapsed >= 4)
+    {
+        if(isTurning)
+        {
+            server->angvel(tankNumber, 0);
+            server->speed(tankNumber, .5);
+            isTurning = false;
+        }
+        else
+        {
+            server->angvel(tankNumber, .5);
+            server->speed(tankNumber, 0);
+            isTurning = true;
+        }
+        
+        movementTimer = time(&shotTimer);
+    }
 }
 
 DumbTankAI::~DumbTankAI() 

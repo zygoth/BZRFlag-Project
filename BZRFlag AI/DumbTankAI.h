@@ -20,8 +20,10 @@ public:
 	virtual ~DumbTankAI();
         
 private:
-    BZRC* connection;
-    clock_t startClock;
+    BZRC* server;
+    clock_t shotTimer;
+    clock_t movementTimer;
+    bool isTurning;
     int tankNumber;
 };
 

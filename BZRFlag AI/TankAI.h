@@ -8,12 +8,23 @@
 #ifndef TANKAI_H_
 #define TANKAI_H_
 
+#include "PotentialFieldCalculator.h"
+
 class TankAI 
 {
 public:
-	TankAI();
-        virtual void controlTank();
-	virtual ~TankAI();
+
+    virtual void controlTank();
+    virtual ~TankAI();
+        
+protected:
+    
+    TankAI(BZRC* connection);
+    TankAI(BZRC* connection, int TankNumber, TeamColor myColor, TeamColor targetColor);
+    BZRC* connection;
+    int tankNumber;
+    TeamColor myColor;
+    TeamColor targetColor;
 };
 
 #endif /* TANKAI_H_ */

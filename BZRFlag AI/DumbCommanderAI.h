@@ -8,14 +8,14 @@
 #ifndef DUMBTEAMAI_H_
 #define DUMBTEAMAI_H_
 
-#include "TeamAI.h"
+#include "CommanderAI.h"
 
-class DumbTeamAI : public TeamAI
+class DumbCommanderAI : public CommanderAI
 {
 public:
-	DumbTeamAI(BZRC* connection);
+	DumbCommanderAI(BZRC* connection);
         void controlTeam();
-	virtual ~DumbTeamAI();
+	virtual ~DumbCommanderAI();
 
 private:
     vector<TankAI*> tankAIs;

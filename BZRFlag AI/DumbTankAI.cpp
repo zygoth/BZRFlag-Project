@@ -9,10 +9,9 @@
 #include <sys/time.h>
 #include <time.h>
 
-DumbTankAI::DumbTankAI(BZRC* server, int tankNumber) 
+DumbTankAI::DumbTankAI(BZRC* server, int tankNumber) : TankAI(server)
 {
     this->tankNumber = tankNumber;
-    this->server = server;
     
     shotTimer = time(&shotTimer);
     movementTimer = time(&movementTimer);
@@ -31,7 +30,7 @@ void DumbTankAI::controlTank()
     
     if(secondsElapsed >= 3)
     {
-        server->shoot(tankNumber);
+        connection->shoot(tankNumber);
         shotTimer = time(&shotTimer);
     }
     
@@ -41,14 +40,14 @@ void DumbTankAI::controlTank()
     {
         if(isTurning)
         {
-            server->angvel(tankNumber, 0);
-            server->speed(tankNumber, .5);
+            connection->angvel(tankNumber, 0);
+            connection->speed(tankNumber, .5);
             isTurning = false;
         }
         else
         {
-            server->angvel(tankNumber, .5);
-            server->speed(tankNumber, 0);
+            connection->angvel(tankNumber, .5);
+            connection->speed(tankNumber, 0);
             isTurning = true;
         }
         

@@ -16,6 +16,9 @@ enum TeamColor{
     RED, GREEN, BLUE, PURPLE
 };
 
+TeamColor stringToTeamColor(string colorString);
+
+
 class PotentialFieldCalculator {
         BZRC* socket;
         double xVector, yVector;

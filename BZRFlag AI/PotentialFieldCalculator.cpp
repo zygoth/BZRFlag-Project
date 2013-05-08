@@ -41,11 +41,11 @@ void PotentialFieldCalculator::calculateObjectVector(int x, int y) {
     double rise, run, xUpdate, yUpdate;
     obstacle_t temp;
     
-    vector<obstacle_t> *objects;
-    socket->get_obstacles(objects);
+    vector<obstacle_t> objects;
+    socket->get_obstacles(&objects);
     
-    for(int i = 0; i < objects->size(); i++) {
-        temp = objects->at(i);
+    for(int i = 0; i < objects.size(); i++) {
+        temp = objects.at(i);
         
         firstX = (int)temp.o_corner[0][0];
         firstY = (int)temp.o_corner[0][1];
@@ -136,7 +136,7 @@ void PotentialFieldCalculator::calculateObjectVector(int x, int y) {
         yVector += xUpdate;
     }
 
-    objects->clear();
+    objects.clear();
 }
 
 void PotentialFieldCalculator::calculateShotVector(int x, int y) {
@@ -147,12 +147,12 @@ void PotentialFieldCalculator::calculateFriendlyTanks(int x, int y) {
     int tankX, tankY, calcX, calcY;
     double rise, run;
     
-    vector<tank_t> *tanks;
-    socket->get_mytanks(tanks);
+    vector<tank_t> tanks;
+    socket->get_mytanks(&tanks);
     
-    for(int i = 0; i < tanks->size(); i++) {
-        tankX = (int)tanks->at(i).pos[0];
-        tankY = (int)tanks->at(i).pos[1];
+    for(int i = 0; i < tanks.size(); i++) {
+        tankX = (int)tanks.at(i).pos[0];
+        tankY = (int)tanks.at(i).pos[1];
         
         calcX = x - tankX;
         calcY = y - tankY;
@@ -178,19 +178,19 @@ void PotentialFieldCalculator::calculateFriendlyTanks(int x, int y) {
         yVector += rise;
     }
     
-    tanks->clear();
+    tanks.clear();
 }
         
 void PotentialFieldCalculator::calculateEnemyTanks(int x, int y) {
     int tankX, tankY, calcX, calcY;
     double rise, run;
     
-    vector<otank_t> *tanks;
-    socket->get_othertanks(tanks);
+    vector<otank_t> tanks;
+    socket->get_othertanks(&tanks);
     
-    for(int i = 0; i < tanks->size(); i++) {
-        tankX = (int)tanks->at(i).pos[0];
-        tankY = (int)tanks->at(i).pos[1];
+    for(int i = 0; i < tanks.size(); i++) {
+        tankX = (int)tanks.at(i).pos[0];
+        tankY = (int)tanks.at(i).pos[1];
         
         calcX = x - tankX;
         calcY = y - tankY;
@@ -216,46 +216,46 @@ void PotentialFieldCalculator::calculateEnemyTanks(int x, int y) {
         yVector += rise;
     }
    
-    tanks->clear();
+    tanks.clear();
 }
         
 void PotentialFieldCalculator::calculateTargetVector(int x, int y, TeamColor teams) {
     int flagX, flagY, calcX, calcY;
     double rise, run;
     
-    vector<flag_t> *flags;
-    socket->get_flags(flags);
+    vector<flag_t> flags;
+    socket->get_flags(&flags);
     
-    for(int i = 0; i <  flags->size(); i++) {
+    for(int i = 0; i <  flags.size(); i++) {
         switch(teams) {
             case PURPLE:
-                if(flags->at(i).color.compare("purple")) {
-                    flagX = (int)(flags->at(i).pos[0]);
-                    flagY = (int)(flags->at(i).pos[1]);
+                if(flags.at(i).color.compare("purple")) {
+                    flagX = (int)(flags.at(i).pos[0]);
+                    flagY = (int)(flags.at(i).pos[1]);
                 }
                 break;
             case BLUE:
-                if(flags->at(i).color.compare("blue")) {
-                    flagX = (int)(flags->at(i).pos[0]);
-                    flagY = (int)(flags->at(i).pos[1]);                    
+                if(flags.at(i).color.compare("blue")) {
+                    flagX = (int)(flags.at(i).pos[0]);
+                    flagY = (int)(flags.at(i).pos[1]);                    
                 }
                 break;
             case GREEN:
-                if(flags->at(i).color.compare("green")) {
-                    flagX = (int)(flags->at(i).pos[0]);
-                    flagY = (int)(flags->at(i).pos[1]);                    
+                if(flags.at(i).color.compare("green")) {
+                    flagX = (int)(flags.at(i).pos[0]);
+                    flagY = (int)(flags.at(i).pos[1]);                    
                 }
                 break;
             case RED:
-                if(flags->at(i).color.compare("red")) {
-                    flagX = (int)(flags->at(i).pos[0]);
-                    flagY = (int)(flags->at(i).pos[1]);                    
+                if(flags.at(i).color.compare("red")) {
+                    flagX = (int)(flags.at(i).pos[0]);
+                    flagY = (int)(flags.at(i).pos[1]);                    
                 }
                 break;
         }
     }
     
-    flags->clear();
+    flags.clear();
     
     calcX = flagX - x;
     calcY = flagY - y;
@@ -272,4 +272,40 @@ void PotentialFieldCalculator::calculateTargetVector(int x, int y, TeamColor tea
     xVector += run;
     yVector += rise;
 }
-        
+
+
+/**
+ * This should be moved to a file with the TeamColor Enum.
+ * @param colorString
+ * @return 
+ */
+TeamColor stringToTeamColor(string colorString)
+{
+    TeamColor returnedColor;
+    
+    if(colorString.rfind("red") != colorString.npos) // red is in the callsign
+    {
+        returnedColor = RED;
+    }
+    else
+    if(colorString.rfind("blue") != colorString.npos) // blue is in the callsign
+    {
+        returnedColor = BLUE;
+    }
+    else
+    if(colorString.rfind("green") != colorString.npos) // green is in the callsign
+    {
+        returnedColor = GREEN;
+    }
+    else
+    if(colorString.rfind("purple") != colorString.npos) // purple is in the callsign
+    {
+        returnedColor = PURPLE;
+    }
+    else
+    {
+        throw "The color could not be determined from the string.";
+    }
+    
+    return returnedColor;
+}

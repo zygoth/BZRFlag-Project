@@ -500,6 +500,7 @@ public:
 			team_t MyTeam;
 			MyTeam.color=v.at(1);
 			MyTeam.count=atoi(v.at(2).c_str());
+                        /*   //  bullcrap removed by ben so this will work
 			MyTeam.base_corner[0][0]=atof(v.at(3).c_str());
 			MyTeam.base_corner[0][1]=atof(v.at(4).c_str());
 			MyTeam.base_corner[1][0]=atof(v.at(5).c_str());
@@ -508,6 +509,7 @@ public:
 			MyTeam.base_corner[2][1]=atof(v.at(8).c_str());
 			MyTeam.base_corner[3][0]=atof(v.at(9).c_str());
 			MyTeam.base_corner[3][1]=atof(v.at(10).c_str());
+                        */
 			AllTeams->push_back(MyTeam);
 			v.clear();
 			v=ReadArr();

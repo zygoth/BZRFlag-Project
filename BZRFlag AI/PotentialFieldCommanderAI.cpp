@@ -5,33 +5,33 @@
  * Created on May 8, 2013, 11:15 AM
  */
 
-#include "PotentialFieldTeamAI.h"
+#include "PotentialFieldCommanderAI.h"
 #include "PotentialFieldTankAI.h"
+#include "PotentialFieldCalculator.h"
+#include "DumbTankAI.h"
+
 using namespace std;
 
-PotentialFieldTeamAI::PotentialFieldTeamAI(BZRC* connection) : TeamAI(connection)
+PotentialFieldCommanderAI::PotentialFieldCommanderAI(BZRC* connection) : CommanderAI(connection)
 {
     vector<tank_t> myTanks;
     connection->get_mytanks(&myTanks);
     
     for(int i = 0; i < myTanks.size(); i++)
     {
-        tankAIs.push_back(new PotentialFieldTankAI(connection, i));
+        tankAIs.push_back(new PotentialFieldTankAI(connection, i, myColor, pickRandomTarget()));
     }
 }
 
-void PotentialFieldTeamAI::controlTeam()
-{
-    vector<tank_t> myTanks;
-    connection->get_mytanks(&myTanks);
-    
+void PotentialFieldCommanderAI::controlTeam()
+{    
     for(int i = 0; i < tankAIs.size(); i++)
     {
         tankAIs[i]->controlTank();
     }
 }
 
-PotentialFieldTeamAI::~PotentialFieldTeamAI()
+PotentialFieldCommanderAI::~PotentialFieldCommanderAI()
 {
     for(int i = 0; i < tankAIs.size(); i++)
     {

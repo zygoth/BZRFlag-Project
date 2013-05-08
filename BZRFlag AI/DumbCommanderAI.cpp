@@ -5,10 +5,10 @@
  *      Author: zygoth
  */
 
-#include "DumbTeamAI.h"
+#include "DumbCommanderAI.h"
 #include "DumbTankAI.h"
 
-DumbTeamAI::DumbTeamAI(BZRC* connection) : TeamAI(connection)
+DumbCommanderAI::DumbCommanderAI(BZRC* connection) : CommanderAI(connection)
 {
     vector<tank_t> myTanks;
     connection->get_mytanks(&myTanks);
@@ -19,7 +19,7 @@ DumbTeamAI::DumbTeamAI(BZRC* connection) : TeamAI(connection)
     }
 }
 
-void DumbTeamAI::controlTeam()
+void DumbCommanderAI::controlTeam()
 {
     vector<tank_t> myTanks;
     connection->get_mytanks(&myTanks);
@@ -30,7 +30,7 @@ void DumbTeamAI::controlTeam()
     }
 }
 
-DumbTeamAI::~DumbTeamAI() 
+DumbCommanderAI::~DumbCommanderAI() 
 {
     for(int i = 0; i < tankAIs.size(); i++)
     {

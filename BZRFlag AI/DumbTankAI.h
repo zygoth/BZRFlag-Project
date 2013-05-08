@@ -20,11 +20,9 @@ public:
 	virtual ~DumbTankAI();
         
 private:
-    BZRC* server;
     clock_t shotTimer;
     clock_t movementTimer;
     bool isTurning;
-    int tankNumber;
 };
 
 #endif /* DUMBTANKAI_H_ */

@@ -8,15 +8,15 @@
 #ifndef POTENTIALFIELDTEAMAI_H
 #define	POTENTIALFIELDTEAMAI_H
 
-#include "TeamAI.h"
+#include "CommanderAI.h"
 using namespace std;
 
-class PotentialFieldTeamAI : public TeamAI
+class PotentialFieldCommanderAI : public CommanderAI
 {
 public:
-    PotentialFieldTeamAI(BZRC* connection);
+    PotentialFieldCommanderAI(BZRC* connection);
     void controlTeam();
-    virtual ~PotentialFieldTeamAI();
+    virtual ~PotentialFieldCommanderAI();
     
 private:
     vector<TankAI*> tankAIs;

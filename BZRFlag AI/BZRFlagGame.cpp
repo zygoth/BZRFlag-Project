@@ -6,8 +6,9 @@
  */
 
 #include "BZRFlagGame.h"
-#include "TeamAI.h"
-#include "DumbTeamAI.h"
+#include "CommanderAI.h"
+#include "DumbCommanderAI.h"
+#include "PotentialFieldCommanderAI.h"
 
 BZRFlagGame::BZRFlagGame()
 {
@@ -18,13 +19,13 @@ void BZRFlagGame::playGame(string hostName, int portNumber)
 {
     BZRC* connection = connectToServer(hostName, portNumber);
     
-    TeamAI* teamAI = new DumbTeamAI(connection);
+    CommanderAI* commanderAI = new PotentialFieldCommanderAI(connection);
     
     try
     {
         while(true)
         {
-            teamAI->controlTeam();
+            commanderAI->controlTeam();
         }
     }
     catch(...)

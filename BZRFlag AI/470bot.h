@@ -33,6 +33,7 @@ typedef struct team_t {
 
 typedef struct obstacle_t {
 	double o_corner[MAX_OBSTACLE_CORNERS][2];
+        int courner_count;
 } obstacle_t;
 
 typedef struct flag_t {
@@ -536,6 +537,7 @@ public:
 				MyObstacle.o_corner[j/2][0]=atof(v.at(j+1).c_str());
 				MyObstacle.o_corner[j/2][1]=atof(v.at(j+2).c_str());
 				j=j+2;
+                                MyObstacle.courner_count++;
 			}
 			AllObstacles->push_back(MyObstacle);
 			v.clear();

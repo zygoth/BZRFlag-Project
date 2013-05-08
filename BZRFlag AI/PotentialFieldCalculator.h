@@ -9,12 +9,15 @@
 #define POTENTIALFIELDCALCULATOR_H_
 
 #include "TankVector.h"
+#include "470bot.h"
+
 
 enum TeamColor{
     RED, GREEN, BLUE, PURPLE
 };
 
 class PotentialFieldCalculator {
+        BZRC* socket;
         double xVector, yVector;
         void calculateObjectVector(int, int);
         void calculateShotVector(int, int);
@@ -22,7 +25,7 @@ class PotentialFieldCalculator {
         void calculateEnemyTanks(int, int);
         void calculateTargetVector(int, int, TeamColor);
 public:
-	PotentialFieldCalculator();
+	PotentialFieldCalculator(BZRC*);
 	virtual ~PotentialFieldCalculator();
         TankVector* calculateVector(int, int, TeamColor);
 };

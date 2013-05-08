@@ -16,8 +16,9 @@ PDController::~PDController() {
 	// TODO Auto-generated destructor stub
 }
 
-double PDController::calculateIntermediateAngle (double curAng, double tarAng) {
-    double turnAng = tarAng - curAng;
+double PDController::calculateAngularVelocity (double currentAngle, double targetAngle) 
+{
+    double turnAng = targetAngle - currentAngle;
     double result = -1.0;
 
     if(turnAng > pi)

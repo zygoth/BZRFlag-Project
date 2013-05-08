@@ -13,7 +13,7 @@ class PDController {
 public:
 	PDController();
 	virtual ~PDController();
-        double calculateIntermediateAngle (double, double);
+        double calculateAngularVelocity (double currentAngle, double targetAngle);
 };
 
 #endif /* PDCONTROLLER_H_ */

@@ -7,12 +7,14 @@
 
 #include "PotentialFieldTankAI.h"
 
-PotentialFieldTankAI::PotentialFieldTankAI()
+PotentialFieldTankAI::PotentialFieldTankAI(BZRC* connection, int tankNumber)
 {
+    
 }
 
-PotentialFieldTankAI::PotentialFieldTankAI(const PotentialFieldTankAI& orig)
+void PotentialFieldTankAI::controlTank()
 {
+    
 }
 
 PotentialFieldTankAI::~PotentialFieldTankAI()

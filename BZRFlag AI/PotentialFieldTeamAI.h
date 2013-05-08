@@ -5,17 +5,21 @@
  * Created on May 8, 2013, 11:15 AM
  */
 
-#ifndef POTENTIALFIELDTEAM_H
-#define	POTENTIALFIELDTEAM_H
+#ifndef POTENTIALFIELDTEAMAI_H
+#define	POTENTIALFIELDTEAMAI_H
 
-class PotentialFieldTeam
+#include "TeamAI.h"
+using namespace std;
+
+class PotentialFieldTeamAI : public TeamAI
 {
 public:
-    PotentialFieldTeam();
-    PotentialFieldTeam(const PotentialFieldTeam& orig);
-    virtual ~PotentialFieldTeam();
+    PotentialFieldTeamAI(BZRC* connection);
+    void controlTeam();
+    virtual ~PotentialFieldTeamAI();
+    
 private:
-
+    vector<TankAI*> tankAIs;
 };
 
 #endif	/* POTENTIALFIELDTEAM_H */

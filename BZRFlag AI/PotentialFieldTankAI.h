@@ -8,11 +8,14 @@
 #ifndef POTENTIALFIELDTANKAI_H
 #define	POTENTIALFIELDTANKAI_H
 
-class PotentialFieldTankAI
+#include "TankAI.h"
+#include "470bot.h"
+
+class PotentialFieldTankAI : public TankAI
 {
 public:
-    PotentialFieldTankAI();
-    PotentialFieldTankAI(const PotentialFieldTankAI& orig);
+    PotentialFieldTankAI(BZRC* connection, int tankNumber);
+    void controlTank();
     virtual ~PotentialFieldTankAI();
 private:
 

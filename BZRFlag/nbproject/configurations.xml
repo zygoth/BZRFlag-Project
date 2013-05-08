@@ -10,6 +10,8 @@
       <itemPath>../BZRFlag AI/DumbTeamAI.h</itemPath>
       <itemPath>../BZRFlag AI/PDController.h</itemPath>
       <itemPath>../BZRFlag AI/PotentialFieldCalculator.h</itemPath>
+      <itemPath>../BZRFlag AI/PotentialFieldTankAI.h</itemPath>
+      <itemPath>../BZRFlag AI/PotentialFieldTeamAI.h</itemPath>
       <itemPath>../BZRFlag AI/TankAI.h</itemPath>
       <itemPath>../BZRFlag AI/TankVector.h</itemPath>
       <itemPath>../BZRFlag AI/TeamAI.h</itemPath>
@@ -27,6 +29,8 @@
       <itemPath>../BZRFlag AI/Lab1_Main.cpp</itemPath>
       <itemPath>../BZRFlag AI/PDController.cpp</itemPath>
       <itemPath>../BZRFlag AI/PotentialFieldCalculator.cpp</itemPath>
+      <itemPath>../BZRFlag AI/PotentialFieldTankAI.cpp</itemPath>
+      <itemPath>../BZRFlag AI/PotentialFieldTeamAI.cpp</itemPath>
       <itemPath>../BZRFlag AI/TankAI.cpp</itemPath>
       <itemPath>../BZRFlag AI/TankVector.cpp</itemPath>
       <itemPath>../BZRFlag AI/TeamAI.cpp</itemPath>

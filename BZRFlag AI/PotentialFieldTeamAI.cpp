@@ -6,16 +6,36 @@
  */
 
 #include "PotentialFieldTeamAI.h"
+#include "PotentialFieldTankAI.h"
+using namespace std;
 
-PotentialFieldTeam::PotentialFieldTeam()
+PotentialFieldTeamAI::PotentialFieldTeamAI(BZRC* connection) : TeamAI(connection)
 {
+    vector<tank_t> myTanks;
+    connection->get_mytanks(&myTanks);
+    
+    for(int i = 0; i < myTanks.size(); i++)
+    {
+        tankAIs.push_back(new PotentialFieldTankAI(connection, i));
+    }
 }
 
-PotentialFieldTeam::PotentialFieldTeam(const PotentialFieldTeam& orig)
+void PotentialFieldTeamAI::controlTeam()
 {
+    vector<tank_t> myTanks;
+    connection->get_mytanks(&myTanks);
+    
+    for(int i = 0; i < tankAIs.size(); i++)
+    {
+        tankAIs[i]->controlTank();
+    }
 }
 
-PotentialFieldTeam::~PotentialFieldTeam()
+PotentialFieldTeamAI::~PotentialFieldTeamAI()
 {
+    for(int i = 0; i < tankAIs.size(); i++)
+    {
+        delete tankAIs[i];
+    }
 }
 

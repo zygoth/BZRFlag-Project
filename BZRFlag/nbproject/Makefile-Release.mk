@@ -35,12 +35,14 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/_ext/693638321/Lab1_Main.o \
+	${OBJECTDIR}/_ext/693638321/PotentialFieldTeamAI.o \
 	${OBJECTDIR}/_ext/693638321/TeamAI.o \
 	${OBJECTDIR}/_ext/693638321/PotentialFieldCalculator.o \
 	${OBJECTDIR}/_ext/693638321/BZRFlagGame.o \
 	${OBJECTDIR}/_ext/693638321/PDController.o \
 	${OBJECTDIR}/_ext/693638321/TankAI.o \
 	${OBJECTDIR}/_ext/693638321/DumbTeamAI.o \
+	${OBJECTDIR}/_ext/693638321/PotentialFieldTankAI.o \
 	${OBJECTDIR}/_ext/693638321/DumbTankAI.o \
 	${OBJECTDIR}/_ext/693638321/TankVector.o
 
@@ -74,6 +76,11 @@ ${OBJECTDIR}/_ext/693638321/Lab1_Main.o: ../BZRFlag\ AI/Lab1_Main.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/Lab1_Main.o ../BZRFlag\ AI/Lab1_Main.cpp
 
+${OBJECTDIR}/_ext/693638321/PotentialFieldTeamAI.o: ../BZRFlag\ AI/PotentialFieldTeamAI.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/PotentialFieldTeamAI.o ../BZRFlag\ AI/PotentialFieldTeamAI.cpp
+
 ${OBJECTDIR}/_ext/693638321/TeamAI.o: ../BZRFlag\ AI/TeamAI.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
 	${RM} $@.d
@@ -103,6 +110,11 @@ ${OBJECTDIR}/_ext/693638321/DumbTeamAI.o: ../BZRFlag\ AI/DumbTeamAI.cpp
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/DumbTeamAI.o ../BZRFlag\ AI/DumbTeamAI.cpp
+
+${OBJECTDIR}/_ext/693638321/PotentialFieldTankAI.o: ../BZRFlag\ AI/PotentialFieldTankAI.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/PotentialFieldTankAI.o ../BZRFlag\ AI/PotentialFieldTankAI.cpp
 
 ${OBJECTDIR}/_ext/693638321/DumbTankAI.o: ../BZRFlag\ AI/DumbTankAI.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321

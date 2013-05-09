@@ -18,7 +18,8 @@ PotentialFieldCalculator::PotentialFieldCalculator(BZRC* constructor) {
 PotentialFieldCalculator::~PotentialFieldCalculator() {
 }
 
-TankVector* PotentialFieldCalculator::calculateVector(int x, int y, TeamColor team) {
+TankVector* PotentialFieldCalculator::calculateVector(int x, int y, TeamColor team) 
+{
     xVector = 0.0; 
     yVector = 0.0;
     TankVector* result;

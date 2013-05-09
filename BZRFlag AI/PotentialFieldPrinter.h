@@ -16,9 +16,13 @@ public:
     PotentialFieldPrinter();
     string getGNUPlotFile(BZRC* connection);
     virtual ~PotentialFieldPrinter();
+    
 private:
+    
+    string printHeader();
     string printObstacleData(BZRC* connection);
-
+    string printVectorData(BZRC* connection);
+    string printFooter();
 };
 
 #endif	/* POTENTIALFIELDPRINTER_H */

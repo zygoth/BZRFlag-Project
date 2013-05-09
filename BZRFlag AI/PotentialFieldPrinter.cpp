@@ -6,6 +6,7 @@
  */
 
 #include "PotentialFieldPrinter.h"
+#include "PotentialFieldCalculator.h"
 
 PotentialFieldPrinter::PotentialFieldPrinter()
 {
@@ -17,13 +18,31 @@ string PotentialFieldPrinter::getGNUPlotFile(BZRC* connection)
     
     string headerString;
     string obstaclesString;
-    string vectorsString;
+    string vectorsString; 
+    string footerString;
+    
+    headerString = printHeader();
+    obstaclesString = printObstacleData(connection);
+    vectorsString = printVectorData(connection);
+    footerString = printFooter();
+    
+
+    returnedString += headerString;
+    returnedString += obstaclesString;
+    returnedString += vectorsString;
+    returnedString += footerString;
+    
+    return returnedString;
+}
+
+string PotentialFieldPrinter::printHeader()
+{
+    string headerString;
     
     headerString = "set title \"My Title\"\nset xrange [-400.0: 400.0]\n";
-    headerString += "set yrange [-400.0: 400.0]\nunset key\nset size square";
+    headerString += "set yrange [-400.0: 400.0]\nunset key\nset size square\n";
     
-    
-       
+    return headerString;
 }
 
 string PotentialFieldPrinter::printObstacleData(BZRC* connection)
@@ -51,6 +70,40 @@ string PotentialFieldPrinter::printObstacleData(BZRC* connection)
         }
     }
     return s;
+}
+
+string PotentialFieldPrinter::printVectorData(BZRC* connection)
+{
+    const int SCREEN_WIDTH = 800;
+    const int SCREEN_HEIGHT = 800;
+    const int GRANULARITY = 200;
+    char buff[100];
+    string vectorData;
+    PotentialFieldCalculator calculator(connection);
+    TankVector* tempVector;
+    
+    for(int i = -SCREEN_WIDTH/2; i < SCREEN_WIDTH/2; i+= GRANULARITY)
+    {        for(int j = -SCREEN_HEIGHT/2; j < SCREEN_HEIGHT/2; j+= GRANULARITY)
+        {
+            tempVector = calculator.calculateVector(i, j, BLUE);
+            
+            sprintf(buff, "set arrow from %f, %f to %f, %f lt 3\n", i, j, tempVector->getXVector(), tempVector->getYVector());
+            vectorData += buff;
+            
+            delete tempVector;
+        }
+    }
+    
+    return vectorData;
+}
+
+string PotentialFieldPrinter::printFooter()
+{
+    string footerString;
+    
+    footerString += "e";
+    
+    return footerString;
 }
 
 PotentialFieldPrinter::~PotentialFieldPrinter()

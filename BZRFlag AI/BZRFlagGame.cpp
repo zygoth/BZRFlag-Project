@@ -9,6 +9,7 @@
 #include "CommanderAI.h"
 #include "DumbCommanderAI.h"
 #include "PotentialFieldCommanderAI.h"
+#include "PotentialFieldPrinter.h"
 
 BZRFlagGame::BZRFlagGame()
 {
@@ -20,6 +21,10 @@ void BZRFlagGame::playGame(string hostName, int portNumber)
     BZRC* connection = connectToServer(hostName, portNumber);
     
     CommanderAI* commanderAI = new PotentialFieldCommanderAI(connection);
+    
+    PotentialFieldPrinter fieldPrinter;
+    string GNUOutput = fieldPrinter.getGNUPlotFile(connection);
+    cout << GNUOutput << endl;
     
     try
     {

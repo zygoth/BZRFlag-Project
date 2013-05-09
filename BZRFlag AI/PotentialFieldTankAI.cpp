@@ -20,7 +20,7 @@ void PotentialFieldTankAI::controlTank()
     connection->get_mytanks(&myTanks);
     tank_t myTank = myTanks[tankNumber];
     
-    TankVector* newVector = fieldCalculator->calculateVector(myTank.pos[0], myTank.pos[1], myColor);
+    TankVector* newVector = fieldCalculator->calculateVector(myTank.pos[0], myTank.pos[1], targetColor);
     
     connection->speed(tankNumber, newVector->getVelocity());
     

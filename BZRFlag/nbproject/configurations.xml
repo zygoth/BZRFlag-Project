@@ -5,16 +5,17 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>../BZRFlag AI/470bot.h</itemPath>
-      <itemPath>../../../../../../home1/guest/z/zygoth/NetBeansProjects/BZRFlag-Project/BZRFlag AI/BZRFlagGame.h</itemPath>
+      <itemPath>../BZRFlag AI/BZRFlagGame.h</itemPath>
+      <itemPath>../BZRFlag AI/CommanderAI.h</itemPath>
+      <itemPath>../BZRFlag AI/DumbCommanderAI.h</itemPath>
       <itemPath>../BZRFlag AI/DumbTankAI.h</itemPath>
-      <itemPath>../BZRFlag AI/DumbTeamAI.h</itemPath>
       <itemPath>../BZRFlag AI/PDController.h</itemPath>
       <itemPath>../BZRFlag AI/PotentialFieldCalculator.h</itemPath>
+      <itemPath>../BZRFlag AI/PotentialFieldCommanderAI.h</itemPath>
+      <itemPath>../BZRFlag AI/PotentialFieldPrinter.h</itemPath>
       <itemPath>../BZRFlag AI/PotentialFieldTankAI.h</itemPath>
-      <itemPath>../BZRFlag AI/PotentialFieldTeamAI.h</itemPath>
       <itemPath>../BZRFlag AI/TankAI.h</itemPath>
       <itemPath>../BZRFlag AI/TankVector.h</itemPath>
-      <itemPath>../BZRFlag AI/TeamAI.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -24,16 +25,17 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>../BZRFlag AI/BZRFlagGame.cpp</itemPath>
+      <itemPath>../BZRFlag AI/CommanderAI.cpp</itemPath>
+      <itemPath>../BZRFlag AI/DumbCommanderAI.cpp</itemPath>
       <itemPath>../BZRFlag AI/DumbTankAI.cpp</itemPath>
-      <itemPath>../BZRFlag AI/DumbTeamAI.cpp</itemPath>
       <itemPath>../BZRFlag AI/Lab1_Main.cpp</itemPath>
       <itemPath>../BZRFlag AI/PDController.cpp</itemPath>
       <itemPath>../BZRFlag AI/PotentialFieldCalculator.cpp</itemPath>
+      <itemPath>../BZRFlag AI/PotentialFieldCommanderAI.cpp</itemPath>
+      <itemPath>../BZRFlag AI/PotentialFieldPrinter.cpp</itemPath>
       <itemPath>../BZRFlag AI/PotentialFieldTankAI.cpp</itemPath>
-      <itemPath>../BZRFlag AI/PotentialFieldTeamAI.cpp</itemPath>
       <itemPath>../BZRFlag AI/TankAI.cpp</itemPath>
       <itemPath>../BZRFlag AI/TankVector.cpp</itemPath>
-      <itemPath>../BZRFlag AI/TeamAI.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"

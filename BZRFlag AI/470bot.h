@@ -572,6 +572,7 @@ public:
 		while(v.at(0)=="obstacle") {
 			obstacle_t MyObstacle;
 			int j=0;
+                        MyObstacle.courner_count = 0;
 			while(j+2<(int)v.size()) {
 				MyObstacle.o_corner[j/2][0]=atof(v.at(j+1).c_str());
 				MyObstacle.o_corner[j/2][1]=atof(v.at(j+2).c_str());

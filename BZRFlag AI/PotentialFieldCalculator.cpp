@@ -18,7 +18,7 @@ PotentialFieldCalculator::PotentialFieldCalculator(BZRC* constructor) {
 PotentialFieldCalculator::~PotentialFieldCalculator() {
 }
 
-TankVector* PotentialFieldCalculator::calculateVector(int x, int y, TeamColor team) {
+TankVector* PotentialFieldCalculator::calculateVector(int x, int y, TeamColor targetTeam) {
     xVector = 0.0; 
     yVector = 0.0;
     TankVector* result;
@@ -27,7 +27,7 @@ TankVector* PotentialFieldCalculator::calculateVector(int x, int y, TeamColor te
     calculateShotVector(x,y);
     calculateFriendlyTanks(x,y);
     calculateEnemyTanks(x,y);
-    calculateTargetVector(x,y,team);
+    calculateTargetVector(x,y,targetTeam);
     
     result = new TankVector(xVector, yVector);
     
@@ -35,8 +35,8 @@ TankVector* PotentialFieldCalculator::calculateVector(int x, int y, TeamColor te
 }
 
 void PotentialFieldCalculator::calculateObjectVector(int x, int y) {
-    int range = 25;
-    double amount = 2.0;
+    int range = 10;
+    double amount = 10.0;
     int x1, y1, x2, y2, firstX, firstY;
     int xCheck, yCheck, calcX, calcY, count;
     double rise, run, xUpdate, yUpdate;
@@ -75,7 +75,7 @@ void PotentialFieldCalculator::calculateObjectVector(int x, int y) {
             else {
                 run = (double)calcX/(double)abs(calcY);
                 rise = (double)calcY/(double)abs(calcY);                
-                count = abs(calcX);
+                count = abs(calcY);
             }
             
             for(int k = 0; k < count; k++) {

@@ -7,6 +7,8 @@
 
 #include "PotentialFieldPrinter.h"
 #include "PotentialFieldCalculator.h"
+#include <fstream>
+using namespace std;
 
 PotentialFieldPrinter::PotentialFieldPrinter()
 {
@@ -18,7 +20,7 @@ string PotentialFieldPrinter::getGNUPlotFile(BZRC* connection)
     
     string headerString;
     string obstaclesString;
-    string vectorsString; 
+    string* vectorsString; 
     string footerString;
     
     headerString = printHeader();
@@ -29,11 +31,24 @@ string PotentialFieldPrinter::getGNUPlotFile(BZRC* connection)
 
     returnedString += headerString;
     returnedString += obstaclesString;
-    returnedString += vectorsString;
+    returnedString += *vectorsString;
     returnedString += footerString;
     
     return returnedString;
 }
+
+
+void PotentialFieldPrinter::GNUOutputToFile(BZRC* connection, char * filename) 
+{
+       ofstream myfile;
+       myfile.open(filename);
+       myfile << printHeader();
+       myfile << printObstacleData(connection);
+       myfile << *printVectorData(connection);
+       myfile << printFooter();
+       myfile.close();
+}
+
 
 string PotentialFieldPrinter::printHeader()
 {
@@ -72,13 +87,13 @@ string PotentialFieldPrinter::printObstacleData(BZRC* connection)
     return s;
 }
 
-string PotentialFieldPrinter::printVectorData(BZRC* connection)
+string* PotentialFieldPrinter::printVectorData(BZRC* connection)
 {
     const int SCREEN_WIDTH = 800;
     const int SCREEN_HEIGHT = 800;
-    const int GRANULARITY = 200;
+    const int GRANULARITY = 25;
     char buff[100];
-    string vectorData;
+    string* vectorData = new string();
     PotentialFieldCalculator calculator(connection);
     TankVector* tempVector;
     
@@ -87,8 +102,12 @@ string PotentialFieldPrinter::printVectorData(BZRC* connection)
         {
             tempVector = calculator.calculateVector(i, j, BLUE);
             
-            sprintf(buff, "set arrow from %f, %f to %f, %f lt 3\n", i, j, tempVector->getXVector(), tempVector->getYVector());
-            vectorData += buff;
+            sprintf(buff, "set arrow from %d, %d to %f, %f lt 3\n", 
+                    i, 
+                    j, 
+                    i + tempVector->getXVector(),
+                    j + tempVector->getYVector());
+            (*vectorData) += buff;
             
             delete tempVector;
         }
@@ -101,7 +120,8 @@ string PotentialFieldPrinter::printFooter()
 {
     string footerString;
     
-    footerString += "e";
+    footerString += "plot 20\n";  // needed so it will render
+    footerString += "exit";
     
     return footerString;
 }

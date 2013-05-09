@@ -23,8 +23,12 @@ void BZRFlagGame::playGame(string hostName, int portNumber)
     CommanderAI* commanderAI = new PotentialFieldCommanderAI(connection);
     
     PotentialFieldPrinter fieldPrinter;
-    string GNUOutput = fieldPrinter.getGNUPlotFile(connection);
-    cout << GNUOutput << endl;
+    //string GNUOutput = fieldPrinter.getGNUPlotFile(connection);
+    //cout << GNUOutput << endl;
+    //cout.flush();
+    fieldPrinter.GNUOutputToFile(connection, "GNUPLOT");
+    cout << "Vectors printed." << endl;
+    cout.flush();
     
     try
     {

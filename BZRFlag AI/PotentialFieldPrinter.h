@@ -15,13 +15,14 @@ class PotentialFieldPrinter
 public:
     PotentialFieldPrinter();
     string getGNUPlotFile(BZRC* connection);
+    void GNUOutputToFile(BZRC* connection, char * filename);
     virtual ~PotentialFieldPrinter();
     
 private:
     
     string printHeader();
     string printObstacleData(BZRC* connection);
-    string printVectorData(BZRC* connection);
+    string* printVectorData(BZRC* connection);
     string printFooter();
 };
 

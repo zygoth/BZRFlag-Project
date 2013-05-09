@@ -227,21 +227,20 @@ void PotentialFieldCalculator::calculateEnemyTanks(int x, int y) {
 }
         
 void PotentialFieldCalculator::calculateTargetVector(int x, int y, TeamColor targetTeam, int tankIndex) {
-    int flagX, flagY, calcX, calcY;
+    int flagX, flagY, calcX, calcY, baseX, baseY;
     double rise, run;
     TeamColor myTeam, base;
     string flag;
     
     vector<flag_t> flags;
     socket->get_flags(&flags);
-    /*
+    
     vector<tank_t> tanks;
     socket->get_mytanks(&tanks);
     
-    vector<team_t> teams;
-    socket->get_teams(&teams);
+    vector<base_t> teams;
+    socket->get_bases(&teams);
     
-            
     if(tanks.size() == 0)
     {
         throw "My team has no tanks.  Terminating.\n";
@@ -251,13 +250,25 @@ void PotentialFieldCalculator::calculateTargetVector(int x, int y, TeamColor tar
     string callSign = myTank.callsign;
     
     myTeam = stringToTeamColor(callSign);
- 
-    myTank = tanks.at(tankIndex);
-    flag = myTank.flag;
     
-    //if()
-    */
+    for(int i = 0; i < teams.size(); i++) {
+        base = stringToTeamColor(teams.at(i).color);
+        
+        if(base == myTeam){
+            baseX = teams.at(i).base_corner[0][0]
+                  - teams.at(i).base_corner[2][0];
+            baseY = teams.at(i).base_corner[0][1]
+                  - teams.at(i).base_corner[2][1];
             
+            baseX = teams.at(i).base_corner[2][0]
+                    + baseX/2;
+            baseY = teams.at(i).base_corner[2][1]
+                    + baseY/2;
+        }
+    }
+    
+    teams.clear();
+    
     for(int i = 0; i <  flags.size(); i++) {
         switch(targetTeam) {
             case PURPLE:
@@ -288,6 +299,17 @@ void PotentialFieldCalculator::calculateTargetVector(int x, int y, TeamColor tar
     }
     
     flags.clear();
+    
+    myTank = tanks.at(tankIndex);
+    flag = myTank.flag;
+    
+    if(flag.compare("-") != 0) {
+        flagX = baseX;
+        flagY = baseY;
+    }
+    
+            
+
     
     calcX = flagX - x;
     calcY = flagY - y;

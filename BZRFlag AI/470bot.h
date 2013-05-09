@@ -28,8 +28,13 @@ const int kBufferSize = 1024;
 typedef struct team_t {
 	string color;
 	int count;
-	double base_corner[4][2];
 } team_t;
+
+// Chris added this struct
+typedef struct base_t {
+        string color;
+	double base_corner[4][2];
+} base_t;
 
 typedef struct obstacle_t {
 	double o_corner[MAX_OBSTACLE_CORNERS][2];
@@ -520,6 +525,40 @@ public:
 			return false;
 		}
 	}
+        
+        // Chris added this method to get the bases
+        bool get_bases(vector <base_t> *AllBases) {
+                //Reqeust a list of bases.
+                SendLine("bases");
+                ReadAck();
+                vector <string> v=ReadArr();
+                if(v.at(0)!="begin") {
+                        return false;
+                }
+                v.clear();
+                v=ReadArr();
+                int i=0;
+                while(v.at(0)=="base") {
+                        base_t MyBase;
+                        MyBase.color=v.at(1);
+                        MyBase.base_corner[0][0]=atof(v.at(2).c_str());
+                        MyBase.base_corner[0][1]=atof(v.at(3).c_str());
+                        MyBase.base_corner[1][0]=atof(v.at(4).c_str());
+                        MyBase.base_corner[1][1]=atof(v.at(5).c_str());
+                        MyBase.base_corner[2][0]=atof(v.at(6).c_str());
+                        MyBase.base_corner[2][1]=atof(v.at(7).c_str());
+                        MyBase.base_corner[3][0]=atof(v.at(8).c_str());
+                        MyBase.base_corner[3][1]=atof(v.at(9).c_str());
+                        AllBases->push_back(MyBase);
+			v.clear();
+			v=ReadArr();
+			i++;
+                }
+		if(v.at(0)!="end") {
+			return false;
+		}
+		return true;                
+        }
 
 	// Information Request:
 	bool get_teams(vector <team_t> *AllTeams) {

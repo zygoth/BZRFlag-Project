@@ -92,7 +92,7 @@ void PotentialFieldCalculator::calculateObjectVector(int x, int y) {
             }
             
             xVector += xUpdate;
-            yVector += xUpdate;
+            yVector += yUpdate;
         }
         
         xUpdate = 0.0;
@@ -133,7 +133,7 @@ void PotentialFieldCalculator::calculateObjectVector(int x, int y) {
         }
             
         xVector += xUpdate;
-        yVector += xUpdate;
+        yVector += yUpdate;
     }
 
     objects.clear();

@@ -16,7 +16,7 @@ TankVector::TankVector(double over, double up) {
     if(x < 0)
         xTemp = -1 * xTemp;
     
-    if(x = 0)
+    if(x == 0)
         angle = atan(y/xTemp);
     else {
         if(y > 0)
@@ -31,7 +31,11 @@ TankVector::TankVector(double over, double up) {
         else
             angle = -3.14159 + angle;
     }
-        
+    
+    /*
+    angle = -atan2(y, x);
+    */
+    
     velocity = pow(pow(x,2) + pow(y,2), .5);
     if(velocity > 1.0)
         velocity = 1.0;

@@ -83,7 +83,9 @@ public:
 		MyVector.begin();
 	}
 
-	vector <string> Split() {
+	vector <string> Split() 
+        {
+            /*
 		MyVector.clear();
 		size_t LastLoc = -1;
 		size_t CurLoc = MyString.find(" ", 0);
@@ -94,6 +96,41 @@ public:
 		}
 		MyVector.push_back(MyString.substr(LastLoc+1, MyString.size()-LastLoc));
 		return MyVector;
+             */
+            
+            MyVector.clear();
+            int currentIndex = 0;
+            int wordStartIndex = -1;
+            
+            while(currentIndex < MyString.size())
+            {
+                if(MyString[currentIndex] == ' ')
+                {
+                    currentIndex++;
+                    continue;
+                }
+                else // we are at a word
+                {
+                    wordStartIndex = currentIndex;
+                    
+                    while(currentIndex < MyString.size())
+                    {
+                        if(MyString[currentIndex] != ' ')
+                        {
+                            currentIndex++;
+                            continue;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    
+                    MyVector.push_back(MyString.substr(wordStartIndex, currentIndex - wordStartIndex));
+                }
+            }
+            
+            return MyVector;
 	}
 };
 

@@ -36,7 +36,8 @@ TankVector* PotentialFieldCalculator::calculateVector(int x, int y, TeamColor te
 }
 
 void PotentialFieldCalculator::calculateObjectVector(int x, int y) {
-    int range = 15;
+    int range = 25;
+    double amount = 2.0;
     int x1, y1, x2, y2, firstX, firstY;
     int xCheck, yCheck, calcX, calcY, count;
     double rise, run, xUpdate, yUpdate;
@@ -92,8 +93,8 @@ void PotentialFieldCalculator::calculateObjectVector(int x, int y) {
                 }
             }
             
-            xVector += xUpdate;
-            yVector += yUpdate;
+            xVector += xUpdate * amount;
+            yVector += yUpdate * amount;
         }
         
         xUpdate = 0.0;
@@ -133,8 +134,8 @@ void PotentialFieldCalculator::calculateObjectVector(int x, int y) {
             }
         }
             
-        xVector += xUpdate;
-        yVector += yUpdate;
+        xVector += xUpdate * amount;
+        yVector += yUpdate * amount;
     }
 
     objects.clear();
@@ -147,6 +148,8 @@ void PotentialFieldCalculator::calculateShotVector(int x, int y) {
 void PotentialFieldCalculator::calculateFriendlyTanks(int x, int y) {
     int tankX, tankY, calcX, calcY;
     double rise, run;
+    int range = 25;
+    double amount = 0.5;
     
     vector<tank_t> tanks;
     socket->get_mytanks(&tanks);
@@ -158,14 +161,15 @@ void PotentialFieldCalculator::calculateFriendlyTanks(int x, int y) {
         calcX = x - tankX;
         calcY = y - tankY;
         
-        if(abs(calcX) < 10 || abs(calcY) < 10) {
+        if(abs(calcX) < range && abs(calcY) < range && 
+               calcX != 0 && calcY != 0) {
             if(abs(calcX) < abs(calcY)) {
-                run = (double)(calcX * (10 - abs(calcX)));
-                rise = (double)(calcY * (10 - abs(calcX)));
+                run = (double)calcX/(double)abs(calcY);
+                rise = (double)calcY/(double)abs(calcY);
             }
             else {
-                run = (double)(calcX * (10 - abs(calcY)));
-                rise = (double)(calcY * (10 - abs(calcY)));
+                run = (double)calcX/(double)abs(calcX);
+                rise = (double)calcY/(double)abs(calcX);
                 
             }
         }
@@ -175,8 +179,8 @@ void PotentialFieldCalculator::calculateFriendlyTanks(int x, int y) {
             rise = 0.0;
         }
         
-        xVector += run;
-        yVector += rise;
+        xVector += run * amount;
+        yVector += rise * amount;
     }
     
     tanks.clear();
@@ -185,6 +189,8 @@ void PotentialFieldCalculator::calculateFriendlyTanks(int x, int y) {
 void PotentialFieldCalculator::calculateEnemyTanks(int x, int y) {
     int tankX, tankY, calcX, calcY;
     double rise, run;
+    int range = 25;
+    double amount = 0.5;
     
     vector<otank_t> tanks;
     socket->get_othertanks(&tanks);
@@ -196,14 +202,15 @@ void PotentialFieldCalculator::calculateEnemyTanks(int x, int y) {
         calcX = x - tankX;
         calcY = y - tankY;
         
-        if(abs(calcX) < 10 || abs(calcY) < 10) {
+        if(abs(calcX) < range && abs(calcY) < range && 
+               calcX != 0 && calcY != 0) {
             if(abs(calcX) < abs(calcY)) {
-                run = (double)(calcX * (10 - abs(calcX)));
-                rise = (double)(calcY * (10 - abs(calcX)));
+                run = (double)calcX/(double)abs(calcY);
+                rise = (double)calcY/(double)abs(calcY);
             }
             else {
-                run = (double)(calcX * (10 - abs(calcY)));
-                rise = (double)(calcY * (10 - abs(calcY)));
+                run = (double)calcX/(double)abs(calcX);
+                rise = (double)calcY/(double)abs(calcX);
                 
             }
         }
@@ -213,8 +220,8 @@ void PotentialFieldCalculator::calculateEnemyTanks(int x, int y) {
             rise = 0.0;
         }
         
-        xVector += run;
-        yVector += rise;
+        xVector += run * amount;
+        yVector += rise * amount;
     }
    
     tanks.clear();
@@ -230,25 +237,25 @@ void PotentialFieldCalculator::calculateTargetVector(int x, int y, TeamColor tea
     for(int i = 0; i <  flags.size(); i++) {
         switch(teams) {
             case PURPLE:
-                if(flags.at(i).color.compare("purple")) {
+                if(flags.at(i).color.compare("purple") == 0) {
                     flagX = (int)(flags.at(i).pos[0]);
                     flagY = (int)(flags.at(i).pos[1]);
                 }
                 break;
             case BLUE:
-                if(flags.at(i).color.compare("blue")) {
+                if(flags.at(i).color.compare("blue") == 0) {
                     flagX = (int)(flags.at(i).pos[0]);
                     flagY = (int)(flags.at(i).pos[1]);                    
                 }
                 break;
             case GREEN:
-                if(flags.at(i).color.compare("green")) {
+                if(flags.at(i).color.compare("green") == 0) {
                     flagX = (int)(flags.at(i).pos[0]);
                     flagY = (int)(flags.at(i).pos[1]);                    
                 }
                 break;
             case RED:
-                if(flags.at(i).color.compare("red")) {
+                if(flags.at(i).color.compare("red") == 0) {
                     flagX = (int)(flags.at(i).pos[0]);
                     flagY = (int)(flags.at(i).pos[1]);                    
                 }
@@ -262,16 +269,17 @@ void PotentialFieldCalculator::calculateTargetVector(int x, int y, TeamColor tea
     calcY = flagY - y;
     
     if(abs(calcX) > abs(calcX)) {
-        run = (double)calcX/(double)abs(calcX) * 2.0;
-        rise = (double)calcX/(double)abs(calcX) * 2.0;
+        run = (double)calcX/(double)abs(calcX);
+        rise = (double)calcY/(double)abs(calcX);
     }
     else {
-        run = (double)calcX/(double)abs(calcX) * 2.0;
-        rise = (double)calcX/(double)abs(calcX) * 2.0;        
+        run = (double)calcX/(double)abs(calcY);
+        rise = (double)calcY/(double)abs(calcY);        
     }
         
     xVector += run;
     yVector += rise;
+    
 }
 
 

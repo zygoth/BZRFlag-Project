@@ -100,7 +100,7 @@ string* PotentialFieldPrinter::printVectorData(BZRC* connection)
     for(int i = -SCREEN_WIDTH/2; i < SCREEN_WIDTH/2; i+= GRANULARITY)
     {        for(int j = -SCREEN_HEIGHT/2; j < SCREEN_HEIGHT/2; j+= GRANULARITY)
         {
-            tempVector = calculator.calculateVector(i, j, BLUE);
+            tempVector = calculator.calculateVector(i, j, BLUE, 0);
             
             sprintf(buff, "set arrow from %d, %d to %f, %f lt 3\n", 
                     i, 

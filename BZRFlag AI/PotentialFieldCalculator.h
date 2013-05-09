@@ -26,11 +26,11 @@ class PotentialFieldCalculator {
         void calculateShotVector(int, int);
         void calculateFriendlyTanks(int, int);
         void calculateEnemyTanks(int, int);
-        void calculateTargetVector(int, int, TeamColor);
+        void calculateTargetVector(int, int, TeamColor, int);
 public:
 	PotentialFieldCalculator(BZRC*);
 	virtual ~PotentialFieldCalculator();
-        TankVector* calculateVector(int, int, TeamColor);
+        TankVector* calculateVector(int, int, TeamColor, int);
 };
 
 #endif /* POTENTIALFIELDCALCULATOR_H_ */

@@ -18,8 +18,7 @@ PotentialFieldCalculator::PotentialFieldCalculator(BZRC* constructor) {
 PotentialFieldCalculator::~PotentialFieldCalculator() {
 }
 
-TankVector* PotentialFieldCalculator::calculateVector(int x, int y, TeamColor team) 
-{
+TankVector* PotentialFieldCalculator::calculateVector(int x, int y, TeamColor targetTeam, int tankIndex) {
     xVector = 0.0; 
     yVector = 0.0;
     TankVector* result;
@@ -28,7 +27,7 @@ TankVector* PotentialFieldCalculator::calculateVector(int x, int y, TeamColor te
     calculateShotVector(x,y);
     calculateFriendlyTanks(x,y);
     calculateEnemyTanks(x,y);
-    calculateTargetVector(x,y,team);
+    calculateTargetVector(x,y,targetTeam, tankIndex);
     
     result = new TankVector(xVector, yVector);
     
@@ -36,8 +35,8 @@ TankVector* PotentialFieldCalculator::calculateVector(int x, int y, TeamColor te
 }
 
 void PotentialFieldCalculator::calculateObjectVector(int x, int y) {
-    int range = 25;
-    double amount = 2.0;
+    int range = 10;
+    double amount = 10.0;
     int x1, y1, x2, y2, firstX, firstY;
     int xCheck, yCheck, calcX, calcY, count;
     double rise, run, xUpdate, yUpdate;
@@ -76,7 +75,7 @@ void PotentialFieldCalculator::calculateObjectVector(int x, int y) {
             else {
                 run = (double)calcX/(double)abs(calcY);
                 rise = (double)calcY/(double)abs(calcY);                
-                count = abs(calcX);
+                count = abs(calcY);
             }
             
             for(int k = 0; k < count; k++) {
@@ -227,15 +226,40 @@ void PotentialFieldCalculator::calculateEnemyTanks(int x, int y) {
     tanks.clear();
 }
         
-void PotentialFieldCalculator::calculateTargetVector(int x, int y, TeamColor teams) {
+void PotentialFieldCalculator::calculateTargetVector(int x, int y, TeamColor targetTeam, int tankIndex) {
     int flagX, flagY, calcX, calcY;
     double rise, run;
+    TeamColor myTeam, base;
+    string flag;
     
     vector<flag_t> flags;
     socket->get_flags(&flags);
+    /*
+    vector<tank_t> tanks;
+    socket->get_mytanks(&tanks);
     
+    vector<team_t> teams;
+    socket->get_teams(&teams);
+    
+            
+    if(tanks.size() == 0)
+    {
+        throw "My team has no tanks.  Terminating.\n";
+    }
+
+    tank_t myTank = tanks.front();
+    string callSign = myTank.callsign;
+    
+    myTeam = stringToTeamColor(callSign);
+ 
+    myTank = tanks.at(tankIndex);
+    flag = myTank.flag;
+    
+    //if()
+    */
+            
     for(int i = 0; i <  flags.size(); i++) {
-        switch(teams) {
+        switch(targetTeam) {
             case PURPLE:
                 if(flags.at(i).color.compare("purple") == 0) {
                     flagX = (int)(flags.at(i).pos[0]);
@@ -281,8 +305,25 @@ void PotentialFieldCalculator::calculateTargetVector(int x, int y, TeamColor tea
     yVector += rise;
     
 }
-
-
+/*
+TeamColor CommanderAI::determineMyColor()
+{
+    vector<tank_t> myTanks;
+    connection->get_mytanks(&myTanks);
+    
+    if(myTanks.size() == 0)
+    {
+        throw "My team has no tanks.  Terminating.\n";
+    }
+    
+    tank_t myTank = myTanks.front();
+    string callSign = myTank.callsign;
+    
+    TeamColor myColor = stringToTeamColor(callSign);
+        
+    return myColor;
+}
+*/
 /**
  * This should be moved to a file with the TeamColor Enum.
  * @param colorString

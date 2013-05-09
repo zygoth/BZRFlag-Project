@@ -26,7 +26,7 @@ void BZRFlagGame::playGame(string hostName, int portNumber)
     //string GNUOutput = fieldPrinter.getGNUPlotFile(connection);
     //cout << GNUOutput << endl;
     //cout.flush();
-    fieldPrinter.GNUOutputToFile(connection, "GNUPLOT");
+    //fieldPrinter.GNUOutputToFile(connection, "GNUPLOT");
     cout << "Vectors printed." << endl;
     cout.flush();
     

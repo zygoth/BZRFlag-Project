@@ -20,8 +20,8 @@ public:
 	virtual ~DumbTankAI();
         
 private:
-    clock_t shotTimer;
-    clock_t movementTimer;
+    time_t shotTimer;
+    time_t movementTimer;
     bool isTurning;
 };
 

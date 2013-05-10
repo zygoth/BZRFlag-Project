@@ -23,6 +23,7 @@ private:
     string printHeader();
     string printObstacleData(BZRC* connection);
     string* printVectorData(BZRC* connection);
+    string printTanksData(BZRC* connection);
     string printFooter();
 };
 

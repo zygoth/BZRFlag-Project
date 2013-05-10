@@ -19,7 +19,7 @@ PotentialFieldCalculator::~PotentialFieldCalculator() {
 }
 
 TankVector* PotentialFieldCalculator::calculateVector(int x, int y, TeamColor targetTeam, int tankIndex) {
-    xVector = 0.0; 
+    xVector = 0.0;
     yVector = 0.0;
     TankVector* result;
     
@@ -147,7 +147,7 @@ void PotentialFieldCalculator::calculateShotVector(int x, int y) {
 void PotentialFieldCalculator::calculateFriendlyTanks(int x, int y) {
     int tankX, tankY, calcX, calcY;
     double rise, run;
-    int range = 25;
+    int range = 5;
     double amount = 0.5;
     
     vector<tank_t> tanks;
@@ -161,7 +161,7 @@ void PotentialFieldCalculator::calculateFriendlyTanks(int x, int y) {
         calcY = y - tankY;
         
         if(abs(calcX) < range && abs(calcY) < range && 
-               calcX != 0 && calcY != 0) {
+               (calcX != 0 || calcY != 0)) {
             if(abs(calcX) < abs(calcY)) {
                 run = (double)calcX/(double)abs(calcY);
                 rise = (double)calcY/(double)abs(calcY);
@@ -188,7 +188,7 @@ void PotentialFieldCalculator::calculateFriendlyTanks(int x, int y) {
 void PotentialFieldCalculator::calculateEnemyTanks(int x, int y) {
     int tankX, tankY, calcX, calcY;
     double rise, run;
-    int range = 25;
+    int range = 5;
     double amount = 0.5;
     
     vector<otank_t> tanks;

@@ -8,6 +8,7 @@
 #include "PotentialFieldPrinter.h"
 #include "PotentialFieldCalculator.h"
 #include <fstream>
+#include <sstream>
 using namespace std;
 
 PotentialFieldPrinter::PotentialFieldPrinter()
@@ -45,6 +46,7 @@ void PotentialFieldPrinter::GNUOutputToFile(BZRC* connection, char * filename)
        myfile << printHeader();
        myfile << printObstacleData(connection);
        myfile << *printVectorData(connection);
+       myfile << printTanksData(connection);
        myfile << printFooter();
        myfile.close();
 }
@@ -89,16 +91,19 @@ string PotentialFieldPrinter::printObstacleData(BZRC* connection)
 
 string* PotentialFieldPrinter::printVectorData(BZRC* connection)
 {
-    const int SCREEN_WIDTH = 800;
-    const int SCREEN_HEIGHT = 800;
-    const int GRANULARITY = 25;
+    const int SCREEN_WIDTH = 50;
+    const int SCREEN_HEIGHT = 50;
+    const int BOTTOM_LEFT_CORNER_X = -400;
+    const int BOTTOM_LEFT_CORNER_Y = -25;
+    const int GRANULARITY = 2;
     char buff[100];
     string* vectorData = new string();
     PotentialFieldCalculator calculator(connection);
     TankVector* tempVector;
     
-    for(int i = -SCREEN_WIDTH/2; i < SCREEN_WIDTH/2; i+= GRANULARITY)
-    {        for(int j = -SCREEN_HEIGHT/2; j < SCREEN_HEIGHT/2; j+= GRANULARITY)
+    for(int i = BOTTOM_LEFT_CORNER_X; i < BOTTOM_LEFT_CORNER_X + SCREEN_WIDTH; i+= GRANULARITY)
+    {        
+        for(int j = BOTTOM_LEFT_CORNER_Y; j < BOTTOM_LEFT_CORNER_Y + SCREEN_HEIGHT; j+= GRANULARITY)
         {
             tempVector = calculator.calculateVector(i, j, BLUE, 0);
             
@@ -109,6 +114,13 @@ string* PotentialFieldPrinter::printVectorData(BZRC* connection)
                     j + tempVector->getYVector());
             (*vectorData) += buff;
             
+            if(j == BOTTOM_LEFT_CORNER_Y)
+            {
+                cout << "Percent Done: ";
+                cout << ((((double)(i - BOTTOM_LEFT_CORNER_X)*SCREEN_WIDTH) / (SCREEN_WIDTH*SCREEN_HEIGHT))*100) << endl;
+                cout.flush();
+            }
+            
             delete tempVector;
         }
     }
@@ -116,11 +128,34 @@ string* PotentialFieldPrinter::printVectorData(BZRC* connection)
     return vectorData;
 }
 
+string PotentialFieldPrinter::printTanksData(BZRC* connection)
+{
+    string tankString;
+    vector<tank_t> myTanks;
+    connection->get_mytanks(&myTanks);
+    
+    tankString += "plot -400\n";
+    tankString += "set style line 1 lc rgb 'black' pt 5   # square\n";
+    tankString += "plot \'-\' w p ls 1\n";
+    
+    for(int i = 0; i < myTanks.size(); i++)
+    {
+        stringstream ss;
+        ss << myTanks[i].pos[0] << " " << myTanks[i].pos[1];
+        tankString += ss.str();
+        tankString += "\n";
+    }
+    
+    tankString += "e\n";
+    
+    return tankString;
+}
+
 string PotentialFieldPrinter::printFooter()
 {
     string footerString;
     
-    footerString += "plot 20\n";  // needed so it will render
+    //footerString += "plot -400\n";  // needed so it will render
     footerString += "exit";
     
     return footerString;

@@ -6,6 +6,8 @@
  */
 
 #include "PotentialFieldTankAI.h"
+#include <cmath>
+#include <cstdlib>
 
 PotentialFieldTankAI::PotentialFieldTankAI(BZRC* connection, int tankNumber, TeamColor myColor, TeamColor targetColor) 
                         : TankAI(connection, tankNumber, myColor, targetColor)
@@ -22,10 +24,22 @@ void PotentialFieldTankAI::controlTank()
     
     TankVector* newVector = fieldCalculator->calculateVector(myTank.pos[0], myTank.pos[1], targetColor, tankNumber);
     
+    //Calculate Speed
+    
+    // Reduce the speed if the discrepancy is high
+    //double discrepancy = abs(differenceBetweenTwoAngles(myTank.angle, newVector->getAngle()));
+    //double speedMultiplier = .1;
+    //if(discrepancy < 1.5)speedMultiplier = 1;
     connection->speed(tankNumber, newVector->getVelocity());
+    
+    // Calculate angularVelocity
     
     double newVelocity = pdController->calculateAngularVelocity(myTank.angle, newVector->getAngle());
     connection->angvel(tankNumber, newVelocity);
+    
+    // Shoot all the time
+    
+    connection->shoot(tankNumber);
     
     delete newVector;
 }

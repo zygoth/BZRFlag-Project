@@ -21,6 +21,7 @@ void BZRFlagGame::playGame(string hostName, int portNumber)
     BZRC* connection = connectToServer(hostName, portNumber);
     
     CommanderAI* commanderAI = new PotentialFieldCommanderAI(connection);
+    //CommanderAI* commanderAI = new DumbCommanderAI(connection);
     
     PotentialFieldPrinter fieldPrinter;
     //string GNUOutput = fieldPrinter.getGNUPlotFile(connection);

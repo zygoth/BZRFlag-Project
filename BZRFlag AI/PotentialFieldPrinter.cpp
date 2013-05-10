@@ -95,7 +95,7 @@ string* PotentialFieldPrinter::printVectorData(BZRC* connection)
     const int SCREEN_HEIGHT = 50;
     const int BOTTOM_LEFT_CORNER_X = -400;
     const int BOTTOM_LEFT_CORNER_Y = -25;
-    const int GRANULARITY = 2;
+    const int GRANULARITY = 10;
     char buff[100];
     string* vectorData = new string();
     PotentialFieldCalculator calculator(connection);

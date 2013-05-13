@@ -36,6 +36,11 @@ typedef struct base_t {
 	double base_corner[4][2];
 } base_t;
 
+typedef struct grid_t {
+    int x, y, xdim, ydim;
+    bool* grid;
+} grid_t;
+
 typedef struct obstacle_t {
 	double o_corner[MAX_OBSTACLE_CORNERS][2];
         int courner_count;
@@ -433,6 +438,8 @@ public:
 	int GetPort(){return nPort;}
 	const char *GetHost() {return pcHost;}
 	bool GetStatus() {return InitStatus;}
+        
+        
 	// Commands:
 	bool shoot(int index) {
 		// Perform a shoot request.
@@ -526,7 +533,88 @@ public:
 		}
 	}
         
-        // Chris added this method to get the bases
+        // Chris added this method to get the occgrid for a tank
+        bool get_occgrid(vector <grid_t> *Matrix, int index) {
+                // Request the grid for the given tank
+                char char_buff[20];
+                sprintf(char_buff, " %d", index);
+                string str_buff="occgrid";
+                str_buff.append(char_buff);
+                const char *Command = str_buff.c_str();
+                SendLine(Command);
+                
+                ReadAck();
+                vector <string> v=ReadArr();
+                if(v.at(0)!="begin") {
+                        return false;
+                }
+                v.clear();
+                grid_t tankGrid;
+                
+                v=ReadArr();
+                if(v.at(0)!="at") {
+                        return false;
+                }
+                
+                string temp, output;
+                temp = v.at(1);
+                for(int i = 0; i < temp.size(); i++) {
+                    if(temp.at(i)==',') {
+                        output = temp.substr(0, i);
+                        tankGrid.x=atoi(output.c_str());
+                        temp.erase(0, i+1);
+                        tankGrid.y=atoi(temp.c_str());
+                    }
+                }
+                v.clear();
+                
+                v=ReadArr();
+                if(v.at(0)!="size") {
+                        return false;
+                }
+                
+                temp = v.at(1);
+                for(int i = 0; i < temp.size(); i++) {
+                    if(temp.at(i)=='x') {
+                        output = temp.substr(0, i);
+                        tankGrid.xdim=atoi(output.c_str());
+                        temp.erase(0, i+1);
+                        tankGrid.ydim=atoi(temp.c_str());
+                    }
+                }
+                v.clear();
+                
+                v=ReadArr();
+                int y = tankGrid.ydim;
+                int x = tankGrid.xdim;
+                
+                tankGrid.grid = new bool[y*x];
+                                
+                int k = 0;
+                while(v.at(0)!="end") {
+                    temp = v.at(0);
+                    
+                    for(int i = 0; i < tankGrid.ydim; i++) {
+                        if(temp.at(i)=='0') 
+                            tankGrid.grid[i*x + k] = 0;
+                        else
+                            tankGrid.grid[i*x + k] = 1;
+                        
+                    }
+                    v.clear();
+                    
+                    v=ReadArr();
+                    k++;
+                }
+                Matrix->push_back(tankGrid);
+                
+                if(v.at(0)!="end") {
+			return false;
+		}
+		return true;
+        }
+
+	// Chris added this method to get the bases
         bool get_bases(vector <base_t> *AllBases) {
                 //Reqeust a list of bases.
                 SendLine("bases");
@@ -576,16 +664,6 @@ public:
 			team_t MyTeam;
 			MyTeam.color=v.at(1);
 			MyTeam.count=atoi(v.at(2).c_str());
-                        /*   //  bullcrap removed by ben so this will work
-			MyTeam.base_corner[0][0]=atof(v.at(3).c_str());
-			MyTeam.base_corner[0][1]=atof(v.at(4).c_str());
-			MyTeam.base_corner[1][0]=atof(v.at(5).c_str());
-			MyTeam.base_corner[1][1]=atof(v.at(6).c_str());
-			MyTeam.base_corner[2][0]=atof(v.at(7).c_str());
-			MyTeam.base_corner[2][1]=atof(v.at(8).c_str());
-			MyTeam.base_corner[3][0]=atof(v.at(9).c_str());
-			MyTeam.base_corner[3][1]=atof(v.at(10).c_str());
-                        */
 			AllTeams->push_back(MyTeam);
 			v.clear();
 			v=ReadArr();
@@ -596,8 +674,8 @@ public:
 		}
 		return true;
 	}
-
-	bool get_obstacles(vector <obstacle_t> *AllObstacles) {
+        
+        bool get_obstacles(vector <obstacle_t> *AllObstacles) {
 		// Request a list of obstacles.
 		SendLine("obstacles");
 		ReadAck();

@@ -6,13 +6,26 @@
  */
 
 #include "BFSArraySearcher.h"
+#include <queue>
+
+using namespace std;
 
 BFSArraySearcher::BFSArraySearcher()
 {
 }
 
-BFSArraySearcher::BFSArraySearcher(const BFSArraySearcher& orig)
+void BFSArraySearcher::getPathToGoal(bool* occgrid, int gridWidth, int gridHeight,
+                                     Point startPosition, Point targetPosition,
+                                     vector<Point> path)
 {
+    queue<Point> frontier;
+    
+    frontier.push(startPosition);
+    
+    while(!frontier.empty())
+    {
+        
+    }
 }
 
 BFSArraySearcher::~BFSArraySearcher()

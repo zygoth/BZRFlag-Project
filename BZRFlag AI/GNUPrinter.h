@@ -9,6 +9,7 @@
 #define	GNUPRINTER_H
 
 #include <string>
+#include "470bot.h"
 
 using namespace std;
 
@@ -17,10 +18,11 @@ class GNUPrinter
 public:
     
     GNUPrinter();
-    string insertLine(double x1, double y1, double x2, double y2, bool withArrow);
-    string insertPause(double seconds);
-    string insertClearGraph();
-    string outputToFile(string fileName);
+    void insertLine(double x1, double y1, double x2, double y2, bool withArrow);
+    void insertPause(double seconds);
+    void insertClearGraph();
+    void insertDrawObstacles(BZRC* connection);
+    void outputToFile(string fileName);
     virtual ~GNUPrinter();
     
 private:

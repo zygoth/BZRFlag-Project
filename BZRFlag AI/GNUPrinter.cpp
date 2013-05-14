@@ -13,7 +13,7 @@ GNUPrinter::GNUPrinter()
     
 }
 
-string GNUPrinter::insertLine(double x1, double y1, double x2, double y2, bool withArrow)
+void GNUPrinter::insertLine(double x1, double y1, double x2, double y2, bool withArrow)
 {
     char buffer[100];
     string arrowheadString = (withArrow ? "" : "nohead ");
@@ -25,7 +25,7 @@ string GNUPrinter::insertLine(double x1, double y1, double x2, double y2, bool w
     content += buffer;
 }
 
-string GNUPrinter::insertPause(double seconds)
+void GNUPrinter::insertPause(double seconds)
 {
     char buffer[100];
     sprintf(buffer, "%f", seconds);
@@ -35,12 +35,37 @@ string GNUPrinter::insertPause(double seconds)
     content += "\n";
 }
 
-string GNUPrinter::insertClearGraph()
+void GNUPrinter::insertClearGraph()
 {
     content += "clear\n";
 }
 
-string GNUPrinter::outputToFile(string fileName)
+void GNUPrinter::insertDrawObstacles(BZRC* connection)
+{
+    vector<obstacle_t> obstacles;
+    connection->get_obstacles(&obstacles);
+    
+    char buff[100];
+    for (int i = 0; i < (int) obstacles.size(); i++)
+    {
+        double x1;
+        double x2;
+        double y1;
+        double y2;
+        obstacle_t o = obstacles.at(i);
+        for (int j = 0; j < 4; j++)
+        {
+            x1 = o.o_corner[j][0];
+            y1 = o.o_corner[j][1];
+            x2 = o.o_corner[(j + 1) % 4][0];
+            y2 = o.o_corner[(j + 1) % 4][1];
+            sprintf(buff, "set arrow from %f, %f to %f, %f nohead lt 3\n", x1, y1, x2, y2);
+            content += buff;
+        }
+    }
+}
+
+void GNUPrinter::outputToFile(string fileName)
 {
        ofstream myfile;
        myfile.open(fileName.c_str());

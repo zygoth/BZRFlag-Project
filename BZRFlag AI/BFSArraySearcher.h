@@ -8,11 +8,18 @@
 #ifndef BFSARRAYSEARCHER_H
 #define	BFSARRAYSEARCHER_H
 
+#include "Point.h"
+#include "470bot.h"
+
+using namespace std;
+
 class BFSArraySearcher
 {
 public:
     BFSArraySearcher();
-    BFSArraySearcher(const BFSArraySearcher& orig);
+    void getPathToGoal(bool* occgrid, int gridWidth, int gridHeight,
+                       Point startPosition, Point targetPosition,
+                       vector<Point> path);
     virtual ~BFSArraySearcher();
 private:
 

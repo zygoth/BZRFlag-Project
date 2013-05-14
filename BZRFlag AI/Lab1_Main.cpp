@@ -6,10 +6,18 @@
 #include <unistd.h>
 #include <cstdlib>
 #include "BZRFlagGame.h"
+#include "BFSArraySearcher.h"
+
 using namespace std;
 
 char *kDefaultServerName = "localhost";
 const int kDefaultServerPort = 4000;
+
+void printMainErrorMessage()
+{
+        cout << "Please tell me which program to run.  \"agent HOSTNAME PORTNUMBER\",";
+        cout << "\"potentialfieldprinter\", or \"search ALGORITHM\"\n";
+}
 
 void doAgentMain(int argc, char *argv[])
 {
@@ -38,19 +46,59 @@ void doAgentMain(int argc, char *argv[])
 
 void doPotentialFieldPrinterMain(int argc, char *argv[])
 {
-    
+
 }
 
 void doSearchMain(int argc, char *argv[])
 {
+    char* algorithmType;
+    char* hostName;
+    int portNumber;
     
+    if(argc < 5)
+    {
+        printMainErrorMessage();
+    }
+    
+    algorithmType = argv[2];
+    hostName = argv[3];    
+    portNumber = atoi(argv[4]);
+    
+    BZRC* connection = new BZRC(hostName, portNumber, false);
+    
+    if(strcmp(algorithmType, "BFS") == 0)
+    {
+        BFSArraySearcher* searcher = new BFSArraySearcher();
+        
+        //searcher.
+    }
+    else
+    if(strcmp(algorithmType, "DFS") == 0)
+    {
+        // do a DFS search
+    }
+    else
+    if(strcmp(algorithmType, "ID") == 0)
+    {
+        // do a ID search
+    }
+    else
+    if(strcmp(algorithmType, "UNIFORM_COST") == 0)
+    {
+        // do a uniform cost search
+    }
+    else
+    if(strcmp(algorithmType, "ASTAR") == 0)
+    {
+        // do an A* search
+    }
+    else
+    {
+        printMainErrorMessage();
+    }
 }
 
-void printMainErrorMessage()
-{
-        cout << "Please tell me which program to run.  \"agent HOSTNAME PORTNUMBER\",";
-        cout << "\"potentialfieldprinter\", or \"search ALGORITHM\"\n";
-}
+
 
 int main(int argc, char *argv[]) 
 {
@@ -67,7 +115,7 @@ int main(int argc, char *argv[])
     else 
     if(strcmp(argv[1], "potentialfieldprinter") == 0)
     {
-            doPotentialFieldPrinterMain(argc, argv);
+        doPotentialFieldPrinterMain(argc, argv);
     }    
     else 
     if(strcmp(argv[1], "search") == 0)

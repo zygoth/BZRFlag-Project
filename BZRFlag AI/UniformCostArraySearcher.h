@@ -8,14 +8,45 @@
 #ifndef UNIFORMCOSTARRAYSEARCHER_H
 #define	UNIFORMCOSTARRAYSEARCHER_H
 
+#include "470bot.h"
+#include <queue>
+#include "Point.h"
+
+typedef struct node_uc {
+	node_uc* parent;
+        double cost;
+        bool nextTo;
+        int x, y, childrenNum;
+} node_uc;
+
+typedef struct uc_compare {
+    bool operator() (const node_uc& a, const node_uc& b) const {
+        return a.cost < b.cost;
+    }
+} uc_compare;
+
 class UniformCostArraySearcher
 {
 public:
+    
     UniformCostArraySearcher();
     UniformCostArraySearcher(const UniformCostArraySearcher& orig);
     virtual ~UniformCostArraySearcher();
+    bool search(bool* occgrid, int gridWidth, int gridHeight,
+                       Point startPosition, Point targetPosition,
+                       vector<Point>& path, bool cost, bool penalty);
 private:
-
+    node_uc* newNode(double,int,int,node_uc*);
+    bool isNextToObject(int,int);
+    void addchildren(node_uc*);
+    
+    bool* grid;
+    bool* objectGrid;
+    bool aStar, penaltyMode;
+    int width, height;
+    node_uc* tree;
+    priority_queue <node_uc*>   pathOptions;
+     //<node_uc*, vector<node_uc*>, uc_compare>
 };
 
 #endif	/* UNIFORMCOSTARRAYSEARCHER_H */

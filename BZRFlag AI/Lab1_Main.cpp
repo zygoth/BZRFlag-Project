@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include "BZRFlagGame.h"
 #include "BFSArraySearcher.h"
+#include "SearchTools.h"
 
 using namespace std;
 
@@ -51,6 +52,8 @@ void doPotentialFieldPrinterMain(int argc, char *argv[])
 
 void doSearchMain(int argc, char *argv[])
 {
+    // Parse arguments and check for correctness
+    
     char* algorithmType;
     char* hostName;
     int portNumber;
@@ -64,13 +67,34 @@ void doSearchMain(int argc, char *argv[])
     hostName = argv[3];    
     portNumber = atoi(argv[4]);
     
+    // Get the data we need to do the search from the server
+    
     BZRC* connection = new BZRC(hostName, portNumber, false);
+    
+    vector<tank_t> myTanks;
+    connection->get_mytanks(&myTanks);
+    tank_t firstTank = myTanks.front();
+    
+    vector<flag_t> flags;
+    connection->get_flags(&flags);
+    flag_t greenFlag = SearchTools::getFlagOfColor(connection, "green");
+    Point goalPoint(greenFlag.pos[0], greenFlag.pos[1]);
+    
+    vector<grid_t> occVector;
+    connection->get_occgrid(&occVector, 0);
+    grid_t occMatrix = occVector.front();
+    
+    Point startPoint(firstTank.pos[0] - occMatrix.x, firstTank.pos[1] - occMatrix.y);
+    
+    // Actually do the search, using the class specified in the command line args
     
     if(strcmp(algorithmType, "BFS") == 0)
     {
-        BFSArraySearcher* searcher = new BFSArraySearcher();
+        BFSArraySearcher* searcher = new BFSArraySearcher();        
+        vector<Point> pathToGoal;
         
-        //searcher.
+        searcher->getPathToGoal(occMatrix.grid, occMatrix.xdim, occMatrix.ydim,
+                                startPoint, goalPoint, pathToGoal);
     }
     else
     if(strcmp(algorithmType, "DFS") == 0)
@@ -96,6 +120,8 @@ void doSearchMain(int argc, char *argv[])
     {
         printMainErrorMessage();
     }
+    
+    delete connection;
 }
 
 

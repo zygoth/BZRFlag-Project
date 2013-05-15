@@ -15,6 +15,7 @@ public:
     int y;
     
     Point(int x, int y);
+    int Compare(const Point& other);
     virtual ~Point();
 };
 

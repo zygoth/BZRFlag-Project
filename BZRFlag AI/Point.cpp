@@ -16,6 +16,21 @@ Point::Point(int x, int y)
     this->y = y;
 }
 
+/**
+ Comparator function
+ */
+int Point::Compare(const Point& other)
+{
+    if(x != other.x)
+    {
+        return x - other.x;
+    }
+    else
+    {
+        return y = other.y;
+    }
+}
+
 Point::~Point()
 {
 

@@ -10,6 +10,7 @@
 
 #include "Point.h"
 #include "470bot.h"
+#include "Node.h"
 
 using namespace std;
 
@@ -19,10 +20,11 @@ public:
     BFSArraySearcher();
     void getPathToGoal(bool* occgrid, int gridWidth, int gridHeight,
                        Point startPosition, Point targetPosition,
-                       vector<Point> path);
+                       vector<Point>& path);
     virtual ~BFSArraySearcher();
 private:
 
+    void extractPathFromLastNode(Node* endNode, vector<Point>& path);
 };
 
 #endif	/* BFSARRAYSEARCHER_H */

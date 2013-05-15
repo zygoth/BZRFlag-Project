@@ -134,7 +134,7 @@ string PotentialFieldPrinter::printTanksData(BZRC* connection)
     vector<tank_t> myTanks;
     connection->get_mytanks(&myTanks);
     
-    tankString += "plot -400\n";
+    tankString += "plot -400\n"; // this line is probably unnecessary
     tankString += "set style line 1 lc rgb 'black' pt 5   # square\n";
     tankString += "plot \'-\' w p ls 1\n";
     

@@ -75,14 +75,14 @@ void doSearchMain(int argc, char *argv[])
     connection->get_mytanks(&myTanks);
     tank_t firstTank = myTanks.front();
     
-    vector<flag_t> flags;
-    connection->get_flags(&flags);
-    flag_t greenFlag = SearchTools::getFlagOfColor(connection, "green");
-    Point goalPoint(greenFlag.pos[0], greenFlag.pos[1]);
-    
     vector<grid_t> occVector;
     connection->get_occgrid(&occVector, 0);
     grid_t occMatrix = occVector.front();
+    
+    vector<flag_t> flags;
+    connection->get_flags(&flags);
+    flag_t greenFlag = SearchTools::getFlagOfColor(connection, "green");
+    Point goalPoint(greenFlag.pos[0] - occMatrix.x, greenFlag.pos[1] - occMatrix.y);
     
     Point startPoint(firstTank.pos[0] - occMatrix.x, firstTank.pos[1] - occMatrix.y);
     

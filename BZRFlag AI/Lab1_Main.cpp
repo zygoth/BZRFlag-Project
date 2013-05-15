@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include "BZRFlagGame.h"
 #include "BFSArraySearcher.h"
+#include "DFSArraySearcher.h"
 #include "SearchTools.h"
 
 using namespace std;
@@ -99,7 +100,11 @@ void doSearchMain(int argc, char *argv[])
     else
     if(strcmp(algorithmType, "DFS") == 0)
     {
-        // do a DFS search
+        DFSArraySearcher* searcher = new DFSArraySearcher();
+        vector<Point> pathToGoal;
+
+        searcher->getPathToGoal(occMatrix.grid, occMatrix.xdim, occMatrix.ydim,
+                startPoint, goalPoint, pathToGoal);
     }
     else
     if(strcmp(algorithmType, "ID") == 0)

@@ -27,7 +27,7 @@ int Point::Compare(const Point& other)
     }
     else
     {
-        return y = other.y;
+        return y - other.y;
     }
 }
 

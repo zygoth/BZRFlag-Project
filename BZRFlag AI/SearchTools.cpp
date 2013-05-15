@@ -6,6 +6,7 @@
  */
 
 #include "SearchTools.h"
+#include <stack>
 
 SearchTools::SearchTools()
 {
@@ -38,6 +39,29 @@ bool SearchTools::isValidPoint(int matrixWidth, int matrixHeight, Point testedPo
     }
     
     return true;
+}
+
+void SearchTools::extractPathFromLastNode(Node* endNode, vector<Point>& path)
+{
+    stack<Node*> nodeStack;
+    Node* currentNode = endNode;
+    
+    while(true)
+    {
+        if(currentNode == NULL)
+        {
+            break;
+        }
+        
+        nodeStack.push(currentNode);
+        currentNode = currentNode->previousNode;
+    }
+    
+    while(!nodeStack.empty())
+    {
+        path.push_back(nodeStack.top()->position);
+        nodeStack.pop();
+    }
 }
 
 SearchTools::~SearchTools()

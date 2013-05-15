@@ -38,8 +38,9 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/693638321/DumbCommanderAI.o \
 	${OBJECTDIR}/_ext/693638321/Point.o \
 	${OBJECTDIR}/_ext/693638321/PotentialFieldCalculator.o \
-	${OBJECTDIR}/_ext/693638321/BZRFlagGame.o \
+	${OBJECTDIR}/_ext/693638321/DFSArraySearcher.o \
 	${OBJECTDIR}/_ext/693638321/PDController.o \
+	${OBJECTDIR}/_ext/693638321/BZRFlagGame.o \
 	${OBJECTDIR}/_ext/693638321/BFSArraySearcher.o \
 	${OBJECTDIR}/_ext/693638321/PotentialFieldCommanderAI.o \
 	${OBJECTDIR}/_ext/693638321/CommanderAI.o \
@@ -97,15 +98,20 @@ ${OBJECTDIR}/_ext/693638321/PotentialFieldCalculator.o: ../BZRFlag\ AI/Potential
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/PotentialFieldCalculator.o ../BZRFlag\ AI/PotentialFieldCalculator.cpp
 
-${OBJECTDIR}/_ext/693638321/BZRFlagGame.o: ../BZRFlag\ AI/BZRFlagGame.cpp 
+${OBJECTDIR}/_ext/693638321/DFSArraySearcher.o: ../BZRFlag\ AI/DFSArraySearcher.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/BZRFlagGame.o ../BZRFlag\ AI/BZRFlagGame.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/DFSArraySearcher.o ../BZRFlag\ AI/DFSArraySearcher.cpp
 
 ${OBJECTDIR}/_ext/693638321/PDController.o: ../BZRFlag\ AI/PDController.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/PDController.o ../BZRFlag\ AI/PDController.cpp
+
+${OBJECTDIR}/_ext/693638321/BZRFlagGame.o: ../BZRFlag\ AI/BZRFlagGame.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/BZRFlagGame.o ../BZRFlag\ AI/BZRFlagGame.cpp
 
 ${OBJECTDIR}/_ext/693638321/BFSArraySearcher.o: ../BZRFlag\ AI/BFSArraySearcher.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321

@@ -22,9 +22,6 @@ public:
                        Point startPosition, Point targetPosition,
                        vector<Point>& path);
     virtual ~BFSArraySearcher();
-private:
-
-    void extractPathFromLastNode(Node* endNode, vector<Point>& path);
 };
 
 #endif	/* BFSARRAYSEARCHER_H */

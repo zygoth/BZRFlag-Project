@@ -38,6 +38,7 @@ void GNUPrinter::insertPause(double seconds)
     char buffer[100];
     sprintf(buffer, "%f", seconds);
     
+    content += "plot -400\n"; // so it will render before it pauses
     content += "pause ";
     content += buffer;
     content += "\n";
@@ -90,8 +91,8 @@ string GNUPrinter::printHeader()
 {
     string headerString;
     
-    headerString = "set title \"My Title\"\nset xrange [-400.0: 400.0]\n";
-    headerString += "set yrange [-400.0: 400.0]\nunset key\nset size square\n";
+    headerString = "set title \"My Title\"\nset xrange [0.0: 50.0]\n";
+    headerString += "set yrange [0.0: 50.0]\nunset key\nset size square\n";
     
     return headerString;
 }

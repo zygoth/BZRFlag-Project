@@ -29,16 +29,24 @@ void BFSArraySearcher::getPathToGoal(bool* occgrid, int gridWidth, int gridHeigh
     unordered_set<Node*, Hash_Node, Equal_Node> visitedNodes;    
     Node* startNode = new Node(startPosition, NULL);
     GNUPrinter outputPrinter;
+    int nodeCounter = 0;
     
     frontier.push(startNode);
     visitedNodes.insert(startNode);
     outputPrinter.insertSquare(startPosition.x, startPosition.y);
+    outputPrinter.insertSquare(targetPosition.x, targetPosition.y);
     
     
     while(!frontier.empty())
     {
         Node* currentNode = frontier.front();
         frontier.pop();
+        nodeCounter++;
+        if(nodeCounter % 40 == 0)
+        {
+            outputPrinter.insertPause(1);
+        }
+        
         
         if(currentNode->position.Compare(targetPosition) == 0) // check if we're done
         {
@@ -83,7 +91,7 @@ void BFSArraySearcher::getPathToGoal(bool* occgrid, int gridWidth, int gridHeigh
         }
     }
     
-    extractPathFromLastNode(goalNode, path);
+    SearchTools::extractPathFromLastNode(goalNode, path);
     
     //Now clean up the nodes by deleting everything in visitedNodes
     
@@ -96,29 +104,6 @@ void BFSArraySearcher::getPathToGoal(bool* occgrid, int gridWidth, int gridHeigh
     }
     
     outputPrinter.outputToFile("BFSOUTPUT.gnu");
-}
-
-void BFSArraySearcher::extractPathFromLastNode(Node* endNode, vector<Point>& path)
-{
-    stack<Node*> nodeStack;
-    Node* currentNode = endNode;
-    
-    while(true)
-    {
-        if(currentNode == NULL)
-        {
-            break;
-        }
-        
-        nodeStack.push(currentNode);
-        currentNode = currentNode->previousNode;
-    }
-    
-    while(!nodeStack.empty())
-    {
-        path.push_back(nodeStack.top()->position);
-        path.pop_back();
-    }
 }
 
 BFSArraySearcher::~BFSArraySearcher()

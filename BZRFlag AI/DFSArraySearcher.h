@@ -8,11 +8,19 @@
 #ifndef DFSARRAYSEARCHER_H
 #define	DFSARRAYSEARCHER_H
 
+#include "Point.h"
+#include "470bot.h"
+#include "Node.h"
+
+using namespace std;
+
 class DFSArraySearcher
 {
 public:
     DFSArraySearcher();
-    DFSArraySearcher(const DFSArraySearcher& orig);
+    void getPathToGoal(bool* occgrid, int gridWidth, int gridHeight,
+            Point startPosition, Point targetPosition,
+            vector<Point>& path);
     virtual ~DFSArraySearcher();
 private:
 

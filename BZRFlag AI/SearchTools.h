@@ -10,6 +10,7 @@
 
 #include "470bot.h"
 #include "Point.h"
+#include "Node.h"
 #include <string>
 
 using namespace std;
@@ -20,6 +21,7 @@ public:
     SearchTools();
     static flag_t getFlagOfColor(BZRC* connection, string color);
     static bool isValidPoint(int matrixWidth, int matrixHeight, Point testedPoint);
+    static void extractPathFromLastNode(Node* endNode, vector<Point>& path);
     virtual ~SearchTools();
 private:
 

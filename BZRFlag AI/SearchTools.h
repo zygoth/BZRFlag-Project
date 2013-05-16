@@ -22,6 +22,7 @@ public:
     static flag_t getFlagOfColor(BZRC* connection, string color);
     static bool isValidPoint(int matrixWidth, int matrixHeight, Point testedPoint);
     static void extractPathFromLastNode(Node* endNode, vector<Point>& path);
+    static void addTankDataToOCCMatrix(grid_t* occGrid, BZRC* connection);
     virtual ~SearchTools();
 private:
 

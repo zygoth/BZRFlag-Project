@@ -64,6 +64,34 @@ void SearchTools::extractPathFromLastNode(Node* endNode, vector<Point>& path)
     }
 }
 
+void SearchTools::addTankDataToOCCMatrix(grid_t* occGrid, BZRC* connection)
+{
+    const int TANK_SIZE = 7;
+    bool* grid = occGrid->grid;
+    vector<otank_t> otherTanks;
+    
+    connection->get_othertanks(&otherTanks);
+    
+    for(int tank = 0; tank < otherTanks.size(); tank++)
+    {
+        int tankX = otherTanks.front().pos[0] - occGrid->x;
+        int tankY = otherTanks.front().pos[1] - occGrid->y;
+        Point tankPosition(tankX, tankY);
+        
+        for(int i = (tankX - TANK_SIZE/2); i < (tankX + TANK_SIZE/2); i++)
+        {
+            for(int j = (tankY - TANK_SIZE/2); j < (tankY + TANK_SIZE/2); j++)
+            {
+                Point currentPosition(i, j);
+                if(SearchTools::isValidPoint(occGrid->xdim, occGrid->ydim, currentPosition))
+                {
+                    *(grid + i + j * occGrid->xdim) = true;
+                }
+            }
+        }
+    }
+}
+
 SearchTools::~SearchTools()
 {
 }

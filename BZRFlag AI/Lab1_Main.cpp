@@ -81,6 +81,7 @@ void doSearchMain(int argc, char *argv[])
     vector<grid_t> occVector;
     connection->get_occgrid(&occVector, 0);
     grid_t occMatrix = occVector.front();
+    SearchTools::addTankDataToOCCMatrix(&occMatrix, connection);
     
     vector<flag_t> flags;
     connection->get_flags(&flags);

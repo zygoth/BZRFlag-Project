@@ -129,7 +129,12 @@ void doSearchMain(int argc, char *argv[])
     else
     if(strcmp(algorithmType, "ASTAR") == 0)
     {
-        // do an A* search
+        UniformCostArraySearcher* searcher = new UniformCostArraySearcher();
+        vector<Point> pathToGoal;
+        
+        searcher->search(occMatrix.grid, occMatrix.xdim, occMatrix.ydim,
+                startPoint, goalPoint, pathToGoal, true, false);
+        
     }
     else
     {

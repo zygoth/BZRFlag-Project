@@ -136,6 +136,24 @@ void doSearchMain(int argc, char *argv[])
                 startPoint, goalPoint, pathToGoal, true, false);
         
     }
+    if(strcmp(algorithmType, "UNIFORM_COST_PENALTY") == 0)
+    {
+        UniformCostArraySearcher* searcher = new UniformCostArraySearcher();
+        vector<Point> pathToGoal;
+        
+        searcher->search(occMatrix.grid, occMatrix.xdim, occMatrix.ydim,
+                startPoint, goalPoint, pathToGoal, false, true);
+    }
+    else
+    if(strcmp(algorithmType, "ASTAR_PENALTY") == 0)
+    {
+        UniformCostArraySearcher* searcher = new UniformCostArraySearcher();
+        vector<Point> pathToGoal;
+        
+        searcher->search(occMatrix.grid, occMatrix.xdim, occMatrix.ydim,
+                startPoint, goalPoint, pathToGoal, true, true);
+        
+    }
     else
     {
         printMainErrorMessage();

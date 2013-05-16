@@ -20,7 +20,7 @@ const int kDefaultServerPort = 4000;
 void printMainErrorMessage()
 {
         cout << "Please tell me which program to run.  \"agent HOSTNAME PORTNUMBER\",";
-        cout << "\"potentialfieldprinter\", or \"search ALGORITHM\"\n";
+        cout << "\"potentialfieldprinter\", or \"search ALGORITHM HOSTNAME PORTNUMBER\"\n";
 }
 
 void doAgentMain(int argc, char *argv[])
@@ -125,7 +125,6 @@ void doSearchMain(int argc, char *argv[])
         
         searcher->search(occMatrix.grid, occMatrix.xdim, occMatrix.ydim,
                 startPoint, goalPoint, pathToGoal, false, false);
-
     }
     else
     if(strcmp(algorithmType, "ASTAR") == 0)

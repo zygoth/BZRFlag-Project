@@ -64,7 +64,7 @@ void DepthLimitedArraySearcher::getPathToGoal(bool* occgrid, int gridWidth, int 
                     true);
         }
         
-        if(nodeCounter % 5 == 0)
+        if(nodeCounter % 50 == 0)
         {
             outputPrinter->insertPause(.01);
         }
@@ -106,7 +106,7 @@ void DepthLimitedArraySearcher::getPathToGoal(bool* occgrid, int gridWidth, int 
 
         for (int i = 0; i < 8; i++)
         {
-            unordered_set<Node*>::iterator foundIterator = visitedNodes.find(newNodes[i]);
+            unordered_set<Node*>::iterator foundIterator = visitedNodes.find(newNodes[i]);            
             
             if (foundIterator == visitedNodes.end() && // not visited before
                     SearchTools::isValidPoint(gridWidth, gridHeight, newNodes[i]->position) && // is inside the array
@@ -134,8 +134,6 @@ void DepthLimitedArraySearcher::getPathToGoal(bool* occgrid, int gridWidth, int 
         delete *it;
         it++;
     }
-    
-    //outputPrinter->outputToFile("IDOUTPUT");
 }
 
 DepthLimitedArraySearcher::~DepthLimitedArraySearcher()

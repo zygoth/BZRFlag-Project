@@ -99,6 +99,14 @@ void doSearchMain(int argc, char *argv[])
         
         searcher->getPathToGoal(occMatrix.grid, occMatrix.xdim, occMatrix.ydim,
                                 startPoint, goalPoint, pathToGoal);
+        
+        GNUPrinter printer;
+        for(int i = 1; i < pathToGoal.size(); i++)
+        {
+            printer.insertLine(pathToGoal[i - 1].x, pathToGoal[i - 1].y,
+                    pathToGoal[i].x, pathToGoal[i].y, true);
+        }
+        printer.outputToFile("BFSFINALPATH");
     }
     else
     if(strcmp(algorithmType, "DFS") == 0)
@@ -108,6 +116,14 @@ void doSearchMain(int argc, char *argv[])
 
         searcher->getPathToGoal(occMatrix.grid, occMatrix.xdim, occMatrix.ydim,
                 startPoint, goalPoint, pathToGoal);
+        
+        GNUPrinter printer;
+        for(int i = 1; i < pathToGoal.size(); i++)
+        {
+            printer.insertLine(pathToGoal[i - 1].x, pathToGoal[i - 1].y,
+                    pathToGoal[i].x, pathToGoal[i].y, true);
+        }
+        printer.outputToFile("DFSFINALPATH");
     }
     else
     if(strcmp(algorithmType, "ID") == 0)
@@ -117,6 +133,14 @@ void doSearchMain(int argc, char *argv[])
         
         searcher->getPathToGoal(occMatrix.grid, occMatrix.xdim, occMatrix.ydim,
                 startPoint, goalPoint, pathToGoal);
+        
+        GNUPrinter printer;
+        for(int i = 1; i < pathToGoal.size(); i++)
+        {
+            printer.insertLine(pathToGoal[i - 1].x, pathToGoal[i - 1].y,
+                    pathToGoal[i].x, pathToGoal[i].y, true);
+        }
+        printer.outputToFile("IDFINALPATH");
     }
     else
     if(strcmp(algorithmType, "UNIFORM_COST") == 0)

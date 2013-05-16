@@ -11,6 +11,7 @@
 #include "470bot.h"
 #include <queue>
 #include "Point.h"
+#include "GNUPrinter.h"
 
 typedef struct node_uc {
 	node_uc* parent;
@@ -19,11 +20,11 @@ typedef struct node_uc {
         int x, y, childrenNum;
 } node_uc;
 
-typedef struct uc_compare {
-    bool operator() (const node_uc& a, const node_uc& b) const {
-        return a.cost < b.cost;
+struct uc_compare {
+    bool operator() (const node_uc* a, const node_uc* b) const {
+        return a->cost > b->cost;
     }
-} uc_compare;
+};
 
 class UniformCostArraySearcher
 {
@@ -40,13 +41,14 @@ private:
     bool isNextToObject(int,int);
     void addchildren(node_uc*);
     
+    GNUPrinter* printer;
     bool* grid;
     bool* objectGrid;
     bool aStar, penaltyMode;
-    int width, height;
+    int width, height, printCounter;
     node_uc* tree;
-    priority_queue <node_uc*>   pathOptions;
-     //<node_uc*, vector<node_uc*>, uc_compare>
+    //priority_queue <node_uc*> pathOptions;
+    priority_queue <node_uc*, vector<node_uc*>, uc_compare> pathOptions;
 };
 
 #endif	/* UNIFORMCOSTARRAYSEARCHER_H */

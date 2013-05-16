@@ -10,6 +10,7 @@
 #include "DFSArraySearcher.h"
 #include "SearchTools.h"
 #include "IDArraySearcher.h"
+#include "UniformCostArraySearcher.h"
 
 using namespace std;
 
@@ -119,7 +120,12 @@ void doSearchMain(int argc, char *argv[])
     else
     if(strcmp(algorithmType, "UNIFORM_COST") == 0)
     {
-        // do a uniform cost search
+        UniformCostArraySearcher* searcher = new UniformCostArraySearcher();
+        vector<Point> pathToGoal;
+        
+        searcher->search(occMatrix.grid, occMatrix.xdim, occMatrix.ydim,
+                startPoint, goalPoint, pathToGoal, false, false);
+
     }
     else
     if(strcmp(algorithmType, "ASTAR") == 0)

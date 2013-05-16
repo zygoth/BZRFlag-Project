@@ -74,9 +74,10 @@ void SearchTools::addTankDataToOCCMatrix(grid_t* occGrid, BZRC* connection)
     
     for(int tank = 0; tank < otherTanks.size(); tank++)
     {
-        int tankX = otherTanks.front().pos[0] - occGrid->x;
-        int tankY = otherTanks.front().pos[1] - occGrid->y;
+        int tankX = otherTanks.back().pos[0] - occGrid->x;
+        int tankY = otherTanks.back().pos[1] - occGrid->y;
         Point tankPosition(tankX, tankY);
+        otherTanks.pop_back();
         
         for(int i = (tankX - TANK_SIZE/2); i < (tankX + TANK_SIZE/2); i++)
         {

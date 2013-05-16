@@ -83,6 +83,10 @@ bool UniformCostArraySearcher::search(bool* occgrid, int gridWidth, int gridHeig
     node_uc* parent = tempNode->parent;
     printer->outputToFile("UCSearch");
     printer = new GNUPrinter();
+    
+    cout << "Cost of Path: " << tempNode->cost << endl;
+    int pathLength = 0;
+    
     while(parent != NULL){
         int x1 = parent->x;
         int y1 = parent->y;
@@ -96,8 +100,11 @@ bool UniformCostArraySearcher::search(bool* occgrid, int gridWidth, int gridHeig
         path.push_back(pathPoint);
         tempNode = parent;
         parent = parent->parent;
+        pathLength++;
     }
     
+    cout << "Number of Nodes: " << pathLength << endl;
+    cout << endl;
     printer->insertSquare(targetX, targetY);
     printer->outputToFile("UCResult");
     return true;

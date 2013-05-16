@@ -81,7 +81,8 @@ bool UniformCostArraySearcher::search(bool* occgrid, int gridWidth, int gridHeig
     }
     
     node_uc* parent = tempNode->parent;
-    printer->insertClearGraph();
+    printer->outputToFile("UCSearch");
+    printer = new GNUPrinter();
     while(parent != NULL){
         int x1 = parent->x;
         int y1 = parent->y;
@@ -89,6 +90,7 @@ bool UniformCostArraySearcher::search(bool* occgrid, int gridWidth, int gridHeig
         int y2 = tempNode->y;
         
         printer->insertLine(x1, y1, x2, y2, true);
+        printer->insertPause(0.0001);
         
         Point pathPoint(x2, y2); 
         path.push_back(pathPoint);
@@ -97,7 +99,7 @@ bool UniformCostArraySearcher::search(bool* occgrid, int gridWidth, int gridHeig
     }
     
     printer->insertSquare(targetX, targetY);
-    printer->outputToFile("UCSearch");
+    printer->outputToFile("UCResult");
     return true;
 }
 
@@ -186,58 +188,9 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
     else
         amount = parent->cost;
     node_uc* child;
-    // left side
+    
+    // check left
     if(x>0){
-        if(y>0){
-            // check lower-left
-            if(grid[(y-1)*width + (x-1)] == false){
-                if(penaltyMode){
-                    currentCost = amount + 1.41421 
-                                * getPenalty(parent, x-1, y-1);
-                }
-                else
-                    currentCost = amount + 1.41421;
-                
-                if(aStar){
-                    child = newNode(currentCost + getDistance(x-1, y-1), 
-                                    x-1, y-1, parent);
-                    child->pathCost = currentCost;
-                }
-                else
-                    child = newNode(currentCost, x-1, y-1, parent);
-                
-                printer->insertLine(x, y, x-1, y-1, true);
-                grid[(y-1)*width + (x-1)] = 1;
-                
-                pathOptions.push(child);
-            }
-        }
-        
-        if(y<height-1){
-            // check upper-left
-            if(grid[(y+1)*width + (x-1)] == false){
-                if(penaltyMode){
-                    currentCost = amount + 1.41421 
-                                * getPenalty(parent, x-1, y+1);
-                }
-                else
-                    currentCost = amount + 1.41421;
-                
-                if(aStar){
-                    child = newNode(currentCost + getDistance(x-1, y+1), 
-                                    x-1, y+1, parent);
-                    child->pathCost = currentCost;
-                }
-                else
-                    child = newNode(currentCost, x-1, y+1, parent);
-                
-                printer->insertLine(x, y, x-1, y+1, true);
-                grid[(y+1)*width + (x-1)] = 1;
-                
-                pathOptions.push(child);
-            }
-        }
-        // check left
         if(grid[(y)*width + (x-1)] == false){
                 if(penaltyMode){
                     currentCost = amount + 1.0 
@@ -259,64 +212,10 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
                 
                 pathOptions.push(child);
             }
-        
-        
     }
     
-    // right
+    // check right
     if(x<width-1){
-        if(y>0){
-            // check lower-right
-            if(grid[(y-1)*width + (x+1)] == false){
-                currentCost = amount + 1.41421;
-                if(penaltyMode){
-                    currentCost = amount + 1.41421 
-                                * getPenalty(parent, x+1, y-1);
-                }
-                else
-                    currentCost = amount + 1.41421;
-                
-                if(aStar){
-                    child = newNode(currentCost + getDistance(x+1, y-1), 
-                                    x+1, y-1, parent);
-                    child->pathCost = currentCost;
-                }
-                else
-                    child = newNode(currentCost, x+1, y-1, parent);
-                
-                printer->insertLine(x, y, x+1, y-1, true);
-                grid[(y-1)*width + (x+1)] = 1;
-                
-                pathOptions.push(child);
-            }
-        }
-        
-        if(y<height-1){
-            // check upper-right
-            if(grid[(y+1)*width + (x+1)] == false){
-                if(penaltyMode){
-                    currentCost = amount + 1.41421 
-                                * getPenalty(parent, x+1, y+1);
-                }
-                else
-                    currentCost = amount + 1.41421;
-                
-                if(aStar){
-                    child = newNode(currentCost + getDistance(x+1, y+1), 
-                                    x+1, y+1, parent);
-                    child->pathCost = currentCost;
-                }
-                else
-                    child = newNode(currentCost, x+1, y+1, parent);
-                
-                printer->insertLine(x, y, x+1, y+1, true);
-                grid[(y+1)*width + (x+1)] = 1;
-                
-                pathOptions.push(child);
-            }
-        }
-        
-        // check right
         if(grid[(y)*width + (x+1)] == false){
                 if(penaltyMode){
                     currentCost = amount + 1.0 
@@ -338,12 +237,35 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
                 
                 pathOptions.push(child);
             }
-
     }
     
-    // middle
+    // check up
+    if(y<height-1){
+        if(grid[(y+1)*width + (x)] == false){
+                if(penaltyMode){
+                    currentCost = amount + 1.0 
+                                * getPenalty(parent, x, y+1);
+                }
+                else
+                    currentCost = amount + 1.0;
+                
+                if(aStar){
+                    child = newNode(currentCost + getDistance(x, y+1), 
+                                    x, y+1, parent);
+                    child->pathCost = currentCost;
+                }
+                else
+                    child = newNode(currentCost, x, y+1, parent);
+                
+                printer->insertLine(x, y, x, y+1, true);
+                grid[(y+1)*width + (x)] = 1;
+                
+                pathOptions.push(child);
+            }
+    }
+    
+    // check down
     if(y>0){
-        // check down
         if(grid[(y-1)*width + (x)] == false){
                 if(penaltyMode){
                     currentCost = amount + 1.0 
@@ -367,30 +289,115 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
             }
     }
     
-    if(y<height-1){
-        // check up
-        if(grid[(y+1)*width + (x)] == false){
+    // check upper-left
+    if(x>0){
+        if(y<height-1){
+            if(grid[(y+1)*width + (x-1)] == false){
                 if(penaltyMode){
-                    currentCost = amount + 1.0 
-                                * getPenalty(parent, x, y+1);
+                    currentCost = amount + 1.41421 
+                                * getPenalty(parent, x-1, y+1);
                 }
                 else
-                    currentCost = amount + 1.0;
+                    currentCost = amount + 1.41421;
                 
                 if(aStar){
-                    child = newNode(currentCost + getDistance(x, y+1), 
-                                    x, y+1, parent);
+                    child = newNode(currentCost + getDistance(x-1, y+1), 
+                                    x-1, y+1, parent);
                     child->pathCost = currentCost;
                 }
                 else
-                    child = newNode(currentCost, x, y+1, parent);
+                    child = newNode(currentCost, x-1, y+1, parent);
                 
-                printer->insertLine(x, y, x, y+1, true);
-                grid[(y+1)*width + (x)] = 1;
+                printer->insertLine(x, y, x-1, y+1, true);
+                grid[(y+1)*width + (x-1)] = 1;
                 
                 pathOptions.push(child);
             }
+        }
     }
+    
+    // check upper-right
+    if(x<width-1){
+        if(y<height-1){
+            if(grid[(y+1)*width + (x+1)] == false){
+                if(penaltyMode){
+                    currentCost = amount + 1.41421 
+                                * getPenalty(parent, x+1, y+1);
+                }
+                else
+                    currentCost = amount + 1.41421;
+                
+                if(aStar){
+                    child = newNode(currentCost + getDistance(x+1, y+1), 
+                                    x+1, y+1, parent);
+                    child->pathCost = currentCost;
+                }
+                else
+                    child = newNode(currentCost, x+1, y+1, parent);
+                
+                printer->insertLine(x, y, x+1, y+1, true);
+                grid[(y+1)*width + (x+1)] = 1;
+                
+                pathOptions.push(child);
+            }
+        }
+    }
+    
+     // check lower-left
+    if(x>0){
+        if(y>0){
+            if(grid[(y-1)*width + (x-1)] == false){
+                if(penaltyMode){
+                    currentCost = amount + 1.41421 
+                                * getPenalty(parent, x-1, y-1);
+                }
+                else
+                    currentCost = amount + 1.41421;
+                
+                if(aStar){
+                    child = newNode(currentCost + getDistance(x-1, y-1), 
+                                    x-1, y-1, parent);
+                    child->pathCost = currentCost;
+                }
+                else
+                    child = newNode(currentCost, x-1, y-1, parent);
+                
+                printer->insertLine(x, y, x-1, y-1, true);
+                grid[(y-1)*width + (x-1)] = 1;
+                
+                pathOptions.push(child);
+            }
+        }
+    }
+    
+    // check lower-right
+    if(x<width-1){
+        if(y>0){
+            if(grid[(y-1)*width + (x+1)] == false){
+                currentCost = amount + 1.41421;
+                if(penaltyMode){
+                    currentCost = amount + 1.41421 
+                                * getPenalty(parent, x+1, y-1);
+                }
+                else
+                    currentCost = amount + 1.41421;
+                
+                if(aStar){
+                    child = newNode(currentCost + getDistance(x+1, y-1), 
+                                    x+1, y-1, parent);
+                    child->pathCost = currentCost;
+                }
+                else
+                    child = newNode(currentCost, x+1, y-1, parent);
+                
+                printer->insertLine(x, y, x+1, y-1, true);
+                grid[(y-1)*width + (x+1)] = 1;
+                
+                pathOptions.push(child);
+            }
+        }
+    }
+    
     
     printCounter++;
     if(printCounter > 1000){

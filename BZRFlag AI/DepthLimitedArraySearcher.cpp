@@ -66,7 +66,7 @@ void DepthLimitedArraySearcher::getPathToGoal(bool* occgrid, int gridWidth, int 
         
         if(nodeCounter % 40 == 0)
         {
-            //outputPrinter.insertPause(.01);
+            outputPrinter.insertPause(.01);
         }
         
         

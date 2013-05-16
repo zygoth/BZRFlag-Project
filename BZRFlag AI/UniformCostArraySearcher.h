@@ -16,6 +16,7 @@
 typedef struct node_uc {
 	node_uc* parent;
         double cost;
+        double pathCost;
         bool nextTo;
         int x, y, childrenNum;
 } node_uc;
@@ -40,11 +41,14 @@ private:
     node_uc* newNode(double,int,int,node_uc*);
     bool isNextToObject(int,int);
     void addchildren(node_uc*);
+    double getPenalty(node_uc*, int, int);
+    double getDistance(int, int);
     
     GNUPrinter* printer;
     bool* grid;
     bool* objectGrid;
     bool aStar, penaltyMode;
+    int targetX, targetY;
     int width, height, printCounter;
     node_uc* tree;
     //priority_queue <node_uc*> pathOptions;

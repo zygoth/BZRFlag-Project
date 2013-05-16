@@ -42,9 +42,9 @@ void BFSArraySearcher::getPathToGoal(bool* occgrid, int gridWidth, int gridHeigh
         Node* currentNode = frontier.front();
         frontier.pop();
         nodeCounter++;
-        if(nodeCounter % 40 == 0)
+        if(nodeCounter % 500 == 0)
         {
-            outputPrinter.insertPause(1);
+            outputPrinter.insertPause(.01);
         }
         
         

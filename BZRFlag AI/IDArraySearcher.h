@@ -12,7 +12,6 @@ class IDArraySearcher
 {
 public:
     IDArraySearcher();
-    IDArraySearcher(const IDArraySearcher& orig);
     virtual ~IDArraySearcher();
 private:
 

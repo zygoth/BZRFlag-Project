@@ -51,7 +51,7 @@ void DFSArraySearcher::getPathToGoal(bool* occgrid, int gridWidth, int gridHeigh
         
         if(nodeCounter % 40 == 0)
         {
-            outputPrinter.insertPause(.3);
+            //outputPrinter.insertPause(.01);
         }
         
         

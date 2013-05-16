@@ -51,6 +51,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/693638321/PotentialFieldTankAI.o \
 	${OBJECTDIR}/_ext/693638321/SearchTools.o \
 	${OBJECTDIR}/_ext/693638321/DumbTankAI.o \
+	${OBJECTDIR}/_ext/693638321/IDArraySearcher.o \
+	${OBJECTDIR}/_ext/693638321/DepthLimitedArraySearcher.o \
 	${OBJECTDIR}/_ext/693638321/TankVector.o
 
 
@@ -162,6 +164,16 @@ ${OBJECTDIR}/_ext/693638321/DumbTankAI.o: ../BZRFlag\ AI/DumbTankAI.cpp
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/DumbTankAI.o ../BZRFlag\ AI/DumbTankAI.cpp
+
+${OBJECTDIR}/_ext/693638321/IDArraySearcher.o: ../BZRFlag\ AI/IDArraySearcher.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/IDArraySearcher.o ../BZRFlag\ AI/IDArraySearcher.cpp
+
+${OBJECTDIR}/_ext/693638321/DepthLimitedArraySearcher.o: ../BZRFlag\ AI/DepthLimitedArraySearcher.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/DepthLimitedArraySearcher.o ../BZRFlag\ AI/DepthLimitedArraySearcher.cpp
 
 ${OBJECTDIR}/_ext/693638321/TankVector.o: ../BZRFlag\ AI/TankVector.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321

@@ -91,8 +91,8 @@ string GNUPrinter::printHeader()
 {
     string headerString;
     
-    headerString = "set title \"My Title\"\nset xrange [0.0: 50.0]\n";
-    headerString += "set yrange [0.0: 50.0]\nunset key\nset size square\n";
+    headerString = "set title \"My Title\"\nset xrange [0.0: 400.0]\n";
+    headerString += "set yrange [0.0: 400.0]\nunset key\nset size square\n";
     
     return headerString;
 }

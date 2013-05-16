@@ -9,13 +9,11 @@
 
 IDArraySearcher::IDArraySearcher()
 {
-}
-
-IDArraySearcher::IDArraySearcher(const IDArraySearcher& orig)
-{
+    
 }
 
 IDArraySearcher::~IDArraySearcher()
 {
+    
 }
 

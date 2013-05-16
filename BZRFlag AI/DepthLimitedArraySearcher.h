@@ -8,6 +8,7 @@
 #ifndef DEPTHLIMITEDARRAYSEARCHER_H
 #define	DEPTHLIMITEDARRAYSEARCHER_H
 
+#include "GNUPrinter.h"
 #include "Point.h"
 #include <vector>
 
@@ -19,7 +20,7 @@ public:
     DepthLimitedArraySearcher();
     void getPathToGoal(bool* occgrid, int gridWidth, int gridHeight,
             Point startPosition, Point targetPosition,
-            vector<Point>& path, int depth);
+            vector<Point>& path, int depth, GNUPrinter& outputPrinter);
     virtual ~DepthLimitedArraySearcher();
 private:
 

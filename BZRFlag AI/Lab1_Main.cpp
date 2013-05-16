@@ -9,6 +9,7 @@
 #include "BFSArraySearcher.h"
 #include "DFSArraySearcher.h"
 #include "SearchTools.h"
+#include "IDArraySearcher.h"
 
 using namespace std;
 
@@ -109,7 +110,11 @@ void doSearchMain(int argc, char *argv[])
     else
     if(strcmp(algorithmType, "ID") == 0)
     {
-        // do a ID search
+        IDArraySearcher* searcher = new IDArraySearcher();
+        vector<Point> pathToGoal;
+        
+        searcher->getPathToGoal(occMatrix.grid, occMatrix.xdim, occMatrix.ydim,
+                startPoint, goalPoint, pathToGoal);
     }
     else
     if(strcmp(algorithmType, "UNIFORM_COST") == 0)

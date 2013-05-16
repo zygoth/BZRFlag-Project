@@ -29,6 +29,10 @@
       <itemPath>../BZRFlag AI/BFSArraySearcher.h</itemPath>
       <itemPath>../BZRFlag AI/DFSArraySearcher.cpp</itemPath>
       <itemPath>../BZRFlag AI/DFSArraySearcher.h</itemPath>
+      <itemPath>../BZRFlag AI/DepthLimitedArraySearcher.cpp</itemPath>
+      <itemPath>../BZRFlag AI/DepthLimitedArraySearcher.h</itemPath>
+      <itemPath>../BZRFlag AI/DepthNode.cpp</itemPath>
+      <itemPath>../BZRFlag AI/DepthNode.h</itemPath>
       <itemPath>../BZRFlag AI/IDArraySearcher.cpp</itemPath>
       <itemPath>../BZRFlag AI/IDArraySearcher.h</itemPath>
       <itemPath>../BZRFlag AI/Node.cpp</itemPath>
@@ -37,8 +41,6 @@
       <itemPath>../BZRFlag AI/Point.h</itemPath>
       <itemPath>../BZRFlag AI/SearchTools.cpp</itemPath>
       <itemPath>../BZRFlag AI/SearchTools.h</itemPath>
-      <itemPath>../BZRFlag AI/DepthLimitedArraySearcher.cpp</itemPath>
-      <itemPath>../BZRFlag AI/DepthLimitedArraySearcher.h</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"

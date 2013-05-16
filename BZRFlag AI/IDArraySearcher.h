@@ -8,10 +8,18 @@
 #ifndef IDARRAYSEARCHER_H
 #define	IDARRAYSEARCHER_H
 
+#include "Point.h"
+#include <vector>
+
+using namespace std;
+
 class IDArraySearcher
 {
 public:
     IDArraySearcher();
+    void getPathToGoal(bool* occgrid, int gridWidth, int gridHeight,
+            Point startPosition, Point targetPosition,
+            vector<Point>& path);
     virtual ~IDArraySearcher();
 private:
 

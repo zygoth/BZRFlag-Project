@@ -15,8 +15,9 @@ class DepthNode : public Node
 public:
     DepthNode(Point position, Node* previousNode, int depth);
     virtual ~DepthNode();
-private:
     int depth;
+private:
+
 };
 
 #endif	/* DEPTHNODE_H */

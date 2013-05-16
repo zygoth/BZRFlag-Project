@@ -47,6 +47,7 @@ void GNUPrinter::insertPause(double seconds)
 void GNUPrinter::insertClearGraph()
 {
     content += "clear\n";
+    content += "_clear_queue\n";
 }
 
 void GNUPrinter::insertDrawObstacles(BZRC* connection)

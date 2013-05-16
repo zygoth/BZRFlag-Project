@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/_ext/693638321/Lab1_Main.o \
+	${OBJECTDIR}/_ext/693638321/DepthNode.o \
 	${OBJECTDIR}/_ext/693638321/DumbCommanderAI.o \
 	${OBJECTDIR}/_ext/693638321/Point.o \
 	${OBJECTDIR}/_ext/693638321/PotentialFieldCalculator.o \
@@ -84,6 +85,11 @@ ${OBJECTDIR}/_ext/693638321/Lab1_Main.o: ../BZRFlag\ AI/Lab1_Main.cpp
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/Lab1_Main.o ../BZRFlag\ AI/Lab1_Main.cpp
+
+${OBJECTDIR}/_ext/693638321/DepthNode.o: ../BZRFlag\ AI/DepthNode.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/DepthNode.o ../BZRFlag\ AI/DepthNode.cpp
 
 ${OBJECTDIR}/_ext/693638321/DumbCommanderAI.o: ../BZRFlag\ AI/DumbCommanderAI.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321

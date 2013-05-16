@@ -44,6 +44,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/693638321/BZRFlagGame.o \
 	${OBJECTDIR}/_ext/693638321/BFSArraySearcher.o \
 	${OBJECTDIR}/_ext/693638321/PotentialFieldCommanderAI.o \
+	${OBJECTDIR}/_ext/693638321/UniformCostArraySearcher.o \
 	${OBJECTDIR}/_ext/693638321/CommanderAI.o \
 	${OBJECTDIR}/_ext/693638321/PotentialFieldPrinter.o \
 	${OBJECTDIR}/_ext/693638321/TankAI.o \
@@ -130,6 +131,11 @@ ${OBJECTDIR}/_ext/693638321/PotentialFieldCommanderAI.o: ../BZRFlag\ AI/Potentia
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/PotentialFieldCommanderAI.o ../BZRFlag\ AI/PotentialFieldCommanderAI.cpp
+
+${OBJECTDIR}/_ext/693638321/UniformCostArraySearcher.o: ../BZRFlag\ AI/UniformCostArraySearcher.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/UniformCostArraySearcher.o ../BZRFlag\ AI/UniformCostArraySearcher.cpp
 
 ${OBJECTDIR}/_ext/693638321/CommanderAI.o: ../BZRFlag\ AI/CommanderAI.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321

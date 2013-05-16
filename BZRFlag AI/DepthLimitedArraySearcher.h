@@ -20,7 +20,7 @@ public:
     DepthLimitedArraySearcher();
     void getPathToGoal(bool* occgrid, int gridWidth, int gridHeight,
             Point startPosition, Point targetPosition,
-            vector<Point>& path, int depth, GNUPrinter& outputPrinter);
+            vector<Point>& path, int depth, GNUPrinter* outputPrinter);
     virtual ~DepthLimitedArraySearcher();
 private:
 

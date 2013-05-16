@@ -42,7 +42,7 @@ void BFSArraySearcher::getPathToGoal(bool* occgrid, int gridWidth, int gridHeigh
         Node* currentNode = frontier.front();
         frontier.pop();
         nodeCounter++;
-        if(nodeCounter % 500 == 0)
+        if(nodeCounter % 1000 == 0)
         {
             outputPrinter.insertPause(.01);
         }
@@ -56,21 +56,34 @@ void BFSArraySearcher::getPathToGoal(bool* occgrid, int gridWidth, int gridHeigh
         
         // If no, then add on all adjacent nodes that have not been explored already
         
-        Node* newNodes[4];
+        Node* newNodes[8];
         
         Point p(currentNode->position.x + 1, currentNode->position.y);
-        newNodes[0] = new Node(p, currentNode);
+        newNodes[1] = new Node(p, currentNode);
         p.x = currentNode->position.x;
         p.y = currentNode->position.y - 1;
-        newNodes[1] = new Node(p, currentNode);
+        newNodes[3] = new Node(p, currentNode);
         p.x = currentNode->position.x - 1;
         p.y = currentNode->position.y;
-        newNodes[2] = new Node(p, currentNode);
+        newNodes[0] = new Node(p, currentNode);
         p.x = currentNode->position.x;
         p.y = currentNode->position.y + 1;
-        newNodes[3] = new Node(p, currentNode);
+        newNodes[2] = new Node(p, currentNode);
+        p.x = currentNode->position.x - 1;
+        p.y = currentNode->position.y + 1;
+        newNodes[4] = new Node(p, currentNode);
+        p.x = currentNode->position.x + 1;
+        p.y = currentNode->position.y + 1;
+        newNodes[5] = new Node(p, currentNode);
+        p.x = currentNode->position.x - 1;
+        p.y = currentNode->position.y - 1;
+        newNodes[6] = new Node(p, currentNode);
+        p.x = currentNode->position.x + 1;
+        p.y = currentNode->position.y - 1;
+        newNodes[7] = new Node(p, currentNode);
+        
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 8; i++)
         {
             unordered_set<Node*>::iterator foundIterator = visitedNodes.find(newNodes[i]);
             

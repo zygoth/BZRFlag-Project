@@ -41,6 +41,8 @@
       <itemPath>../BZRFlag AI/Point.h</itemPath>
       <itemPath>../BZRFlag AI/SearchTools.cpp</itemPath>
       <itemPath>../BZRFlag AI/SearchTools.h</itemPath>
+      <itemPath>../BZRFlag AI/UniformCostArraySearcher.cpp</itemPath>
+      <itemPath>../BZRFlag AI/UniformCostArraySearcher.h</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"

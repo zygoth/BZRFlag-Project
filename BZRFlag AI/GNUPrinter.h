@@ -31,6 +31,7 @@ private:
     string content;
     vector<Point> squares;
     string printHeader();
+    string printArrowsHeader();
     string printSquares();
     string printFooter();
 

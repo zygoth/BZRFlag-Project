@@ -36,7 +36,7 @@ DepthLimitedArraySearcher::DepthLimitedArraySearcher()
  */
 void DepthLimitedArraySearcher::getPathToGoal(bool* occgrid, int gridWidth, int gridHeight,
             Point startPosition, Point targetPosition,
-            vector<Point>& path, int depth, GNUPrinter& outputPrinter)
+            vector<Point>& path, int depth, GNUPrinter* outputPrinter)
 {
     stack<DepthNode*> frontier;
     unordered_set<Node*, Hash_Node, Equal_Node> visitedNodes;    
@@ -47,8 +47,8 @@ void DepthLimitedArraySearcher::getPathToGoal(bool* occgrid, int gridWidth, int 
     
     frontier.push(startNode);
     visitedNodes.insert(startNode);
-    outputPrinter.insertSquare(startPosition.x, startPosition.y);
-    outputPrinter.insertSquare(targetPosition.x, targetPosition.y);
+    outputPrinter->insertSquare(startPosition.x, startPosition.y);
+    outputPrinter->insertSquare(targetPosition.x, targetPosition.y);
     
     
     while(!frontier.empty())
@@ -58,15 +58,15 @@ void DepthLimitedArraySearcher::getPathToGoal(bool* occgrid, int gridWidth, int 
         nodeCounter++;
         if(nodeCounter != 1)
         {
-            outputPrinter.insertLine(currentNode->position.x, currentNode->position.y,
-                    currentNode->previousNode->position.x, 
+            outputPrinter->insertLine(currentNode->previousNode->position.x, 
                     currentNode->previousNode->position.y,
+                    currentNode->position.x, currentNode->position.y,
                     true);
         }
         
-        if(nodeCounter % 40 == 0)
+        if(nodeCounter % 5 == 0)
         {
-            outputPrinter.insertPause(.01);
+            outputPrinter->insertPause(.01);
         }
         
         
@@ -78,21 +78,33 @@ void DepthLimitedArraySearcher::getPathToGoal(bool* occgrid, int gridWidth, int 
         
         // If no, then add on all adjacent nodes that have not been explored already
         
-        DepthNode* newNodes[4];
+        DepthNode* newNodes[8];
         
         Point p(currentNode->position.x + 1, currentNode->position.y);
-        newNodes[0] = new DepthNode(p, currentNode, currentNode->depth + 1);
+        newNodes[6] = new DepthNode(p, currentNode, currentNode->depth + 1);
         p.x = currentNode->position.x;
         p.y = currentNode->position.y - 1;
-        newNodes[1] = new DepthNode(p, currentNode, currentNode->depth + 1);
+        newNodes[4] = new DepthNode(p, currentNode, currentNode->depth + 1);
         p.x = currentNode->position.x - 1;
         p.y = currentNode->position.y;
-        newNodes[2] = new DepthNode(p, currentNode, currentNode->depth + 1);
+        newNodes[7] = new DepthNode(p, currentNode, currentNode->depth + 1);
         p.x = currentNode->position.x;
         p.y = currentNode->position.y + 1;
+        newNodes[5] = new DepthNode(p, currentNode, currentNode->depth + 1);
+        p.x = currentNode->position.x - 1;
+        p.y = currentNode->position.y + 1;
         newNodes[3] = new DepthNode(p, currentNode, currentNode->depth + 1);
+        p.x = currentNode->position.x + 1;
+        p.y = currentNode->position.y + 1;
+        newNodes[2] = new DepthNode(p, currentNode, currentNode->depth + 1);
+        p.x = currentNode->position.x - 1;
+        p.y = currentNode->position.y - 1;
+        newNodes[1] = new DepthNode(p, currentNode, currentNode->depth + 1);
+        p.x = currentNode->position.x + 1;
+        p.y = currentNode->position.y - 1;
+        newNodes[0] = new DepthNode(p, currentNode, currentNode->depth + 1);
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 8; i++)
         {
             unordered_set<Node*>::iterator foundIterator = visitedNodes.find(newNodes[i]);
             
@@ -102,8 +114,7 @@ void DepthLimitedArraySearcher::getPathToGoal(bool* occgrid, int gridWidth, int 
                     newNodes[i]->depth <= depth) // is within the depth limit
             { //A[i][j] = *(A[i]+j) = * ( *(A+i)+j)
                 frontier.push(newNodes[i]);
-                visitedNodes.insert(newNodes[i]);
-                
+                visitedNodes.insert(newNodes[i]);           
             }
             else
             {
@@ -124,7 +135,7 @@ void DepthLimitedArraySearcher::getPathToGoal(bool* occgrid, int gridWidth, int 
         it++;
     }
     
-    //outputPrinter.outputToFile("IDOUTPUT");
+    //outputPrinter->outputToFile("IDOUTPUT");
 }
 
 DepthLimitedArraySearcher::~DepthLimitedArraySearcher()

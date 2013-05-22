@@ -23,6 +23,7 @@ public:
     static bool isValidPoint(int matrixWidth, int matrixHeight, Point testedPoint);
     static void extractPathFromLastNode(Node* endNode, vector<Point>& path);
     static void addTankDataToOCCMatrix(grid_t* occGrid, BZRC* connection);
+    static void printPath(vector<Point>* path, string fileName);
     virtual ~SearchTools();
 private:
 

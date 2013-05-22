@@ -42,13 +42,12 @@ void IDArraySearcher::getPathToGoal(bool* occgrid, int gridWidth, int gridHeight
         if(currentDepth % 10 == 0 && currentDepth < 101)
         {
             char buffer[100];
-            sprintf(buffer, "IDOUTPUT%i", currentDepth /10);
+            sprintf(buffer, "IDOUTPUT%i", currentDepth / 10);
             printer->outputToFile(buffer);
         }
     }
     
     printer->insertSquare(targetPosition.x, targetPosition.y);
-    //printer.outputToFile("IDOUTPUT");
 }
 
 IDArraySearcher::~IDArraySearcher()

@@ -6,6 +6,7 @@
  */
 
 #include "SearchTools.h"
+#include "GNUPrinter.h"
 #include <stack>
 
 SearchTools::SearchTools()
@@ -89,6 +90,18 @@ void SearchTools::addTankDataToOCCMatrix(grid_t* occGrid, BZRC* connection)
             }
         }
     }
+}
+
+void SearchTools::printPath(vector<Point>* path, string fileName)
+{
+    GNUPrinter printer;
+    
+    for (int i = 1; i < path->size(); i++)
+    {
+        printer.insertLine((*path)[i - 1].x, (*path)[i - 1].y,
+                (*path)[i].x, (*path)[i].y, true);
+    }
+    printer.outputToFile(fileName);
 }
 
 SearchTools::~SearchTools()

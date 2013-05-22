@@ -31,6 +31,7 @@ public:
 	PotentialFieldCalculator(BZRC*);
 	virtual ~PotentialFieldCalculator();
         TankVector* calculateVector(int, int, TeamColor, int);
+        TankVector* calculateSearcherVector(int x, int y, int index);
 };
 
 #endif /* POTENTIALFIELDCALCULATOR_H_ */

@@ -10,6 +10,7 @@
 
 #include "CommanderAI.h"
 #include "470bot.h"
+#include "f9.h"
 
 class SearchCommanderAI : CommanderAI
 {

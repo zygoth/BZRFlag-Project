@@ -27,6 +27,8 @@ class PotentialFieldCalculator {
         void calculateFriendlyTanks(int, int);
         void calculateEnemyTanks(int, int);
         void calculateTargetVector(int, int, TeamColor, int);
+        void avoidObjects(tank_t, grid_t);
+        double getAngleBetween(double, double);
 public:
 	PotentialFieldCalculator(BZRC*);
 	virtual ~PotentialFieldCalculator();

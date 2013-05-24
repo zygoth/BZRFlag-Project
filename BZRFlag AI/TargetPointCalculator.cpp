@@ -12,7 +12,7 @@
 TargetPointCalculator::TargetPointCalculator(){
 }
 
-Point TargetPointCalculator::getTarget(int tankX, int tankY, settledGrid_t* settledGrid)
+Point TargetPointCalculator::getTarget(int tankX, int tankY, settledGrid_t settledGrid)
 {
     return Point(0,0);
 }

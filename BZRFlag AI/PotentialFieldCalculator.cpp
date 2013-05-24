@@ -8,6 +8,7 @@
 #include "PotentialFieldCalculator.h"
 #include <iostream>
 #include <unistd.h>
+#include "PDController.h"
 
 using namespace std;
 
@@ -36,16 +37,87 @@ TankVector* PotentialFieldCalculator::calculateVector(int x, int y, TeamColor ta
 
 TankVector* PotentialFieldCalculator::calculateSearcherVector(int x, int y, int index)
 {
-    xVector = 0.0;
-    yVector = 0.0;
     TankVector* result;
     
+    vector<tank_t> myTanks;
+    socket->get_mytanks(&myTanks);
+    tank_t myTank = myTanks.at(index);
+    
+    // Get the vector for the target point
+    xVector = (double)(x - myTank.pos[0]);
+    yVector = (double)(y - myTank.pos[1]);
+    
+    if(abs(xVector) > abs(yVector))
+    {
+        yVector = yVector/abs(xVector) *2;
+        xVector = xVector/abs(xVector) *2;
+    }
+    else
+    {
+        xVector = xVector/abs(yVector) *2;
+        yVector = yVector/abs(yVector) *2;        
+    }
+    
+    vector<grid_t> tankMap;
+    socket->get_occgrid(&tankMap, index);
+    
+    // adjust vectors to deal with objects
+//    avoidObjects(myTank, tankMap.at(0));
+    
     result = new TankVector(xVector, yVector);
+    
+    myTanks.clear();
+    tankMap.clear();
     
     return result;
 }
 
+void PotentialFieldCalculator::avoidObjects(tank_t tank, grid_t visible)
+{
+    // range away from the tank it will look for an object
+    int objectRange = 20;
+    int gridX = tank.pos[0] - visible.x;
+    int gridY = tank.pos[1] - visible.y;
+    int rise, run;
+    double angle, newAngle, newXVector, newYVector;
+    
+    for(int i = objectRange * -1; i < objectRange; i++)
+    {
+        for(int k = objectRange * -1; i < objectRange; i++)
+        {
+            run = gridX + k;
+            rise = gridY + i;
+            if(run > 0 && run < visible.xdim &&
+               rise > 0 && rise < visible.ydim)
+            {
+                
+                if(visible.grid[rise*visible.xdim + run])
+                {
+                    angle = atan2(i,k);
+                
+                    // get difference between angle to an object and the tanks
+                    // current angle
+                    newAngle = getAngleBetween(angle, tank.angle);
 
+                    //Get new vectors
+                    
+                }
+            }
+        }
+    }
+}
+
+double PotentialFieldCalculator::getAngleBetween(double target, double start)
+{
+    double result = target - start;
+    
+    if(result > PI)
+	result = result - (2 * PI);
+    if(result < -1*PI)
+	result = result + (2 * PI);
+     
+    return result;
+}
 
 void PotentialFieldCalculator::calculateObjectVector(int x, int y) {
     int range = 10;

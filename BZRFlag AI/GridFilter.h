@@ -20,7 +20,7 @@ class GridFilter
 {    
 public:
     
-    GridFilter(int x, int y);
+    GridFilter(int x, int y, double truePositiveProbability);
     virtual ~GridFilter();
     void addInput(grid_t occGrid);
     bool isSettled();
@@ -31,6 +31,7 @@ private:
     
     settledGrid_t settledGrid;
     int nodesNotSettled;
+    double truePositiveProbability;
 };
 
 

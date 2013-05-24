@@ -15,7 +15,7 @@
  * @param width the width of the grid
  * @param height the height of the grid
  */
-GridFilter::GridFilter(int width, int height)
+GridFilter::GridFilter(int width, int height, double truePositiveProbability)
 {
     // settledGrid = new doubl[width][height]
     settledGrid.grid = (double**) malloc(sizeof(double) * width * height);

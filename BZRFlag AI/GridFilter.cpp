@@ -44,12 +44,12 @@ void GridFilter::addInput(grid_t occGrid)
         for(int j = startY; i < startY + occGrid.ydim; j++)
         {
             // If the point is already settled, don't do the calculations
-            if(settledGrid[i][j] == 1 || settledGrid[i][j] == 0)
+            if(settledGrid.grid[i][j] == 1 || settledGrid.grid[i][j] == 0)
             {
                 continue;
             }
             
-            sensorData = occGrid.grid[i - occGrid.xdim/2][j - occGrid.ydim/2];
+            sensorData = occGrid.grid[i - occGrid.xdim/2 + (j - occGrid.ydim/2) * settledGrid.width];
             
             // Formula for updating the probability
             //settledGrid.grid[i][j] = ()

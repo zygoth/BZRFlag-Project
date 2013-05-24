@@ -24,7 +24,7 @@ Point TargetPointCalculator::getTarget(int tankX, int tankY, settledGrid_t settl
         return previousTarget;
     }
     
-    return Point(0,0);
+    //  Do the basic Search
 }
 
 void TargetPointCalculator::basicPointSearch(vector<Point>* nearbyPoints)

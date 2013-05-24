@@ -7,13 +7,13 @@
 
 #include "SearchTankAI.h"
 
-SearchTankAI::SearchTankAI(BZRC* connection, int tankNumber, TeamColor myColor) 
+SearchTankAI::SearchTankAI(BZRC* connection, int tankNumber, TeamColor myColor, GridFilter* filter) 
                 : TankAI(connection, tankNumber, myColor, myColor)
 {
     controller = new PDController();
-    targetGenerator = new TargetPointCalculator();
+    targetGenerator = new TargetPointCalculator(0,0);
     PFCalculator = new PotentialFieldCalculator(connection);
-    //settledGrid = new GridFilter(0,0);
+    settledGrid = filter;
 }
 
 void SearchTankAI::controlTank()
@@ -23,7 +23,7 @@ void SearchTankAI::controlTank()
     tank_t myTank = myTanks[tankNumber];
     
     //get target point
-    //Point target = targetGenerator->getTarget(myTank.pos[0], myTank.pos[1], settledGrid)
+    //Point target = targetGenerator->getTarget(myTank.pos[0], myTank.pos[1], fliter->)
     
     //TankVector* newVector = PFCalculator->calculateSearcherVector(targetX, targetY, tankNumber);
     

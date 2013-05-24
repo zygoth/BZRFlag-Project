@@ -18,7 +18,7 @@ class SearchTankAI : TankAI
 {
 public:
     
-    SearchTankAI(BZRC* connection, int tankNumber, TeamColor myColor);
+    SearchTankAI(BZRC* connection, int tankNumber, TeamColor myColor, GridFilter* filter);
     virtual void controlTank();
     virtual ~SearchTankAI();
     

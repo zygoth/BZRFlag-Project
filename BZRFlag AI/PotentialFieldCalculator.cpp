@@ -34,10 +34,15 @@ TankVector* PotentialFieldCalculator::calculateVector(int x, int y, TeamColor ta
     return result;
 }
 
-TankVector* PotentialFieldCalculator::calculateSearcherVector(int x, int y, 
-                int index)
+TankVector* PotentialFieldCalculator::calculateSearcherVector(int x, int y, int index)
 {
-    return new TankVector(0,0);
+    xVector = 0.0;
+    yVector = 0.0;
+    TankVector* result;
+    
+    result = new TankVector(xVector, yVector);
+    
+    return result;
 }
 
 

@@ -9,7 +9,9 @@
 #include <iostream>
 #include <unistd.h>
 
-TargetPointCalculator::TargetPointCalculator(){
+TargetPointCalculator::TargetPointCalculator(int x, int y){
+    width = x;
+    height = y;
     
 }
 

@@ -52,7 +52,7 @@ void GridFilter::addInput(grid_t occGrid)
             sensorData = occGrid.grid[i - occGrid.xdim/2][j - occGrid.ydim/2];
             
             // Formula for updating the probability
-            settledGrid.grid[i][j] = ()
+            //settledGrid.grid[i][j] = ()
                     
             
         }

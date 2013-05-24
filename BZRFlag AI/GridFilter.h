@@ -8,20 +8,29 @@
 #ifndef GRIDFILTER_H
 #define	GRIDFILTER_H
 
-typedef struct settleGrid_t {
+#include "470bot.h"
+
+typedef struct settledGrid_t {
 	double** grid;
 	int width, height;
-} settleGrid_t;
+} settledGrid_t;
 
 
-class GridFilter {
-    settleGrid_t* settledGrid;
-    int nodesSettled;
+class GridFilter 
+{    
 public:
+    
     GridFilter(int x, int y);
-    void addInput(bool* occgrid, int xpos, int ypos, int xSize, int ySize);
+    virtual ~GridFilter();
+    void addInput(grid_t occGrid);
     bool isSettled();
-    settleGrid_t* getGrid();
+    settledGrid_t getGrid();
+    static int cartesianToMatrixCoordinates(int value, int maximumValue);
+    
+private:
+    
+    settledGrid_t settledGrid;
+    int nodesNotSettled;
 };
 
 

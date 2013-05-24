@@ -11,21 +11,23 @@
 #include "TankAI.h"
 #include "PotentialFieldCalculator.h"
 #include "PDController.h"
+#include "TargetPointCalculator.h"
+#include "GridFilter.h"
 
 class SearchTankAI : TankAI
 {
 public:
     
-    SearchTankAI(BZRC* connection);
+    SearchTankAI(BZRC* connection, int tankNumber, TeamColor myColor);
     virtual void controlTank();
     virtual ~SearchTankAI();
     
 private:
     
-    PDController controller;
+    PDController* controller;
     PotentialFieldCalculator* PFCalculator;
-    //TargetPointGenerator targetGenerator;
-    //GridFilter* settledGrid;
+    TargetPointCalculator* targetGenerator;
+    GridFilter* settledGrid;
 };
 
 #endif	/* SEARCHTANKAI_H */

@@ -9,10 +9,25 @@
 #include <iostream>
 #include <unistd.h>
 
-TargetPointCalculator::TargetPointCalculator(){
+TargetPointCalculator::TargetPointCalculator(int tankX, int tankY) : previousTarget(tankX, tankY)
+{
+    
 }
 
 Point TargetPointCalculator::getTarget(int tankX, int tankY, settledGrid_t settledGrid)
 {
+    double targetProbability = settledGrid.grid[previousTarget.x]
+                                               [previousTarget.y];
+    
+    if(targetProbability != 1 && targetProbability != 0) 
+    {  // we still haven't settled it, so don't calculate a different target
+        return previousTarget;
+    }
+    
     return Point(0,0);
+}
+
+void TargetPointCalculator::basicPointSearch(vector<Point>* nearbyPoints)
+{
+    
 }

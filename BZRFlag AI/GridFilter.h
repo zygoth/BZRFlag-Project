@@ -11,10 +11,13 @@
 class GridFilter {
     double** settledGrid;
     int nodesSettled;
+    int width, height;
 public:
-    GridFilter(int width, int height);
-    void addInput(bool* occgrid, int xpos, int ypos);
+    GridFilter(int x, int y);
+    void addInput(bool* occgrid, int xpos, int ypos, int xSize, int ySize);
     bool isSettled();
+    int getWidth();
+    int getHeight();
 };
 
 

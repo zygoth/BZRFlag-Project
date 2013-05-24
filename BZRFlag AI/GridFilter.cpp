@@ -28,6 +28,6 @@ bool GridFilter::isSettled()
 
 settleGrid_t* GridFilter::getGrid()
 {
-    return settleGrid_t;
+    return settledGrid;
 }
 

@@ -11,7 +11,7 @@ SearchTankAI::SearchTankAI(BZRC* connection, int tankNumber, TeamColor myColor, 
                 : TankAI(connection, tankNumber, myColor, myColor)
 {
     controller = new PDController();
-    targetGenerator = new TargetPointCalculator(0,0);
+    targetGenerator = new TargetPointCalculator();
     PFCalculator = new PotentialFieldCalculator(connection);
     settledGrid = filter;
 }

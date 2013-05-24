@@ -9,6 +9,7 @@
 #define	TARGETPOINTCALCULATOR_H
 
 #include "Point.h"
+#include "GridFilter.h"
 
 class TargetPointCalculator{
 public:

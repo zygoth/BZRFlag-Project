@@ -14,8 +14,6 @@ GridFilter::GridFilter(int x, int y)
     // settledGrid = new doubl[width][height]
     nodesSettled = x * y;
     
-    width = x;
-    height = y;
 }
 
 void GridFilter::addInput(bool* occgrid, int xpos, int ypos, int xSize, int ySize)
@@ -28,13 +26,8 @@ bool GridFilter::isSettled()
     return false;
 }
 
-int GridFilter::getWidth()
+settleGrid_t* GridFilter::getGrid()
 {
-    return width;
-}
-
-int GridFilter::getHeight()
-{
-    return height;
+    return settleGrid_t;
 }
 

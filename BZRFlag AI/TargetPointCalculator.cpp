@@ -9,10 +9,7 @@
 #include <iostream>
 #include <unistd.h>
 
-TargetPointCalculator::TargetPointCalculator(int x, int y){
-    width = x;
-    height = y;
-    
+TargetPointCalculator::TargetPointCalculator(){
 }
 
 Point TargetPointCalculator::getTarget(int tankX, int tankY, double** settledGrid)

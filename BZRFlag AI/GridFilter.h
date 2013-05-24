@@ -8,16 +8,20 @@
 #ifndef GRIDFILTER_H
 #define	GRIDFILTER_H
 
+typedef struct settleGrid_t {
+	double** grid;
+	int width, height;
+} settleGrid_t;
+
+
 class GridFilter {
-    double** settledGrid;
+    settleGrid_t* settledGrid;
     int nodesSettled;
-    int width, height;
 public:
     GridFilter(int x, int y);
     void addInput(bool* occgrid, int xpos, int ypos, int xSize, int ySize);
     bool isSettled();
-    int getWidth();
-    int getHeight();
+    settleGrid_t* getGrid();
 };
 
 

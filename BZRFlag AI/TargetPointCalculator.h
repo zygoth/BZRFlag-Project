@@ -11,9 +11,8 @@
 #include "Point.h"
 
 class TargetPointCalculator{
-    int width, height;
 public:
-    TargetPointCalculator(int x, int y);
+    TargetPointCalculator();
     Point getTarget(int tankX, int tankY, double** settledGrid);
 };
 

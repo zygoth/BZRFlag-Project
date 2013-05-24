@@ -62,7 +62,7 @@ TankVector* PotentialFieldCalculator::calculateSearcherVector(int x, int y, int 
     socket->get_occgrid(&tankMap, index);
     
     // adjust vectors to deal with objects
-//    avoidObjects(myTank, tankMap.at(0));
+    avoidObjects(myTank, tankMap.at(0));
     
     result = new TankVector(xVector, yVector);
     
@@ -91,16 +91,52 @@ void PotentialFieldCalculator::avoidObjects(tank_t tank, grid_t visible)
                rise > 0 && rise < visible.ydim)
             {
                 
-                if(visible.grid[rise*visible.xdim + run])
-                {
-                    angle = atan2(i,k);
+                angle = atan2(i,k);
                 
-                    // get difference between angle to an object and the tanks
-                    // current angle
-                    newAngle = getAngleBetween(angle, tank.angle);
+                // get difference between angle to an object and the tanks
+                // current angle
+                newAngle = getAngleBetween(angle, tank.angle);
 
-                    //Get new vectors
+                if(visible.grid[rise*visible.xdim + run]  && newAngle > PI/-4.0 
+                                                          && newAngle < PI/4.0)
+                {
+                    // get the angle of the new vector
+                    if(newAngle > 0)
+                        newAngle = angle + PI/2.0;
+                    else if(newAngle <= 0)
+                        newAngle = angle - PI/2.0;
                     
+                    newAngle = getAngleBetween(newAngle, 0.0);
+                    
+                    if(newAngle == PI/2 || newAngle == PI/-2)
+                    {
+                        newYVector = 1.0;
+                        newXVector = 0.0;
+                    }
+                    else
+                    {
+                        newXVector = tan(newAngle);
+                        
+                        newYVector = abs(newXVector);
+                        newXVector = newXVector/abs(newXVector);
+                    }
+                    
+                    if(tank.angle < 0)
+                        newYVector = newYVector * -1;
+                    
+                    if(abs(newXVector) > abs(newYVector))
+                    {
+                        newYVector = newYVector/abs(newXVector) *.1;
+                        newXVector = newXVector/abs(newXVector) *.1;
+                    }
+                    else
+                    {
+                        newXVector = newXVector/abs(newYVector) *.1;
+                        newYVector = newYVector/abs(newYVector) *.1;        
+                    }
+
+                    xVector += newXVector;
+                    yVector += newYVector;
                 }
             }
         }

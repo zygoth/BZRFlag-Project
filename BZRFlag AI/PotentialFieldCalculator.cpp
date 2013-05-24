@@ -36,16 +36,47 @@ TankVector* PotentialFieldCalculator::calculateVector(int x, int y, TeamColor ta
 
 TankVector* PotentialFieldCalculator::calculateSearcherVector(int x, int y, int index)
 {
-    xVector = 0.0;
-    yVector = 0.0;
     TankVector* result;
     
+    vector<tank_t> myTanks;
+    socket->get_mytanks(&myTanks);
+    tank_t myTank = myTanks.at(index);
+    
+    xVector = (double)(x - myTank.pos[0]);
+    yVector = (double)(y - myTank.pos[1]);
+    
+    if(abs(xVector) > abs(yVector))
+    {
+        xVector = xVector/abs(xVector) *2;
+        yVector = yVector/abs(xVector) *2;
+    }
+    else
+    {
+        xVector = xVector/abs(yVector) *2;
+        yVector = yVector/abs(yVector) *2;        
+    }
+    
+    vector<grid_t> tankMap;
+    socket->get_occgrid(&tankMap, index);
+    
+    avoidObjects(myTank, tankMap.at(0));
+    
     result = new TankVector(xVector, yVector);
+    
+    myTanks.clear();
+    tankMap.clear();
     
     return result;
 }
 
-
+void PotentialFieldCalculator::avoidObjects(tank_t tank, grid_t visible)
+{
+    int objectRange = 20;
+    int gridX = tank.pos[0] - visible.x;
+    int gridY = tank.pos[1] - visible.y;
+    
+    
+}
 
 void PotentialFieldCalculator::calculateObjectVector(int x, int y) {
     int range = 10;

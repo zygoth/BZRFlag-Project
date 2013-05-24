@@ -14,7 +14,7 @@
 class TargetPointCalculator{
 public:
     TargetPointCalculator();
-    Point getTarget(int tankX, int tankY, settleGrid_t* settledGrid);
+    Point getTarget(int tankX, int tankY, settledGrid_t* settledGrid);
 };
 
 #endif	/* TARGETPOINTCALCULATOR_H */

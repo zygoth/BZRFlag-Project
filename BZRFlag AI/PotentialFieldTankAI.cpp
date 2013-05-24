@@ -26,10 +26,6 @@ void PotentialFieldTankAI::controlTank()
     
     //Calculate Speed
     
-    // Reduce the speed if the discrepancy is high
-    //double discrepancy = abs(differenceBetweenTwoAngles(myTank.angle, newVector->getAngle()));
-    //double speedMultiplier = .1;
-    //if(discrepancy < 1.5)speedMultiplier = 1;
     connection->speed(tankNumber, newVector->getVelocity());
     
     // Calculate angularVelocity

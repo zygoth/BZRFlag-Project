@@ -18,7 +18,17 @@
 GridFilter::GridFilter(int width, int height, double truePositiveProbability)
 {
     // settledGrid = new doubl[width][height]
-    settledGrid.grid = (double**) malloc(sizeof(double) * width * height);
+    settledGrid.grid = (double**) malloc(sizeof(double*) * width);
+    
+    for(int i = 0; i < width; i++)
+    {
+        settledGrid.grid[i] = (double*) malloc(sizeof(double) * height);
+    }
+    
+    
+    
+    settledGrid.height = height;
+    settledGrid.width = width;
     
     for(int i = 0; i < width; i++)
     {
@@ -26,22 +36,22 @@ GridFilter::GridFilter(int width, int height, double truePositiveProbability)
         {
             settledGrid.grid[i][j] = .5;
         }
-    }
-    
-    settledGrid.height = height;
-    settledGrid.width = width;
+    }    
+
     nodesNotSettled = width * height;    
+    this->truePositiveProbability = truePositiveProbability;
+    EPSILON = .04;
 }
 
 void GridFilter::addInput(grid_t occGrid)
 {
-    int startX = cartesianToMatrixCoordinates(occGrid.x, occGrid.xdim);
-    int startY = cartesianToMatrixCoordinates(occGrid.y, occGrid.ydim);
+    int startX = cartesianToMatrixCoordinates(occGrid.x, settledGrid.width);
+    int startY = cartesianToMatrixCoordinates(occGrid.y, settledGrid.height);
     int sensorData = 0;
     
     for(int i = startX; i < startX + occGrid.xdim; i++)
     {
-        for(int j = startY; i < startY + occGrid.ydim; j++)
+        for(int j = startY; j < startY + occGrid.ydim; j++)
         {
             // If the point is already settled, don't do the calculations
             if(settledGrid.grid[i][j] == 1 || settledGrid.grid[i][j] == 0)
@@ -49,19 +59,32 @@ void GridFilter::addInput(grid_t occGrid)
                 continue;
             }
             
-            sensorData = occGrid.grid[i - occGrid.xdim/2 + (j - occGrid.ydim/2) * settledGrid.width];
+            sensorData = (int) occGrid.grid[i - settledGrid.width/2 + (j - settledGrid.height/2) * occGrid.xdim];
             
             // Formula for updating the probability
-            //settledGrid.grid[i][j] = ()
+            settledGrid.grid[i][j] = (1 - truePositiveProbability) * settledGrid.grid[i][j] +
+                    truePositiveProbability * sensorData;
                     
+            // It's close to 1
+            if(1 - settledGrid.grid[i][j] < EPSILON)
+            {
+                settledGrid.grid[i][j] = 1;
+                nodesNotSettled--;
+            }
             
+            // It's close to 0
+            if(settledGrid.grid[i][j] < EPSILON)
+            {
+                settledGrid.grid[i][j] = 0;
+                nodesNotSettled--;
+            }
         }
     }
 }
 
 bool GridFilter::isSettled()
 {
-    return false;
+    return (nodesNotSettled == 0);
 }
 
 settledGrid_t GridFilter::getGrid()
@@ -69,12 +92,55 @@ settledGrid_t GridFilter::getGrid()
     return settledGrid;
 }
 
+int GridFilter::cartesianToMatrixCoordinates(int value, int maximumValue)
+{
+    return (value + maximumValue / 2);
+}
+
 GridFilter::~GridFilter()
 {
     free(settledGrid.grid);
 }
 
-int GridFilter::cartesianToMatrixCoordinates(int value, int maximumValue)
+void GridFilter::testGridFilter()
 {
-    return (value + maximumValue / 2);
+    GridFilter filter(5, 5, .9);
+    
+    grid_t testGrid;
+    testGrid.grid = new bool[3*3];
+    testGrid.grid[0] = true;
+    testGrid.grid[1] = false;
+    
+    testGrid.xdim = 3;
+    testGrid.ydim = 3;
+    testGrid.x = 0;
+    testGrid.y = 0;
+    
+    filter.addInput(testGrid);
+    
+    if(filter.getGrid().grid[2][2] <= .5)
+    {
+        cout << "GridFilter FAIL:  the probability was not updated correctly." << endl;
+    }
+    
+    filter.addInput(testGrid);
+    filter.addInput(testGrid);
+    filter.addInput(testGrid);
+    filter.addInput(testGrid);
+    filter.addInput(testGrid);
+    filter.addInput(testGrid);
+    filter.addInput(testGrid);
+    filter.addInput(testGrid);
+    filter.addInput(testGrid);
+    
+    if(filter.getGrid().grid[2][2] != 1)
+    {
+        cout << "GridFilter FAIL:  nodes should be settled by now." << endl;
+    }
+    
+    if(filter.getGrid().grid[2][3] != 0)
+    {
+        cout << "GridFilter FAIL:  nodes should be settled by now." << endl;
+        cout << "Was: " << filter.getGrid().grid[2][3] << endl;
+    }
 }

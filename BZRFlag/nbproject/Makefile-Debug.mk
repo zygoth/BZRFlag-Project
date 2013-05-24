@@ -35,21 +35,27 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/_ext/693638321/Lab1_Main.o \
+	${OBJECTDIR}/_ext/693638321/SearchTankAI.o \
 	${OBJECTDIR}/_ext/693638321/DepthNode.o \
 	${OBJECTDIR}/_ext/693638321/DumbCommanderAI.o \
+	${OBJECTDIR}/_ext/693638321/f9.o \
 	${OBJECTDIR}/_ext/693638321/Point.o \
+	${OBJECTDIR}/_ext/693638321/GridFilter.o \
+	${OBJECTDIR}/_ext/693638321/BZRFlagGame.o \
 	${OBJECTDIR}/_ext/693638321/PotentialFieldCalculator.o \
 	${OBJECTDIR}/_ext/693638321/DFSArraySearcher.o \
 	${OBJECTDIR}/_ext/693638321/PDController.o \
-	${OBJECTDIR}/_ext/693638321/BZRFlagGame.o \
+	${OBJECTDIR}/_ext/693638321/TargetPointCalculator.o \
 	${OBJECTDIR}/_ext/693638321/BFSArraySearcher.o \
 	${OBJECTDIR}/_ext/693638321/PotentialFieldCommanderAI.o \
 	${OBJECTDIR}/_ext/693638321/UniformCostArraySearcher.o \
 	${OBJECTDIR}/_ext/693638321/CommanderAI.o \
 	${OBJECTDIR}/_ext/693638321/PotentialFieldPrinter.o \
 	${OBJECTDIR}/_ext/693638321/TankAI.o \
+	${OBJECTDIR}/_ext/693638321/CornerCalculator.o \
 	${OBJECTDIR}/_ext/693638321/GNUPrinter.o \
 	${OBJECTDIR}/_ext/693638321/Node.o \
+	${OBJECTDIR}/_ext/693638321/SearchCommanderAI.o \
 	${OBJECTDIR}/_ext/693638321/PotentialFieldTankAI.o \
 	${OBJECTDIR}/_ext/693638321/SearchTools.o \
 	${OBJECTDIR}/_ext/693638321/DumbTankAI.o \
@@ -87,6 +93,11 @@ ${OBJECTDIR}/_ext/693638321/Lab1_Main.o: ../BZRFlag\ AI/Lab1_Main.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/Lab1_Main.o ../BZRFlag\ AI/Lab1_Main.cpp
 
+${OBJECTDIR}/_ext/693638321/SearchTankAI.o: ../BZRFlag\ AI/SearchTankAI.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/SearchTankAI.o ../BZRFlag\ AI/SearchTankAI.cpp
+
 ${OBJECTDIR}/_ext/693638321/DepthNode.o: ../BZRFlag\ AI/DepthNode.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
 	${RM} $@.d
@@ -97,10 +108,25 @@ ${OBJECTDIR}/_ext/693638321/DumbCommanderAI.o: ../BZRFlag\ AI/DumbCommanderAI.cp
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/DumbCommanderAI.o ../BZRFlag\ AI/DumbCommanderAI.cpp
 
+${OBJECTDIR}/_ext/693638321/f9.o: ../BZRFlag\ AI/f9.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/f9.o ../BZRFlag\ AI/f9.cpp
+
 ${OBJECTDIR}/_ext/693638321/Point.o: ../BZRFlag\ AI/Point.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/Point.o ../BZRFlag\ AI/Point.cpp
+
+${OBJECTDIR}/_ext/693638321/GridFilter.o: ../BZRFlag\ AI/GridFilter.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/GridFilter.o ../BZRFlag\ AI/GridFilter.cpp
+
+${OBJECTDIR}/_ext/693638321/BZRFlagGame.o: ../BZRFlag\ AI/BZRFlagGame.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/BZRFlagGame.o ../BZRFlag\ AI/BZRFlagGame.cpp
 
 ${OBJECTDIR}/_ext/693638321/PotentialFieldCalculator.o: ../BZRFlag\ AI/PotentialFieldCalculator.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
@@ -117,10 +143,10 @@ ${OBJECTDIR}/_ext/693638321/PDController.o: ../BZRFlag\ AI/PDController.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/PDController.o ../BZRFlag\ AI/PDController.cpp
 
-${OBJECTDIR}/_ext/693638321/BZRFlagGame.o: ../BZRFlag\ AI/BZRFlagGame.cpp 
+${OBJECTDIR}/_ext/693638321/TargetPointCalculator.o: ../BZRFlag\ AI/TargetPointCalculator.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/BZRFlagGame.o ../BZRFlag\ AI/BZRFlagGame.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/TargetPointCalculator.o ../BZRFlag\ AI/TargetPointCalculator.cpp
 
 ${OBJECTDIR}/_ext/693638321/BFSArraySearcher.o: ../BZRFlag\ AI/BFSArraySearcher.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
@@ -152,6 +178,11 @@ ${OBJECTDIR}/_ext/693638321/TankAI.o: ../BZRFlag\ AI/TankAI.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/TankAI.o ../BZRFlag\ AI/TankAI.cpp
 
+${OBJECTDIR}/_ext/693638321/CornerCalculator.o: ../BZRFlag\ AI/CornerCalculator.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/CornerCalculator.o ../BZRFlag\ AI/CornerCalculator.cpp
+
 ${OBJECTDIR}/_ext/693638321/GNUPrinter.o: ../BZRFlag\ AI/GNUPrinter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
 	${RM} $@.d
@@ -161,6 +192,11 @@ ${OBJECTDIR}/_ext/693638321/Node.o: ../BZRFlag\ AI/Node.cpp
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/Node.o ../BZRFlag\ AI/Node.cpp
+
+${OBJECTDIR}/_ext/693638321/SearchCommanderAI.o: ../BZRFlag\ AI/SearchCommanderAI.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/SearchCommanderAI.o ../BZRFlag\ AI/SearchCommanderAI.cpp
 
 ${OBJECTDIR}/_ext/693638321/PotentialFieldTankAI.o: ../BZRFlag\ AI/PotentialFieldTankAI.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321

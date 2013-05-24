@@ -11,6 +11,7 @@
 #include "SearchTools.h"
 #include "IDArraySearcher.h"
 #include "UniformCostArraySearcher.h"
+#include "GridFilter.h"
 
 using namespace std;
 
@@ -50,7 +51,7 @@ void doAgentMain(int argc, char *argv[])
 
 void doPotentialFieldPrinterMain(int argc, char *argv[])
 {
-
+    
 }
 
 void doSearchMain(int argc, char *argv[])
@@ -187,6 +188,10 @@ void doSearchMain(int argc, char *argv[])
     delete connection;
 }
 
+void doTestMain(int argc, char *argv[])
+{
+    GridFilter::testGridFilter();
+}
 
 
 int main(int argc, char *argv[]) 
@@ -210,6 +215,11 @@ int main(int argc, char *argv[])
     if(strcmp(argv[1], "search") == 0)
     {
         doSearchMain(argc, argv);
+    }
+    else
+    if(strcmp(argv[1], "test") == 0)
+    {
+        doTestMain(argc, argv);
     }
     else
     {

@@ -26,9 +26,10 @@ public:
     bool isSettled();
     settledGrid_t getGrid();
     static int cartesianToMatrixCoordinates(int value, int maximumValue);
+    static void testGridFilter();
     
 private:
-    
+    double EPSILON;
     settledGrid_t settledGrid;
     int nodesNotSettled;
     double truePositiveProbability;

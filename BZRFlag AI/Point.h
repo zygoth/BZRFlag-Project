@@ -14,6 +14,7 @@ public:
     int x;
     int y;
     
+    Point();
     Point(int x, int y);
     int Compare(const Point& other);
     virtual ~Point();

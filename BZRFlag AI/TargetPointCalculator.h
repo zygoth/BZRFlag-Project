@@ -11,6 +11,13 @@
 #include "Point.h"
 #include "GridFilter.h"
 
+/**
+ * This class uses matrix coordinates for everything.  Don't pass it cartesian
+ * coordinates or you'll segfault.
+ * 
+ * @param tankX
+ * @param tankY
+ */
 class TargetPointCalculator
 {
 public:
@@ -19,8 +26,9 @@ public:
     Point getTarget(int tankX, int tankY, settledGrid_t settledGrid);
     
 private:
-    void basicPointSearch(vector<Point>* nearbyPoints);
-    // NOTE: this point is in Matrix coordinates, not cartesian coordinates
+    void basicPointSearch(int tankX, int tankY, settledGrid_t settledGrid, vector<Point>* nearbyPoints);
+    void advancedPointSearch(int tankX, int tankY, settledGrid_t settledGrid, vector<Point>* nearbyPoints);
+    bool isValidTarget(Point p, settledGrid_t settledGrid);
     Point previousTarget;
 };
 

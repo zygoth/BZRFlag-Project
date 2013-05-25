@@ -32,8 +32,12 @@ void SearchTankAI::controlTank()
     
     //get target point
     Point target = targetGenerator->getTarget(myTank.pos[0], myTank.pos[1], settledGrid->getGrid());
+    int height = settledGrid->getGrid().height;
+    int width = settledGrid->getGrid().width;
+    int x = target.x - width/2;
+    int y = target.y - height/2;
     
-    TankVector* newVector = PFCalculator->calculateSearcherVector(target.x, target.y, tankNumber);
+    TankVector* newVector = PFCalculator->calculateSearcherVector(x, y, tankNumber);
     
     // Calculate Speed
     connection->speed(tankNumber, newVector->getVelocity());
@@ -47,7 +51,7 @@ void SearchTankAI::controlTank()
     vector<grid_t> tankMap;
     connection->get_occgrid(&tankMap, tankNumber);
     
-//    settledGrid->addInput(tankMap.at(0));
+    settledGrid->addInput(tankMap.at(0));
     
     delete newVector;
 }

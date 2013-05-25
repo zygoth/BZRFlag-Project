@@ -40,9 +40,16 @@ void CornerCalculator::calculateCorners(settledGrid_t settledGrid, vector<Point>
     
     // Get the corners and convert them to Points
     
-    cornerDetector.detectCorners(imageData, settledGrid.width, settledGrid.height,
+    corners = cornerDetector.detectCorners(imageData, settledGrid.width, settledGrid.height,
                                  settledGrid.width * sizeof(unsigned char), 5, false);
     
+    Point p;
+    for(int i = 0; i < corners.size(); i++)
+    {
+        p.x = corners[i].x;
+        p.y = corners[i].y;
+        cornerList->push_back(p);
+    }    
     
     // Clean up
     

@@ -49,13 +49,13 @@ TankVector* PotentialFieldCalculator::calculateSearcherVector(int x, int y, int 
     
     if(abs(xVector) > abs(yVector))
     {
-        yVector = yVector/abs(xVector) *2;
-        xVector = xVector/abs(xVector) *2;
+        yVector = yVector/abs(xVector);
+        xVector = xVector/abs(xVector);
     }
     else
     {
-        xVector = xVector/abs(yVector) *2;
-        yVector = yVector/abs(yVector) *2;        
+        xVector = xVector/abs(yVector);
+        yVector = yVector/abs(yVector);        
     }
     
     vector<grid_t> tankMap;

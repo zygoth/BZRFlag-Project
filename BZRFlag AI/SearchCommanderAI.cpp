@@ -20,11 +20,11 @@ SearchCommanderAI::SearchCommanderAI(BZRC* connection) : CommanderAI(connection)
     for(int i =0; i < constants.size(); i++)
     {
         temp = constants.at(i);
-        if(temp.name.compare("worldsize"))
+        if(temp.name.compare("worldsize") == 0)
         {
             gridSize = atoi(temp.value.c_str());
         }
-        if(temp.name.compare("truepositive"))
+        if(temp.name.compare("truepositive") == 0)
         {
             isTrueValue = atof(temp.value.c_str());
         }

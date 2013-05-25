@@ -31,6 +31,9 @@ void doAgentMain(int argc, char *argv[])
     int nPort = kDefaultServerPort;
     char* gameType = kDefaultGameType;
     
+    
+    // Expected values are
+    // DUMB, POTENTIAL, SEARCH
     if (argc >= 3)
     {
         gameType = argv[2];

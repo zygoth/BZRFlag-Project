@@ -32,15 +32,6 @@ void BZRFlagGame::playGame(string hostName, int portNumber, string gameType)
     if(gameType.compare("SEARCH") == 0)
         commanderAI = new SearchCommanderAI(connection);
     
-    
-    PotentialFieldPrinter fieldPrinter;
-    //string GNUOutput = fieldPrinter.getGNUPlotFile(connection);
-    //cout << GNUOutput << endl;
-    //cout.flush();
-    fieldPrinter.GNUOutputToFile(connection, "GNUPLOT");
-    cout << "Vectors printed." << endl;
-    cout.flush();
-    
     try
     {
         while(true)

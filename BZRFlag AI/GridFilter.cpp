@@ -40,7 +40,7 @@ GridFilter::GridFilter(int width, int height, double truePositiveProbability)
 
     nodesNotSettled = width * height;    
     this->truePositiveProbability = truePositiveProbability;
-    EPSILON = .04;
+    EPSILON = .00000001;
 }
 
 void GridFilter::addInput(grid_t occGrid)
@@ -59,7 +59,8 @@ void GridFilter::addInput(grid_t occGrid)
                 continue;
             }
             
-            sensorData = (int) occGrid.grid[i - settledGrid.width/2 + (j - settledGrid.height/2) * occGrid.xdim];
+            // segfault due to truncation???
+            sensorData = (int) occGrid.grid[(i - startX) + (j - startY) * occGrid.xdim];
             
             // Formula for updating the probability
             settledGrid.grid[i][j] = (1 - truePositiveProbability) * settledGrid.grid[i][j] +

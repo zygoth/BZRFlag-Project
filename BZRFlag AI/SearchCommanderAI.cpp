@@ -8,6 +8,9 @@
 #include "SearchCommanderAI.h"
 #include "GridFilter.h"
 #include "SearchTankAI.h"
+#include "GNUPrinter.h"
+
+int GNUCounter = 0;
 
 SearchCommanderAI::SearchCommanderAI(BZRC* connection) : CommanderAI(connection)
 {
@@ -51,10 +54,31 @@ void SearchCommanderAI::controlTeam()
         {
             tankAIs[i]->controlTank();
         }
+        
+        GNUCounter ++;
+        if(GNUCounter % 30 != 0)
+        {
+            cout << GNUCounter << endl;
+            return;
+        }
+        GNUPrinter printer;
+        for(int i = 0; i < grid->getGrid().width; i++)
+        {
+            for(int j = 0; j < grid->getGrid().height; j++)
+            {
+                if(grid->getGrid().grid[i][j] == 1)
+                {
+                    printer.insertSquare(i, j);
+                }
+            }
+        }        
+        printer.outputToFile("OCCGRID");
     }
     else if(searchDone == false)
     {
         searchDone = true;
+        
+        
         
         // Get Corners
         // fixOffByOneErrors

@@ -9,6 +9,7 @@
 #define	CORNERCALCULATOR_H
 
 #include "Point.h"
+#include "GridFilter.h"
 #include <vector>
 
 using namespace std;
@@ -17,8 +18,9 @@ class CornerCalculator
 {
 public:
     CornerCalculator();
-    static void calculateCorners(double** settledGrid, vector<Point>* cornerList);
+    static void calculateCorners(settledGrid_t settledGrid, vector<Point>* cornerList);
     virtual ~CornerCalculator();
+    
 private:
 
 };

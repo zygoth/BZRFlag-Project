@@ -11,8 +11,10 @@
 #include "CommanderAI.h"
 #include "470bot.h"
 #include "f9.h"
+#include "GridFilter.h"
+using namespace std;
 
-class SearchCommanderAI : CommanderAI
+class SearchCommanderAI : public CommanderAI
 {
 public:
     SearchCommanderAI(BZRC* connection);
@@ -20,7 +22,9 @@ public:
     virtual ~SearchCommanderAI();
 private:
     void fixOffByOneErrors();
-
+    vector<TankAI*> tankAIs;
+    GridFilter* grid;
+    bool searchDone;
 };
 
 #endif	/* SEARCHCOMMANDER_H */

@@ -16,11 +16,12 @@
 using namespace std;
 
 char *kDefaultServerName = "localhost";
+char *kDefaultGameType = "POTENTIAL";
 const int kDefaultServerPort = 4000;
 
 void printMainErrorMessage()
 {
-        cout << "Please tell me which program to run.  \"agent HOSTNAME PORTNUMBER\",";
+        cout << "Please tell me which program to run.  \"agent AI_TYPE HOSTNAME PORTNUMBER\",";
         cout << "\"potentialfieldprinter\", or \"search ALGORITHM HOSTNAME PORTNUMBER\"\n";
 }
 
@@ -28,21 +29,27 @@ void doAgentMain(int argc, char *argv[])
 {
     char* pcHost = kDefaultServerName;
     int nPort = kDefaultServerPort;
+    char* gameType = kDefaultGameType;
     
     if (argc >= 3)
     {
-        pcHost = argv[2];
+        gameType = argv[2];
     }
     
     if (argc >= 4)
     {
-        nPort = atoi(argv[3]);
+        pcHost = argv[3];
+    }
+    
+    if (argc >= 5)
+    {
+        nPort = atoi(argv[4]);
     }
     
     string hostName(pcHost);    
     BZRFlagGame* game = new BZRFlagGame();
     
-    game->playGame(hostName, nPort);
+    game->playGame(hostName, nPort, gameType);
 
     delete game;
     

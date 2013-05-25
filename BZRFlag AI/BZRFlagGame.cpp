@@ -10,18 +10,28 @@
 #include "DumbCommanderAI.h"
 #include "PotentialFieldCommanderAI.h"
 #include "PotentialFieldPrinter.h"
+#include "SearchCommanderAI.h"
 
 BZRFlagGame::BZRFlagGame()
 {
     
 }
 
-void BZRFlagGame::playGame(string hostName, int portNumber)
+void BZRFlagGame::playGame(string hostName, int portNumber, string gameType)
 {
     BZRC* connection = connectToServer(hostName, portNumber);
     
-    CommanderAI* commanderAI = new PotentialFieldCommanderAI(connection);
-    //CommanderAI* commanderAI = new DumbCommanderAI(connection);
+    CommanderAI* commanderAI;
+    
+    if(gameType.compare("DUMB") == 0)
+        commanderAI = new DumbCommanderAI(connection);
+    
+    if(gameType.compare("POTENTIAL") == 0)
+        commanderAI = new PotentialFieldCommanderAI(connection);
+    
+    if(gameType.compare("SEARCH") == 0)
+        commanderAI = new SearchCommanderAI(connection);
+    
     
     PotentialFieldPrinter fieldPrinter;
     //string GNUOutput = fieldPrinter.getGNUPlotFile(connection);

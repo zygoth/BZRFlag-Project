@@ -14,7 +14,7 @@
 #include "TargetPointCalculator.h"
 #include "GridFilter.h"
 
-class SearchTankAI : TankAI
+class SearchTankAI : public TankAI
 {
 public:
     

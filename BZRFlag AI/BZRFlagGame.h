@@ -17,7 +17,7 @@ class BZRFlagGame
 {
 public:
     BZRFlagGame();
-    void playGame(string hostName, int portNumber);
+    void playGame(string hostName, int portNumber, string gameType);
     virtual ~BZRFlagGame();
 private:
     BZRC* connectToServer(string hostName, int portNumber);

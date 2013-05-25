@@ -102,9 +102,9 @@ void PotentialFieldCalculator::avoidObjects(tank_t tank, grid_t visible)
                 {
                     // get the angle of the new vector
                     if(newAngle > 0)
-                        newAngle = angle + PI/2.0;
-                    else if(newAngle <= 0)
                         newAngle = angle - PI/2.0;
+                    else 
+                        newAngle = angle + PI/2.0;
                     
                     newAngle = getAngleBetween(newAngle, 0.0);
                     
@@ -121,8 +121,10 @@ void PotentialFieldCalculator::avoidObjects(tank_t tank, grid_t visible)
                         newXVector = newXVector/abs(newXVector);
                     }
                     
-                    if(tank.angle < 0)
+                    if(newAngle < 0){
                         newYVector = newYVector * -1;
+                        newXVector = newXVector * -1;
+                    }
                     
                     if(abs(newXVector) > abs(newYVector))
                     {

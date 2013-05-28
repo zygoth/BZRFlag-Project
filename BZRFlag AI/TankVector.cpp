@@ -6,6 +6,7 @@
  */
 
 #include "TankVector.h"
+#include "PDController.h"
 
 TankVector::TankVector(double over, double up) {
     x = over;
@@ -22,6 +23,16 @@ TankVector::TankVector(double over, double up) {
 
 TankVector::~TankVector() {
 
+}
+
+void TankVector::updateAngle(double update)
+{
+    angle += update;
+    
+    if(angle > PI)
+        angle = angle - 2*PI;
+    if(angle < -1*PI)
+        angle = angle + 2*PI;
 }
 
 double TankVector::getAngle() {

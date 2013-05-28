@@ -31,9 +31,9 @@ void SearchTankAI::controlTank()
     tank_t myTank = myTanks[tankNumber];
     
     //get target point
-    Point target = targetGenerator->getTarget(myTank.pos[0], myTank.pos[1], settledGrid->getGrid());
     int height = settledGrid->getGrid().height;
     int width = settledGrid->getGrid().width;
+    Point target = targetGenerator->getTarget(myTank.pos[0] - width/2, myTank.pos[1] - width/2, settledGrid->getGrid());
     int x = target.x - width/2;
     int y = target.y - height/2;
     
@@ -42,7 +42,7 @@ void SearchTankAI::controlTank()
     // Calculate Speed
     int xDistance = x - myTank.pos[0];
     int yDistance = y - myTank.pos[1];
-    if(abs(xDistance) < 50 && abs(yDistance) < 50)
+    if(abs(xDistance) < 45 && abs(yDistance) < 45)
         connection->speed(tankNumber, 0.0);
     else
         connection->speed(tankNumber, newVector->getVelocity());

@@ -63,6 +63,7 @@ TankVector* PotentialFieldCalculator::calculateSearcherVector(int x, int y, int 
     
     // adjust vectors to deal with objects
     avoidObjects(myTank, tankMap.at(0));
+    calculateEnemyTanks(myTank.pos[0], myTank.pos[1]);
     
     result = new TankVector(xVector, yVector);
     
@@ -75,7 +76,7 @@ TankVector* PotentialFieldCalculator::calculateSearcherVector(int x, int y, int 
 void PotentialFieldCalculator::avoidObjects(tank_t tank, grid_t visible)
 {
     // range away from the tank it will look for an object
-    int objectRange = 30;
+    int objectRange = 20;
     int gridX = tank.pos[0] - visible.x;
     int gridY = tank.pos[1] - visible.y;
     int rise, run;
@@ -102,9 +103,9 @@ void PotentialFieldCalculator::avoidObjects(tank_t tank, grid_t visible)
                 {
                     // get the angle of the new vector
                     if(newAngle > 0)
-                        newAngle = angle - PI/2.0;
-                    else 
                         newAngle = angle + PI/2.0;
+                    else 
+                        newAngle = angle - PI/2.0;
                     
                     newAngle = getAngleBetween(newAngle, 0.0);
                     

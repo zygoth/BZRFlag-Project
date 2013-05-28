@@ -40,7 +40,12 @@ void SearchTankAI::controlTank()
     TankVector* newVector = PFCalculator->calculateSearcherVector(x, y, tankNumber);
     
     // Calculate Speed
-    connection->speed(tankNumber, newVector->getVelocity());
+    int xDistance = x - myTank.pos[0];
+    int yDistance = y - myTank.pos[1];
+    if(abs(xDistance) < 50 && abs(yDistance) < 50)
+        connection->speed(tankNumber, 0.0);
+    else
+        connection->speed(tankNumber, newVector->getVelocity());
     
     // Calculate angularVelocity
     

@@ -42,7 +42,7 @@ void SearchTankAI::controlTank()
     // Calculate Speed
     int xDistance = x - myTank.pos[0];
     int yDistance = y - myTank.pos[1];
-    if(abs(xDistance) < 50 && abs(yDistance) < 50)
+    if(abs(xDistance) < 45 && abs(yDistance) < 45)
         connection->speed(tankNumber, 0.0);
     else
         connection->speed(tankNumber, newVector->getVelocity());

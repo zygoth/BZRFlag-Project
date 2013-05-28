@@ -73,6 +73,19 @@ void SearchCommanderAI::controlTeam()
             }
         }        
         printer.outputToFile("OCCGRID");
+        
+        GNUPrinter printer2;
+        for(int i = 0; i < grid->getGrid().width; i++)
+        {
+            for(int j = 0; j < grid->getGrid().height; j++)
+            {
+                if(grid->getGrid().grid[i][j] == 1 || grid->getGrid().grid[i][j] == 0)
+                {
+                    printer2.insertSquare(i, j);
+                }
+            }
+        }        
+        printer2.outputToFile("SETTLEDGRID");
     }
     else if(searchDone == false)
     {

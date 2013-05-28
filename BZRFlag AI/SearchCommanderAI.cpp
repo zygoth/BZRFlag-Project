@@ -56,7 +56,7 @@ void SearchCommanderAI::controlTeam()
         }
         
         GNUCounter ++;
-        if(GNUCounter % 30 != 0)
+        if(GNUCounter % 10 != 0)
         {
             cout << GNUCounter << endl;
             return;

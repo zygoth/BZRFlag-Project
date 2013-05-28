@@ -54,9 +54,12 @@ void SearchTankAI::controlTank()
     
     // update the settledGrid
     vector<grid_t> tankMap;
-    connection->get_occgrid(&tankMap, tankNumber);
     
-    settledGrid->addInput(tankMap.at(0));
+    if(abs(xDistance) < 50 && abs(yDistance) < 50)
+    {
+        connection->get_occgrid(&tankMap, tankNumber);
+        settledGrid->addInput(tankMap.at(0));
+    }
     
     delete newVector;
 }

@@ -62,10 +62,11 @@ TankVector* PotentialFieldCalculator::calculateSearcherVector(int x, int y, int 
     socket->get_occgrid(&tankMap, index);
     
     // adjust vectors to deal with objects
-    avoidObjects(myTank, tankMap.at(0));
     calculateEnemyTanks(myTank.pos[0], myTank.pos[1]);
     
     result = new TankVector(xVector, yVector);
+    
+    avoidObjects(myTank, tankMap.at(0), result);
     
     myTanks.clear();
     tankMap.clear();
@@ -73,10 +74,66 @@ TankVector* PotentialFieldCalculator::calculateSearcherVector(int x, int y, int 
     return result;
 }
 
-void PotentialFieldCalculator::avoidObjects(tank_t tank, grid_t visible)
+void PotentialFieldCalculator::avoidObjects(tank_t tank, grid_t visible, TankVector* vector)
 {
+    double newXVector, newYVector;
+    int newX, newY;
+    
+    double newAngle = tank.angle;
+    int x = tank.pos[0] - visible.x;
+    int y = tank.pos[1] - visible.y;
+    int object = 0;
+    int range = 15;
+                        
+    if(newAngle == PI/2 || newAngle == PI/-2)
+    {
+        newYVector = 1.0;
+        newXVector = 0.0;
+    }
+    else
+    {
+        newXVector = tan(newAngle);
+                        
+        newYVector = abs(newXVector);
+        newXVector = newXVector/abs(newXVector);
+    }
+    
+    if(abs(newXVector) > abs(newYVector))
+    {
+        newYVector = newYVector/abs(newXVector);
+        newXVector = newXVector/abs(newXVector);
+    }
+    else
+    {
+        newXVector = newXVector/abs(newYVector);
+        newYVector = newYVector/abs(newYVector);
+    }
+                    
+    if(newAngle < 0){
+        newYVector = newYVector * -1;
+        newXVector = newXVector * -1;
+    }
+    
+    for(int i = 0; i < range; i++)
+    {
+        newX = x + (newXVector * i + .5);
+        newY = y + (newYVector * i + .5);
+                
+        if(newX > 0 && newX < visible.xdim &&
+           newY > 0 && newY < visible.ydim)
+        {
+            if(visible.grid[newY * visible.xdim + newX])
+            {
+                object++;
+            }
+        }
+    }
+    
+    vector->updateAngle((double)object * PI/20);
+
+    
     // range away from the tank it will look for an object
-    int objectRange = 40;
+/*    int objectRange = 5;
     int gridX = tank.pos[0] - visible.x;
     int gridY = tank.pos[1] - visible.y;
     int rise, run;
@@ -98,14 +155,10 @@ void PotentialFieldCalculator::avoidObjects(tank_t tank, grid_t visible)
                 // current angle
                 newAngle = getAngleBetween(angle, tank.angle);
 
-                if(visible.grid[rise*visible.xdim + run]  && newAngle > PI/-4.0 
-                                                          && newAngle < PI/4.0)
+                if(visible.grid[rise*visible.xdim + run]  && abs(newAngle) < .001)
                 {
                     // get the angle of the new vector
-                    if(newAngle > 0)
-                        newAngle = angle - PI/2.0;
-                    else 
-                        newAngle = angle + PI/2.0;
+                    newAngle = angle - PI/2.0;
                     
                     newAngle = getAngleBetween(newAngle, 0.0);
                     
@@ -137,13 +190,13 @@ void PotentialFieldCalculator::avoidObjects(tank_t tank, grid_t visible)
                         newXVector = newXVector/abs(newYVector) *.2;
                         newYVector = newYVector/abs(newYVector) *.2;        
                     }
-
+                    
                     xVector += newXVector;
                     yVector += newYVector;
                 }
             }
         }
-    }
+    }*/
 }
 
 double PotentialFieldCalculator::getAngleBetween(double target, double start)

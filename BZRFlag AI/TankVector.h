@@ -16,6 +16,7 @@ class TankVector {
 public:
 	TankVector(double, double);
 	virtual ~TankVector();
+        void updateAngle(double);
         double getAngle();
         double getVelocity();
         double getXVector();

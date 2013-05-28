@@ -49,13 +49,13 @@ TankVector* PotentialFieldCalculator::calculateSearcherVector(int x, int y, int 
     
     if(abs(xVector) > abs(yVector))
     {
-        yVector = yVector/abs(xVector) *2;
-        xVector = xVector/abs(xVector) *2;
+        yVector = yVector/abs(xVector);
+        xVector = xVector/abs(xVector);
     }
     else
     {
-        xVector = xVector/abs(yVector) *2;
-        yVector = yVector/abs(yVector) *2;        
+        xVector = xVector/abs(yVector);
+        yVector = yVector/abs(yVector);        
     }
     
     vector<grid_t> tankMap;
@@ -75,7 +75,7 @@ TankVector* PotentialFieldCalculator::calculateSearcherVector(int x, int y, int 
 void PotentialFieldCalculator::avoidObjects(tank_t tank, grid_t visible)
 {
     // range away from the tank it will look for an object
-    int objectRange = 20;
+    int objectRange = 30;
     int gridX = tank.pos[0] - visible.x;
     int gridY = tank.pos[1] - visible.y;
     int rise, run;
@@ -128,13 +128,13 @@ void PotentialFieldCalculator::avoidObjects(tank_t tank, grid_t visible)
                     
                     if(abs(newXVector) > abs(newYVector))
                     {
-                        newYVector = newYVector/abs(newXVector) *.1;
-                        newXVector = newXVector/abs(newXVector) *.1;
+                        newYVector = newYVector/abs(newXVector) *.2;
+                        newXVector = newXVector/abs(newXVector) *.2;
                     }
                     else
                     {
-                        newXVector = newXVector/abs(newYVector) *.1;
-                        newYVector = newYVector/abs(newYVector) *.1;        
+                        newXVector = newXVector/abs(newYVector) *.2;
+                        newYVector = newYVector/abs(newYVector) *.2;        
                     }
 
                     xVector += newXVector;

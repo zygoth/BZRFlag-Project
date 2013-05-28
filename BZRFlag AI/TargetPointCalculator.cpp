@@ -71,20 +71,21 @@ void TargetPointCalculator::basicPointSearch(int tankX, int tankY,
                             settledGrid_t settledGrid, vector<Point>* targetPoints)
 {
     const int NUMPOINTS = 8;
+    const int DISTANCE1 = 50;
     
     Point testedPoints[NUMPOINTS];
     
-    testedPoints[0].x = tankX - 50;
+    testedPoints[0].x = tankX - DISTANCE1;
     testedPoints[0].y = tankY;
     
     testedPoints[1].x = tankX;
-    testedPoints[1].y = tankY + 50;
+    testedPoints[1].y = tankY + DISTANCE1;
     
-    testedPoints[2].x = tankX + 50;
+    testedPoints[2].x = tankX + DISTANCE1;
     testedPoints[2].y = tankY;
     
     testedPoints[3].x = tankX;
-    testedPoints[3].y = tankY - 50;
+    testedPoints[3].y = tankY - DISTANCE1;
     
     
     testedPoints[4].x = tankX - 100;
@@ -105,6 +106,7 @@ void TargetPointCalculator::basicPointSearch(int tankX, int tankY,
         if(isValidTarget(testedPoints[i], settledGrid))
         {
              targetPoints->push_back(testedPoints[i]);
+             return;
         }
     }
 }

@@ -49,9 +49,15 @@ void GridFilter::addInput(grid_t occGrid)
     int startY = cartesianToMatrixCoordinates(occGrid.y, settledGrid.height);
     int sensorData = 0;
     
-    for(int i = startX; i < startX + occGrid.xdim; i++)
+    int i;
+    int j;
+    int jMax;
+    
+    for(i = startX; i < startX + occGrid.xdim; i++)
     {
-        for(int j = startY; j < startY + occGrid.ydim; j++)
+        jMax = startY + occGrid.ydim;
+        
+        for(j = startY; j < jMax; j++)
         {
             // If the point is already settled, don't do the calculations
             if(settledGrid.grid[i][j] == 1 || settledGrid.grid[i][j] == 0)
@@ -74,7 +80,7 @@ void GridFilter::addInput(grid_t occGrid)
                 settledGrid.grid[i][j] = 1;
                 nodesNotSettled--;
             }
-            
+            else
             // It's close to 0
             if(settledGrid.grid[i][j] < EPSILON)
             {

@@ -31,11 +31,11 @@ void SearchTankAI::controlTank()
     tank_t myTank = myTanks[tankNumber];
     
     //get target point
-    Point target = targetGenerator->getTarget(myTank.pos[0], myTank.pos[1], settledGrid->getGrid());
     int height = settledGrid->getGrid().height;
     int width = settledGrid->getGrid().width;
     int x = target.x - width/2;
     int y = target.y - height/2;
+    Point target = targetGenerator->getTarget(x, y, settledGrid->getGrid());
     
     TankVector* newVector = PFCalculator->calculateSearcherVector(x, y, tankNumber);
     

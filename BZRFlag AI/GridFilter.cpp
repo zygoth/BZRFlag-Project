@@ -40,7 +40,7 @@ GridFilter::GridFilter(int width, int height, double truePositiveProbability)
 
     nodesNotSettled = width * height;    
     this->truePositiveProbability = truePositiveProbability;
-    EPSILON = .00000001;
+    EPSILON = .001;
 }
 
 void GridFilter::addInput(grid_t occGrid)
@@ -63,8 +63,10 @@ void GridFilter::addInput(grid_t occGrid)
             sensorData = (int) occGrid.grid[(i - startX) + (j - startY) * occGrid.xdim];
             
             // Formula for updating the probability
-            settledGrid.grid[i][j] = (1 - truePositiveProbability) * settledGrid.grid[i][j] +
-                    truePositiveProbability * sensorData;
+            //settledGrid.grid[i][j] = (1 - truePositiveProbability) * settledGrid.grid[i][j] +
+            //        truePositiveProbability * sensorData;
+            settledGrid.grid[i][j] = (.5) * settledGrid.grid[i][j] +
+            .5 * sensorData;
                     
             // It's close to 1
             if(1 - settledGrid.grid[i][j] < EPSILON)

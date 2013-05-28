@@ -38,14 +38,14 @@ Point TargetPointCalculator::getTarget(int tankX, int tankY, settledGrid_t settl
     
     if(!targets.empty())
     {
-        return targets[0];
+        return targets[rand() % targets.size()];
     }
     
     advancedPointSearch(tankX, tankY, settledGrid, &targets);
     
     if(!targets.empty())
     {
-        return targets[0];
+        return targets[rand() % targets.size()];
     }
     else
     {

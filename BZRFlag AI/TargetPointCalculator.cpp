@@ -38,14 +38,20 @@ Point TargetPointCalculator::getTarget(int tankX, int tankY, settledGrid_t settl
     
     if(!targets.empty())
     {
-        return targets[rand() % targets.size()];
+        Point test = targets[rand() % targets.size()];
+        cout << "Basic search: " << test.x << ", " << test.y << endl;
+        previousTarget = test;
+        return test;
     }
     
     advancedPointSearch(tankX, tankY, settledGrid, &targets);
     
     if(!targets.empty())
     {
-        return targets[rand() % targets.size()];
+        Point test = targets[rand() % targets.size()];
+        cout << "Advanced search: " << test.x << ", " << test.y << endl;
+        previousTarget = test;
+        return test;
     }
     else
     {

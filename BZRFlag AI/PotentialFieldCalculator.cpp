@@ -129,7 +129,8 @@ void PotentialFieldCalculator::avoidObjects(tank_t tank, grid_t visible, TankVec
         }
     }
     
-    vector->updateAngle((double)object * PI/20);
+    if(object > 0)
+        vector->updateAngle((double)object * PI/8);
 
     
     // range away from the tank it will look for an object

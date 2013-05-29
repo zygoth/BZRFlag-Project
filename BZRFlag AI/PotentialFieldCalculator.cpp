@@ -80,10 +80,11 @@ void PotentialFieldCalculator::avoidObjects(tank_t tank, GridFilter* grid)
     settledGrid_t map = grid->getGrid();
     int gridX = tank.pos[0] + map.width/2;
     int gridY = tank.pos[1] + map.height/2;
-    int objectRange = 20;
+    int objectRange = 15;
+    double tempX = 0.0;
+    double tempY = 0.0;
     
     double newXVector, newYVector;
-    double angle, angleDiff, newAngle;
     int x, y;
     
     for(int i = objectRange * -1; i < objectRange; i++)
@@ -113,78 +114,18 @@ void PotentialFieldCalculator::avoidObjects(tank_t tank, GridFilter* grid)
                         
                     }
                     
-                    xVector += newXVector;
-                    yVector += newYVector;
+                    tempX += newXVector;
+                    tempY += newYVector;
                 }
             }
         }
     }
-    
-    // range away from the tank it will look for an object
-/*    int objectRange = 5;
-    int gridX = tank.pos[0] - visible.x;
-    int gridY = tank.pos[1] - visible.y;
-    int rise, run;
-    double angle, newAngle, newXVector, newYVector;
-    
-    for(int i = objectRange * -1; i < objectRange; i++)
-    {
-        for(int k = objectRange * -1; i < objectRange; i++)
-        {
-            run = gridX + k;
-            rise = gridY + i;
-            if(run > 0 && run < visible.xdim &&
-               rise > 0 && rise < visible.ydim)
-            {
-                
-                angle = atan2(i,k);
-                
-                // get difference between angle to an object and the tanks
-                // current angle
-                newAngle = getAngleBetween(angle, tank.angle);
 
-                if(visible.grid[rise*visible.xdim + run]  && abs(newAngle) < .001)
-                {
-                    // get the angle of the new vector
-                    newAngle = angle - PI/2.0;
-                    
-                    newAngle = getAngleBetween(newAngle, 0.0);
-                    
-                    if(newAngle == PI/2 || newAngle == PI/-2)
-                    {
-                        newYVector = 1.0;
-                        newXVector = 0.0;
-                    }
-                    else
-                    {
-                        newXVector = tan(newAngle);
-                        
-                        newYVector = abs(newXVector);
-                        newXVector = newXVector/abs(newXVector);
-                    }
-                    
-                    if(newAngle < 0){
-                        newYVector = newYVector * -1;
-                        newXVector = newXVector * -1;
-                    }
-                    
-                    if(abs(newXVector) > abs(newYVector))
-                    {
-                        newYVector = newYVector/abs(newXVector) *.2;
-                        newXVector = newXVector/abs(newXVector) *.2;
-                    }
-                    else
-                    {
-                        newXVector = newXVector/abs(newYVector) *.2;
-                        newYVector = newYVector/abs(newYVector) *.2;        
-                    }
-                    
-                    xVector += newXVector;
-                    yVector += newYVector;
-                }
-            }
-        }
-    }*/
+    if(abs(tempX) > 0.001 || abs(tempY) > 0.001)
+    {
+        xVector = tempX;
+        yVector = tempY;
+    }
 }
 
 double PotentialFieldCalculator::getAngleBetween(double target, double start)
@@ -354,7 +295,7 @@ void PotentialFieldCalculator::calculateEnemyTanks(int x, int y) {
     int tankX, tankY, calcX, calcY;
     double rise, run;
     int range = 15;
-    double amount = 0.5;
+    double amount = 2.0;
     
     vector<otank_t> tanks;
     socket->get_othertanks(&tanks);

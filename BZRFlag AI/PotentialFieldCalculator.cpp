@@ -9,6 +9,7 @@
 #include <iostream>
 #include <unistd.h>
 #include "PDController.h"
+#include <cmath>
 
 using namespace std;
 
@@ -35,7 +36,8 @@ TankVector* PotentialFieldCalculator::calculateVector(int x, int y, TeamColor ta
     return result;
 }
 
-TankVector* PotentialFieldCalculator::calculateSearcherVector(int x, int y, int index)
+TankVector* PotentialFieldCalculator::calculateSearcherVector(int x, int y, int index, 
+                                                              GridFilter* grid)
 {
     TankVector* result;
     
@@ -62,11 +64,10 @@ TankVector* PotentialFieldCalculator::calculateSearcherVector(int x, int y, int 
     socket->get_occgrid(&tankMap, index);
     
     // adjust vectors to deal with objects
+    avoidObjects(myTank, grid);
     calculateEnemyTanks(myTank.pos[0], myTank.pos[1]);
     
     result = new TankVector(xVector, yVector);
-    
-    avoidObjects(myTank, tankMap.at(0), result);
     
     myTanks.clear();
     tankMap.clear();
@@ -74,64 +75,50 @@ TankVector* PotentialFieldCalculator::calculateSearcherVector(int x, int y, int 
     return result;
 }
 
-void PotentialFieldCalculator::avoidObjects(tank_t tank, grid_t visible, TankVector* vector)
+void PotentialFieldCalculator::avoidObjects(tank_t tank, GridFilter* grid)
 {
+    settledGrid_t map = grid->getGrid();
+    int gridX = tank.pos[0] + map.width/2;
+    int gridY = tank.pos[1] + map.height/2;
+    int objectRange = 20;
+    
     double newXVector, newYVector;
-    int newX, newY;
+    double angle, angleDiff, newAngle;
+    int x, y;
     
-    double newAngle = tank.angle;
-    int x = tank.pos[0] - visible.x;
-    int y = tank.pos[1] - visible.y;
-    int object = 0;
-    int range = 15;
-                        
-    if(newAngle == PI/2 || newAngle == PI/-2)
+    for(int i = objectRange * -1; i < objectRange; i++)
     {
-        newYVector = 1.0;
-        newXVector = 0.0;
-    }
-    else
-    {
-        newXVector = tan(newAngle);
-                        
-        newYVector = abs(newXVector);
-        newXVector = newXVector/abs(newXVector);
-    }
-    
-    if(abs(newXVector) > abs(newYVector))
-    {
-        newYVector = newYVector/abs(newXVector);
-        newXVector = newXVector/abs(newXVector);
-    }
-    else
-    {
-        newXVector = newXVector/abs(newYVector);
-        newYVector = newYVector/abs(newYVector);
-    }
-                    
-    if(newAngle < 0){
-        newYVector = newYVector * -1;
-        newXVector = newXVector * -1;
-    }
-    
-    for(int i = 0; i < range; i++)
-    {
-        newX = x + (newXVector * i + .5);
-        newY = y + (newYVector * i + .5);
-                
-        if(newX > 0 && newX < visible.xdim &&
-           newY > 0 && newY < visible.ydim)
+        for(int k = objectRange * -1; k < objectRange; k++)
         {
-            if(visible.grid[newY * visible.xdim + newX])
+            x = gridX + k;
+            y = gridY + i;
+            
+            if(x > 0 && x < map.width &&
+               y > 0 && y < map.height)
             {
-                object++;
+                if(map.grid[x][y] > .99)
+                {
+                    newXVector = k * -1;
+                    newYVector = i * -1;
+                    
+                    if(abs(newXVector) > abs(newYVector))
+                    {
+                        newYVector = newYVector/abs(newXVector) * 0.2;
+                        newXVector = newXVector/abs(newXVector) * 0.2;
+                    }
+                    else
+                    {
+                        newXVector = newXVector/abs(newYVector) * 0.2;
+                        newYVector = newYVector/abs(newYVector) * 0.2;
+                        
+                    }
+                    
+                    xVector += newXVector;
+                    yVector += newYVector;
+                }
             }
         }
     }
-    
-    if(object > 0)
-        vector->updateAngle(PI/8);
-
     
     // range away from the tank it will look for an object
 /*    int objectRange = 5;
@@ -325,7 +312,7 @@ void PotentialFieldCalculator::calculateShotVector(int x, int y) {
 void PotentialFieldCalculator::calculateFriendlyTanks(int x, int y) {
     int tankX, tankY, calcX, calcY;
     double rise, run;
-    int range = 5;
+    int range = 15;
     double amount = 0.5;
     
     vector<tank_t> tanks;
@@ -366,7 +353,7 @@ void PotentialFieldCalculator::calculateFriendlyTanks(int x, int y) {
 void PotentialFieldCalculator::calculateEnemyTanks(int x, int y) {
     int tankX, tankY, calcX, calcY;
     double rise, run;
-    int range = 5;
+    int range = 15;
     double amount = 0.5;
     
     vector<otank_t> tanks;

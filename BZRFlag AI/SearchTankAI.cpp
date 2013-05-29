@@ -37,7 +37,7 @@ void SearchTankAI::controlTank()
     int x = target.x - width/2;
     int y = target.y - height/2;
     
-    TankVector* newVector = PFCalculator->calculateSearcherVector(x, y, tankNumber);
+    TankVector* newVector = PFCalculator->calculateSearcherVector(x, y, tankNumber, settledGrid);
     
     // Calculate Speed
     int xDistance = x - myTank.pos[0];

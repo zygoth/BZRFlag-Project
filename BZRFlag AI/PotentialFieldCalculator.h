@@ -10,6 +10,7 @@
 
 #include "TankVector.h"
 #include "470bot.h"
+#include "GridFilter.h"
 
 
 enum TeamColor{
@@ -27,13 +28,13 @@ class PotentialFieldCalculator {
         void calculateFriendlyTanks(int, int);
         void calculateEnemyTanks(int, int);
         void calculateTargetVector(int, int, TeamColor, int);
-        void avoidObjects(tank_t, grid_t, TankVector*);
+        void avoidObjects(tank_t, GridFilter*);
         double getAngleBetween(double, double);
 public:
 	PotentialFieldCalculator(BZRC*);
 	virtual ~PotentialFieldCalculator();
         TankVector* calculateVector(int, int, TeamColor, int);
-        TankVector* calculateSearcherVector(int x, int y, int index);
+        TankVector* calculateSearcherVector(int x, int y, int index, GridFilter* grid);
 };
 
 #endif /* POTENTIALFIELDCALCULATOR_H_ */

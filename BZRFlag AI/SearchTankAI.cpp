@@ -44,12 +44,8 @@ void SearchTankAI::controlTank()
     int yDistance = y - myTank.pos[1];
     if(abs(xDistance) < 15 && abs(yDistance) < 15)
         connection->speed(tankNumber, 0.0);
-    else{
-        if (abs(xDistance) < 30 && abs(yDistance) < 30)
-            connection->speed(tankNumber, 0.5);
-        else
-            connection->speed(tankNumber, newVector->getVelocity());
-    }
+    else
+        connection->speed(tankNumber, newVector->getVelocity());
     
     // Calculate angularVelocity
     

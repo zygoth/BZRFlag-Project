@@ -12,6 +12,7 @@
 #include <queue>
 #include "Point.h"
 #include "GNUPrinter.h"
+#include "GridFilter.h"
 
 typedef struct node_uc {
 	node_uc* parent;
@@ -19,6 +20,7 @@ typedef struct node_uc {
         double pathCost;
         bool nextTo;
         int x, y, childrenNum;
+        node_uc* children[8];
 } node_uc;
 
 struct uc_compare {
@@ -37,12 +39,16 @@ public:
     bool search(bool* occgrid, int gridWidth, int gridHeight,
                        Point startPosition, Point targetPosition,
                        vector<Point>& path, bool cost, bool penalty);
+    bool search(settledGrid_t map, Point startPosition, Point targetPosition, 
+                Point* nextTarget);
 private:
     node_uc* newNode(double,int,int,node_uc*);
     bool isNextToObject(int,int);
     void addchildren(node_uc*);
+    void addChild(node_uc*, node_uc*);
     double getPenalty(node_uc*, int, int);
     double getDistance(int, int);
+    void clearNode(node_uc* node);
     
     GNUPrinter* printer;
     bool* grid;

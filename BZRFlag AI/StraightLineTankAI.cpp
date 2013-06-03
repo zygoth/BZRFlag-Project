@@ -29,15 +29,18 @@ void StraightLineTankAI::controlTank()
             connection->angvel(tankNumber, 0);
             connection->speed(tankNumber, 1);
             isTurning = false;
+            movementTimer = time(&movementTimer);
         }
         else
         {
-            connection->angvel(tankNumber, 1);
-            connection->speed(tankNumber, 0);
-            isTurning = true;
+            if(secondsElapsed >= 10)
+            {
+                connection->angvel(tankNumber, 1);
+                connection->speed(tankNumber, 0);
+                isTurning = true;
+                movementTimer = time(&movementTimer);
+            }
         }
-        
-        movementTimer = time(&movementTimer);
     }
 }
 

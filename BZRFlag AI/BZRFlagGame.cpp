@@ -12,6 +12,7 @@
 #include "PotentialFieldPrinter.h"
 #include "SearchCommanderAI.h"
 #include "StraightLineCommanderAI.h"
+#include "EvaderCommanderAI.h"
 
 BZRFlagGame::BZRFlagGame()
 {
@@ -35,6 +36,9 @@ void BZRFlagGame::playGame(string hostName, int portNumber, string gameType)
     
     if(gameType.compare("STRAIGHTLINE") == 0)
         commanderAI = new StraightLineCommanderAI(connection);
+    
+    if(gameType.compare("EVADER") == 0)
+        commanderAI = new EvaderCommanderAI(connection);
     
     try
     {

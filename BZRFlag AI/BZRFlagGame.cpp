@@ -32,6 +32,9 @@ void BZRFlagGame::playGame(string hostName, int portNumber, string gameType)
     if(gameType.compare("SEARCH") == 0)
         commanderAI = new SearchCommanderAI(connection);
     
+    if(gameType.compare("STRAIGHTLINE") == 0)
+        commanderAI = new StraightLineCommanderAI(connection);
+    
     try
     {
         while(true)

@@ -67,7 +67,6 @@ void GridFilter::addInput(grid_t occGrid)
             
             // segfault due to truncation???
             sensorData = (int) occGrid.grid[(i - startX) + (j - startY) * occGrid.xdim];
-            j += sensorData * 10;
             
             // Formula for updating the probability
             //settledGrid.grid[i][j] = (1 - truePositiveProbability) * settledGrid.grid[i][j] +

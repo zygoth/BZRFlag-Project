@@ -114,13 +114,13 @@ void TargetPointCalculator::basicPointSearch(int tankX, int tankY,
 void TargetPointCalculator::advancedPointSearch(int tankX, int tankY, 
                         settledGrid_t settledGrid, vector<Point>* nearbyPoints)
 {
-    const int GRANULARITY = 50;
+    const int GRANULARITY = 60;
     int noise = rand() % GRANULARITY;
     Point currentPoint(0,0);
     
-    for(int i = 0; i < settledGrid.width; i+= GRANULARITY - noise)
+    for(int i = GRANULARITY - noise; i < settledGrid.width; i+= GRANULARITY)
     {
-        for(int j = 0; j < settledGrid.height; j+= GRANULARITY - noise)
+        for(int j = GRANULARITY - noise; j < settledGrid.height; j+= GRANULARITY)
         {
             currentPoint.x = i;
             currentPoint.y = j;
@@ -128,6 +128,7 @@ void TargetPointCalculator::advancedPointSearch(int tankX, int tankY,
             if(isValidTarget(currentPoint, settledGrid))
             {
                 nearbyPoints->push_back(currentPoint);
+                return;
             }
         }
     }

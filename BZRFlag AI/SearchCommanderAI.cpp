@@ -9,6 +9,7 @@
 #include "GridFilter.h"
 #include "SearchTankAI.h"
 #include "GNUPrinter.h"
+#include "CornerCalculator.h"
 
 int GNUCounter = 0;
 
@@ -90,9 +91,18 @@ void SearchCommanderAI::controlTeam()
     else if(searchDone == false)
     {
         searchDone = true;
+        CornerCalculator calculator;
+        vector<Point> corners;
+        calculator.calculateCorners(grid->getGrid(), &corners);
         
-        
-        
+        for(int i = 0; i < corners.size(); i++)
+        {
+            cout << corners[i].x - grid->getGrid().width/2 << ", ";
+            cout << corners[i].y - grid->getGrid().height/2 << endl;
+        }
+            
+            
+            
         // Get Corners
         // fixOffByOneErrors
         // Print out Grid

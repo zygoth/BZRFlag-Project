@@ -29,6 +29,119 @@ UniformCostArraySearcher::UniformCostArraySearcher(const UniformCostArraySearche
 
 UniformCostArraySearcher::~UniformCostArraySearcher()
 {
+    delete printer;
+}
+
+// returns true when target point is found and nextTarget is given the value of a point on the path
+// returns false if no path is found and nextTarget is given the value of a the targetPosition
+bool UniformCostArraySearcher::search(settledGrid_t map, Point startPosition, Point targetPosition,
+                                      Point* nextTarget)
+
+{
+    int nextPointRange = 30;
+    delete printer;
+    printer = new GNUPrinter();
+    printCounter = 0;
+            
+    tree = NULL;
+    width = map.width;
+    height = map.height;
+    targetX = targetPosition.x;
+    targetY = targetPosition.y;
+    aStar = true;
+    penaltyMode = true;
+            
+    int temp = width*height;
+    objectGrid = new bool[temp];
+    grid = new bool[temp];
+    for(int x = 0; x < width ; x++)
+    {
+        for(int y = 0; y < height; y++)
+        {
+            if(map.grid[x][y] > .99)
+            {
+                grid[y*width + x] = true;
+                objectGrid[y*width + x] = true;
+            }
+            else
+            {
+                grid[y*width + x] = false;
+                objectGrid[y*width + x] = false;
+            }
+            
+        }
+    }
+    
+    int tempX = startPosition.x;
+    int tempY = startPosition.y;
+    
+    node_uc* tempNode;
+    if(aStar){
+        tempNode = newNode(0.0 + getDistance(tempX,tempY), 
+                        tempX, tempY, NULL);
+        tempNode->pathCost = 0.0;
+    }
+    else
+        tempNode = newNode(0.0, tempX, tempY, NULL);
+    
+    grid[tempNode->y*width + tempNode->x] = 1;
+    pathOptions.push(tempNode);
+    tree = tempNode;
+    
+    while(!(pathOptions.empty())){
+        tempNode = pathOptions.top();
+        pathOptions.pop();
+        
+        if(tempNode->x == targetX && tempNode->y == targetY)
+            break;
+        
+        addchildren(tempNode);
+        
+    }
+    
+    if(tempNode->x != targetX && tempNode->y != targetY){
+        nextTarget->x = targetX;
+        nextTarget->x = targetY;
+        return false;
+    }
+    
+    vector<Point> path;
+    node_uc* parent = tempNode->parent;
+    
+    while(parent != NULL){
+        int x = tempNode->x;
+        int y = tempNode->y;
+        
+        Point pathPoint(x, y); 
+        path.push_back(pathPoint);
+        tempNode = parent;
+        parent = parent->parent;
+    }
+    
+    Point check = path.back();
+    while(path.empty() == false && nextPointRange > 0)
+    {
+        path.pop_back();
+        check = path.back();
+        nextPointRange--;
+    }
+    
+    nextTarget->x = check.x;
+    nextTarget->y = check.y;
+    
+    path.clear();
+    clearNode(tree);
+    delete objectGrid;
+    delete grid;
+    
+    return true;
+}
+
+void UniformCostArraySearcher::clearNode(node_uc* node)
+{
+    for(int i = 0; i < node->childrenNum; i++)
+        clearNode(node->children[i]);
+    delete node;
 }
 
 bool UniformCostArraySearcher::search(bool* occgrid, int gridWidth, int gridHeight,
@@ -120,6 +233,9 @@ node_uc* UniformCostArraySearcher::newNode(double cost,int x,int y, node_uc* par
     tempNode->x = x;
     tempNode->y = y;
     
+    for(int i = 0; i < 8; i++)
+        tempNode->children[i] = NULL;
+    
     if(penaltyMode)
         tempNode->nextTo = isNextToObject(x,y);
     else
@@ -184,6 +300,12 @@ bool UniformCostArraySearcher::isNextToObject(int x,int y)
     return false;
 }
 
+void UniformCostArraySearcher::addChild(node_uc* parent, node_uc* child)
+{
+    parent->children[parent->childrenNum] = child;
+    parent->childrenNum++;
+}
+
 void UniformCostArraySearcher::addchildren(node_uc* parent)
 {
     double amount;
@@ -217,6 +339,7 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
                 printer->insertLine(x, y, x-1, y, true);
                 grid[(y)*width + (x-1)] = 1;
                 
+                addChild(parent, child);
                 pathOptions.push(child);
             }
     }
@@ -242,6 +365,7 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
                 printer->insertLine(x, y, x+1, y, true);
                 grid[(y)*width + (x+1)] = 1;
                 
+                addChild(parent, child);
                 pathOptions.push(child);
             }
     }
@@ -267,6 +391,7 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
                 printer->insertLine(x, y, x, y+1, true);
                 grid[(y+1)*width + (x)] = 1;
                 
+                addChild(parent, child);
                 pathOptions.push(child);
             }
     }
@@ -292,6 +417,7 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
                 printer->insertLine(x, y, x, y-1, true);
                 grid[(y-1)*width + (x)] = 1;
                 
+                addChild(parent, child);
                 pathOptions.push(child);
             }
     }
@@ -318,6 +444,7 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
                 printer->insertLine(x, y, x-1, y+1, true);
                 grid[(y+1)*width + (x-1)] = 1;
                 
+                addChild(parent, child);
                 pathOptions.push(child);
             }
         }
@@ -345,6 +472,7 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
                 printer->insertLine(x, y, x+1, y+1, true);
                 grid[(y+1)*width + (x+1)] = 1;
                 
+                addChild(parent, child);
                 pathOptions.push(child);
             }
         }
@@ -372,6 +500,7 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
                 printer->insertLine(x, y, x-1, y-1, true);
                 grid[(y-1)*width + (x-1)] = 1;
                 
+                addChild(parent, child);
                 pathOptions.push(child);
             }
         }
@@ -400,6 +529,7 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
                 printer->insertLine(x, y, x+1, y-1, true);
                 grid[(y-1)*width + (x+1)] = 1;
                 
+                addChild(parent, child);
                 pathOptions.push(child);
             }
         }

@@ -11,6 +11,7 @@
 #include "PotentialFieldCommanderAI.h"
 #include "PotentialFieldPrinter.h"
 #include "SearchCommanderAI.h"
+#include "StraightLineCommanderAI.h"
 
 BZRFlagGame::BZRFlagGame()
 {

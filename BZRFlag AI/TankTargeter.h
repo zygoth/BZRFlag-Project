@@ -20,7 +20,9 @@ class TankTargeter
 public:
     TankTargeter(BZRC* connection, int tankNumber);
     virtual ~TankTargeter();
-    Point getTargetValue();
+    void update();
+    Point getTargetPoint(double time);
+    Point getCurrentPoint();
     
 private:
     BZRC* socket;

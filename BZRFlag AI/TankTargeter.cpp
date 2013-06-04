@@ -7,7 +7,7 @@
 
 #include "TankTargeter.h"
 
-TankTargeter::TankTargeter(BZRC* connection, int tankNumber)
+TankTargeter::TankTargeter(BZRC* connection, int tankNumber, double timeInterval)
 {
     socket = connection;
     tankIndex = tankNumber;
@@ -30,7 +30,13 @@ TankTargeter::TankTargeter(BZRC* connection, int tankNumber)
 
 TankTargeter::~TankTargeter(){}
 
-Point TankTargeter::getTargetValue()
+Point TankTargeter::getTargetPoint()
 {
     return Point(0,0);
 }
+
+void TankTargeter::update()
+{
+    
+}
+

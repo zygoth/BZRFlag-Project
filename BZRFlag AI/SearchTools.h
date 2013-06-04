@@ -24,6 +24,8 @@ public:
     static void extractPathFromLastNode(Node* endNode, vector<Point>& path);
     static void addTankDataToOCCMatrix(grid_t* occGrid, BZRC* connection);
     static void printPath(vector<Point>* path, string fileName);
+    static double distance(Point p1, Point p2);
+    static double distance(int x1, int y1, int x2, int y2);
     virtual ~SearchTools();
 private:
 

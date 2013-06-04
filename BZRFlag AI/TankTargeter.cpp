@@ -13,14 +13,41 @@ TankTargeter::TankTargeter(BZRC* connection, int tankNumber)
     socket = connection;
     tankIndex = tankNumber;
     
-    double x, y;
-    // set x,y to be the value of the flag
+    c = 0.0;
+    timeInterval = -1.0;
     
-    targetValues =  MatrixXf::Zero(6,1);
+    timer = time(&timer);
+    
+    double x, y;
+    vector<otank_t> badTanks;
+    socket->get_othertanks(&badTanks);
+    otank_t tank = badTanks.at(tankIndex);
+    
+    vector<base_t> bases;
+    socket->get_bases(&bases);
+    
+    for(int i = 0; i < bases.size(); i++)
+    {
+        if(bases.at(i).color.compare(tank.color) == 0)
+        {
+            x = bases.at(i).base_corner[0][0]
+              - bases.at(i).base_corner[2][0];
+            y = bases.at(i).base_corner[0][1]
+              - bases.at(i).base_corner[2][1];
+            
+            x = bases.at(i).base_corner[2][0]
+              + x/2;
+            y = bases.at(i).base_corner[2][1]
+              + y/2;
+            
+        }
+    }
+    
+    targetValues = MatrixXf::Zero(6,1);
     targetValues(0,0) = x;
     targetValues(3,0) = y;
     
-    targetChanges =  MatrixXf::Zero(6,6);
+    targetChanges = MatrixXf::Zero(6,6);
     targetChanges(0,0) = 25;
     targetChanges(1,1) = 0.1;
     targetChanges(2,2) = 0.1;
@@ -28,7 +55,32 @@ TankTargeter::TankTargeter(BZRC* connection, int tankNumber)
     targetChanges(4,4) = .01;
     targetChanges(5,5) = .01;
     
-    cout << targetValues << endl;
+    transitionMatrix = MatrixXf::Identity(6,6);
+    transitionMatrix(2,1) = -1 * c;
+    transitionMatrix(5,4) = -1 * c;
+    
+    noiseMatrix = MatrixXf::Zero(6,6);
+    noiseMatrix(0,0) = 0.1;
+    noiseMatrix(1,1) = 0.1;
+    noiseMatrix(2,2) = 100;
+    noiseMatrix(3,3) = 0.1;
+    noiseMatrix(4,4) = 0.1;
+    noiseMatrix(5,5) = 100;
+    
+    observationMatrix = MatrixXf::Zero(2,6);
+    observationMatrix(0,0) = 1;
+    observationMatrix(1,3) = 1;
+    
+    covarianceMatrix = Matrix2f::Zero();
+    covarianceMatrix(0,0) = 25;
+    covarianceMatrix(1,1) = 25;
+    
+    observationT = observationMatrix.transpose();
+    
+    cout << observationT << endl;
+    
+    badTanks.clear();
+    bases.clear();
 }
 
 TankTargeter::~TankTargeter(){}
@@ -40,17 +92,54 @@ Point TankTargeter::getTargetPoint(double time)
 
 Point TankTargeter::getCurrentPoint()
 {
-    
+    return Point(0,0);
 }
 
 void TankTargeter::update()
 {
+    if(timeInterval < 0)
+    {
+        timeInterval = 0.1;
+        timeStamp = double(timer);
+        return;
+    }
     
+    time_t nowTime = time(&nowTime);
+    double intervalCheck = ((double(nowTime) - timeStamp) / CLOCKS_PER_SEC) * 1000000;
+    timeStamp = double(timer);
+    
+    if(timeInterval != intervalCheck)
+    {
+        timeInterval = intervalCheck;
+        
+        transitionMatrix(0,1) = timeInterval;
+        transitionMatrix(1,2) = timeInterval;
+        transitionMatrix(3,4) = timeInterval;
+        transitionMatrix(4,5) = timeInterval;
+        double squaredInterval = pow(timeInterval,2);
+        transitionMatrix(0,2) = squaredInterval/2;
+        transitionMatrix(3,5) = squaredInterval/2;
+        
+        transitionT = transitionMatrix.transpose();
+    }
+    
+    MatrixXf temp = transitionMatrix * 
+                    targetChanges * noiseMatrix;
+    
+    MatrixXf inverseMatrix = (observationMatrix * temp * 
+                                observationT + covarianceMatrix);
+        
+    MatrixXf nextStep = temp * observationT * inverseMatrix.inverse();
+    
+//    targetValues = transitionMatrix * targetValues + 
+//                   nextStep *(0 - observationMatrix * transitionMatrix * targetValues);
+    
+//    targetChanges = (identity - nextStep * observationMatrix) * temp;
 }
 
 void TankTargeter::test()
 {
-    BZRC connection("localhost", 12345, false);
+    BZRC connection("localhost", 60618, false);
     TankTargeter* temp = new TankTargeter(&connection, 0);
     
     delete temp;

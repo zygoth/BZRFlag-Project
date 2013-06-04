@@ -9,8 +9,10 @@
 #define	TANKTARGETER_H
 
 #include "Eigen/Core"
+#include "Eigen/Dense"
 #include "470bot.h"
 #include "Point.h"
+#include <time.h>
 
 using namespace Eigen;
 
@@ -26,10 +28,19 @@ public:
     static void test();
     
 private:
+    time_t timer;
+    double timeStamp, timeInterval, c;
     BZRC* socket;
     int tankIndex;
     MatrixXf targetValues;
     MatrixXf targetChanges;
+    
+    MatrixXf transitionMatrix;
+    MatrixXf noiseMatrix;
+    MatrixXf observationMatrix;
+    Matrix2f covarianceMatrix;
+    MatrixXf observationT;
+    MatrixXf transitionT;
     
 };
 

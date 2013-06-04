@@ -23,6 +23,7 @@ public:
     void update();
     Point getTargetPoint(double time);
     Point getCurrentPoint();
+    static void test();
     
 private:
     BZRC* socket;

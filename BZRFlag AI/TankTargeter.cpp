@@ -6,8 +6,9 @@
  */
 
 #include "TankTargeter.h"
+#include "BZRFlagGame.h"
 
-TankTargeter::TankTargeter(BZRC* connection, int tankNumber, double timeInterval)
+TankTargeter::TankTargeter(BZRC* connection, int tankNumber)
 {
     socket = connection;
     tankIndex = tankNumber;
@@ -26,13 +27,20 @@ TankTargeter::TankTargeter(BZRC* connection, int tankNumber, double timeInterval
     targetChanges(3,3) = 25;
     targetChanges(4,4) = .01;
     targetChanges(5,5) = .01;
+    
+    cout << targetValues << endl;
 }
 
 TankTargeter::~TankTargeter(){}
 
-Point TankTargeter::getTargetPoint()
+Point TankTargeter::getTargetPoint(double time)
 {
     return Point(0,0);
+}
+
+Point TankTargeter::getCurrentPoint()
+{
+    
 }
 
 void TankTargeter::update()
@@ -40,3 +48,10 @@ void TankTargeter::update()
     
 }
 
+void TankTargeter::test()
+{
+    BZRC connection("localhost", 12345, false);
+    TankTargeter* temp = new TankTargeter(&connection, 0);
+    
+    delete temp;
+}

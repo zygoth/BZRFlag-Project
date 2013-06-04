@@ -12,6 +12,7 @@
 #include "IDArraySearcher.h"
 #include "UniformCostArraySearcher.h"
 #include "GridFilter.h"
+#include "TankTargeter.h"
 
 using namespace std;
 
@@ -201,6 +202,7 @@ void doSearchMain(int argc, char *argv[])
 void doTestMain(int argc, char *argv[])
 {
     GridFilter::testGridFilter();
+    TankTargeter::test();
 }
 
 

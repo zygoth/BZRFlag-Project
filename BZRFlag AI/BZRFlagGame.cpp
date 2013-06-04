@@ -13,6 +13,7 @@
 #include "SearchCommanderAI.h"
 #include "StraightLineCommanderAI.h"
 #include "EvaderCommanderAI.h"
+#include "ShooterCommanderAI.h"
 
 BZRFlagGame::BZRFlagGame()
 {
@@ -39,6 +40,9 @@ void BZRFlagGame::playGame(string hostName, int portNumber, string gameType)
     
     if(gameType.compare("EVADER") == 0)
         commanderAI = new EvaderCommanderAI(connection);
+    
+    if(gameType.compare("SHOOTER") == 0)
+        commanderAI = new ShooterCommanderAI(connection);
     
     try
     {

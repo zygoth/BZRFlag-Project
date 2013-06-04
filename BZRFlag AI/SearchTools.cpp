@@ -104,6 +104,16 @@ void SearchTools::printPath(vector<Point>* path, string fileName)
     printer.outputToFile(fileName);
 }
 
+double SearchTools::distance(Point p1, Point p2)
+{
+    return pow((pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2)), 0.5);
+}
+
+double SearchTools::distance(int x1, int y1, int x2, int y2)
+{
+    return pow((pow(x1 - x2, 2) + pow(y1 - y2, 2)), 0.5);
+}
+
 SearchTools::~SearchTools()
 {
 }

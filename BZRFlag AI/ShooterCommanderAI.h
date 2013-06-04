@@ -9,6 +9,7 @@
 #define	SHOOTERCOMMANDERAI_H
 
 #include "CommanderAI.h"
+#include "TankTargeter.h"
 
 class ShooterCommanderAI : public CommanderAI
 {
@@ -19,6 +20,7 @@ public:
 
 private:
     vector<TankAI*> tankAIs;
+    vector<TankTargeter> tankTargeters;
 };
 
 #endif	/* SHOOTERCOMMANDERAI_H */

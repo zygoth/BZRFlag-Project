@@ -87,12 +87,26 @@ TankTargeter::~TankTargeter(){}
 
 Point TankTargeter::getTargetPoint(double time)
 {
-    return Point(0,0);
+    MatrixXf temp = MatrixXf::Identity(6,6);
+    temp(2,1) = -1 * c;
+    temp(5,4) = -1 * c;
+    
+    temp(0,1) = time;
+    temp(1,2) = time;
+    temp(3,4) = time;
+    temp(4,5) = time;
+    double squaredTime = pow(time,2);
+    temp(0,2) = squaredTime/2;
+    temp(3,5) = squaredTime/2;
+
+    MatrixXf futureValues = temp * targetValues;
+    
+    return Point(futureValues(0,0),futureValues(3,0));
 }
 
 Point TankTargeter::getCurrentPoint()
 {
-    return Point(0,0);
+    return Point(targetValues(0,0), targetValues(3,0));
 }
 
 void TankTargeter::update()
@@ -131,7 +145,8 @@ void TankTargeter::update()
         
     MatrixXf nextStep = temp * observationT * inverseMatrix.inverse();
     
- /*   Matrix<double, 2, 1> zMatrix;
+    MatrixXf zMatrix;
+    zMatrix = MatrixXf::Zero(2,1);
     
     vector<tank_t> myTanks;
     socket->get_mytanks(&myTanks);
@@ -139,10 +154,10 @@ void TankTargeter::update()
     zMatrix(0,0) = myTanks.at(tankIndex).pos[0];
     zMatrix(1,0) = myTanks.at(tankIndex).pos[1];
     
-    targetValues = transitionMatrix * targetValues + 
-                   nextStep *(zMatrix - observationMatrix * transitionMatrix * targetValues);
+    targetValues = (transitionMatrix * targetValues) + (nextStep *
+            (zMatrix - (observationMatrix * transitionMatrix * targetValues)));
     
-    targetChanges = (MatrixXf::Identity(6,6) - nextStep * observationMatrix) * temp;*/
+    targetChanges = (MatrixXf::Identity(6,6) - nextStep * observationMatrix) * temp;
     
     
 }

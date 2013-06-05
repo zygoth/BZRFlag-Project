@@ -131,10 +131,20 @@ void TankTargeter::update()
         
     MatrixXf nextStep = temp * observationT * inverseMatrix.inverse();
     
-//    targetValues = transitionMatrix * targetValues + 
-//                   nextStep *(0 - observationMatrix * transitionMatrix * targetValues);
+ /*   Matrix<double, 2, 1> zMatrix;
     
-//    targetChanges = (identity - nextStep * observationMatrix) * temp;
+    vector<tank_t> myTanks;
+    socket->get_mytanks(&myTanks);
+    
+    zMatrix(0,0) = myTanks.at(tankIndex).pos[0];
+    zMatrix(1,0) = myTanks.at(tankIndex).pos[1];
+    
+    targetValues = transitionMatrix * targetValues + 
+                   nextStep *(zMatrix - observationMatrix * transitionMatrix * targetValues);
+    
+    targetChanges = (MatrixXf::Identity(6,6) - nextStep * observationMatrix) * temp;*/
+    
+    
 }
 
 void TankTargeter::test()

@@ -77,7 +77,7 @@ TankTargeter::TankTargeter(BZRC* connection, int tankNumber)
     
     observationT = observationMatrix.transpose();
     
-    cout << observationT << endl;
+//    cout << observationT << endl;
     
     badTanks.clear();
     bases.clear();
@@ -159,7 +159,12 @@ void TankTargeter::update()
     
     targetChanges = (MatrixXf::Identity(6,6) - nextStep * observationMatrix) * temp;
     
-    
+/*    cout << temp << endl;
+    cout << endl;
+    cout << targetValues << endl;
+    cout << endl;
+    cout << targetChanges << endl;
+    cout << endl;*/
 }
 
 void TankTargeter::test()

@@ -62,10 +62,10 @@ TankTargeter::TankTargeter(BZRC* connection, int tankNumber)
     noiseMatrix = MatrixXf::Zero(6,6);
     noiseMatrix(0,0) = 0.1;
     noiseMatrix(1,1) = 0.1;
-    noiseMatrix(2,2) = 100;
+    noiseMatrix(2,2) = 25;
     noiseMatrix(3,3) = 0.1;
     noiseMatrix(4,4) = 0.1;
-    noiseMatrix(5,5) = 100;
+    noiseMatrix(5,5) = 25;
     
     observationMatrix = MatrixXf::Zero(2,6);
     observationMatrix(0,0) = 1;
@@ -98,9 +98,10 @@ Point TankTargeter::getTargetPoint(double time)
     double squaredTime = pow(time,2);
     temp(0,2) = squaredTime/2;
     temp(3,5) = squaredTime/2;
-
+    //cout << temp << endl;
     MatrixXf futureValues = temp * targetValues;
-    
+    cout << futureValues << endl << endl;
+    cout << targetValues << endl;
     return Point(futureValues(0,0),futureValues(3,0));
 }
 
@@ -159,10 +160,10 @@ void TankTargeter::update()
     
     targetChanges = (MatrixXf::Identity(6,6) - nextStep * observationMatrix) * temp;
     
-/*    cout << targetValues << endl;
-    cout << endl;
-    cout << targetChanges << endl;
-    cout << endl;*/
+    //cout << targetValues << endl;
+    //cout << endl;
+    //cout << targetChanges << endl;
+    //cout << endl;*/
     
     myTanks.clear();
 }

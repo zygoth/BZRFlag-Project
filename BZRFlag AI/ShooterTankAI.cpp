@@ -62,7 +62,7 @@ void ShooterTankAI::controlTank()
     connection->speed(tankNumber, 0);
     connection->angvel(tankNumber, angularVelocity);
     
-    if(abs(differenceBetweenTwoAngles(me.angle, targetAngle)) < .1)
+    if(abs(differenceBetweenTwoAngles(me.angle, targetAngle)) < .05)
     {
         connection->shoot(tankNumber);
     }

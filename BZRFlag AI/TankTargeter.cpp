@@ -62,10 +62,10 @@ TankTargeter::TankTargeter(BZRC* connection, int tankNumber)
     noiseMatrix = MatrixXf::Zero(6,6);
     noiseMatrix(0,0) = 0.1;
     noiseMatrix(1,1) = 0.1;
-    noiseMatrix(2,2) = 1;
+    noiseMatrix(2,2) = 100;
     noiseMatrix(3,3) = 0.1;
     noiseMatrix(4,4) = 0.1;
-    noiseMatrix(5,5) = 1;
+    noiseMatrix(5,5) = 100;
     
     observationMatrix = MatrixXf::Zero(2,6);
     observationMatrix(0,0) = 1;
@@ -148,8 +148,8 @@ void TankTargeter::update()
     MatrixXf zMatrix;
     zMatrix = MatrixXf::Zero(2,1);
     
-    vector<tank_t> myTanks;
-    socket->get_mytanks(&myTanks);
+    vector<otank_t> myTanks;
+    socket->get_othertanks(&myTanks);
     
     zMatrix(0,0) = myTanks.at(tankIndex).pos[0];
     zMatrix(1,0) = myTanks.at(tankIndex).pos[1];
@@ -163,6 +163,8 @@ void TankTargeter::update()
     cout << endl;
     cout << targetChanges << endl;
     cout << endl;*/
+    
+    myTanks.clear();
 }
 
 void TankTargeter::test()

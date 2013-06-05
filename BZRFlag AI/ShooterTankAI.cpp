@@ -49,12 +49,12 @@ void ShooterTankAI::controlTank()
     vector<tank_t> myTanks;
     connection->get_mytanks(&myTanks);
     tank_t me = myTanks.at(tankNumber);
-    TankTargeter targetedEnemy = enemies->front();
+    TankTargeter* targetedEnemy = &(enemies->front());
     
-    Point targetLocation = targetedEnemy.getCurrentPoint();
+    Point targetLocation = targetedEnemy->getCurrentPoint();
     double distanceToEnemy = SearchTools::distance(me.pos[0], me.pos[1], targetLocation.x, targetLocation.y);
     double timeForShotToHit = distanceToEnemy / SHOTSPEED;
-    Point futureLocation = targetedEnemy.getTargetPoint(timeForShotToHit);    
+    Point futureLocation = targetedEnemy->getTargetPoint(timeForShotToHit);    
     double targetAngle = atan2((futureLocation.y - me.pos[1]) , (futureLocation.x - me.pos[0]));    
     double angularVelocity = pdController.calculateAngularVelocity(me.angle, targetAngle);
     

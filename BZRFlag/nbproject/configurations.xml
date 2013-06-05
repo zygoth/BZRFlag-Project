@@ -10,6 +10,7 @@
         <itemPath>../BZRFlag AI/EvaderCommanderAI.h</itemPath>
         <itemPath>../BZRFlag AI/PotentialFieldCommanderAI.h</itemPath>
         <itemPath>../BZRFlag AI/SearchCommanderAI.h</itemPath>
+        <itemPath>../BZRFlag AI/ShooterCommanderAI.h</itemPath>
         <itemPath>../BZRFlag AI/StraightLineCommanderAI.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="TankAIs" projectFiles="true">
@@ -17,6 +18,7 @@
         <itemPath>../BZRFlag AI/EvaderTankAI.h</itemPath>
         <itemPath>../BZRFlag AI/PotentialFieldTankAI.h</itemPath>
         <itemPath>../BZRFlag AI/SearchTankAI.h</itemPath>
+        <itemPath>../BZRFlag AI/ShooterTankAI.h</itemPath>
         <itemPath>../BZRFlag AI/StraightLineTankAI.h</itemPath>
         <itemPath>../BZRFlag AI/TankAI.h</itemPath>
       </logicalFolder>
@@ -27,6 +29,7 @@
         <itemPath>../BZRFlag AI/PDController.h</itemPath>
         <itemPath>../BZRFlag AI/PotentialFieldCalculator.h</itemPath>
         <itemPath>../BZRFlag AI/PotentialFieldPrinter.h</itemPath>
+        <itemPath>../BZRFlag AI/TankTargeter.h</itemPath>
         <itemPath>../BZRFlag AI/TankVector.h</itemPath>
         <itemPath>../BZRFlag AI/TargetPointCalculator.h</itemPath>
       </logicalFolder>
@@ -445,6 +448,7 @@
         <itemPath>../BZRFlag AI/EvaderCommanderAI.cpp</itemPath>
         <itemPath>../BZRFlag AI/PotentialFieldCommanderAI.cpp</itemPath>
         <itemPath>../BZRFlag AI/SearchCommanderAI.cpp</itemPath>
+        <itemPath>../BZRFlag AI/ShooterCommanderAI.cpp</itemPath>
         <itemPath>../BZRFlag AI/StraightLineCommanderAI.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="TankAIs" projectFiles="true">
@@ -452,6 +456,7 @@
         <itemPath>../BZRFlag AI/EvaderTankAI.cpp</itemPath>
         <itemPath>../BZRFlag AI/PotentialFieldTankAI.cpp</itemPath>
         <itemPath>../BZRFlag AI/SearchTankAI.cpp</itemPath>
+        <itemPath>../BZRFlag AI/ShooterTankAI.cpp</itemPath>
         <itemPath>../BZRFlag AI/StraightLineTankAI.cpp</itemPath>
         <itemPath>../BZRFlag AI/TankAI.cpp</itemPath>
       </logicalFolder>
@@ -462,8 +467,8 @@
         <itemPath>../BZRFlag AI/PDController.cpp</itemPath>
         <itemPath>../BZRFlag AI/PotentialFieldCalculator.cpp</itemPath>
         <itemPath>../BZRFlag AI/PotentialFieldPrinter.cpp</itemPath>
+        <itemPath>../BZRFlag AI/TankTargeter.cpp</itemPath>
         <itemPath>../BZRFlag AI/TankVector.cpp</itemPath>
-        <itemPath>../BZRFlag AI/TargetPointCalculator.cpp</itemPath>
         <itemPath>../BZRFlag AI/TargetPointCalculator.cpp</itemPath>
       </logicalFolder>
       <itemPath>../BZRFlag AI/BZRFlagGame.cpp</itemPath>

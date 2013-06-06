@@ -64,10 +64,10 @@ TankTargeter::TankTargeter(BZRC* connection, int tankNumber)
     noiseMatrix = MatrixXf::Zero(6,6);
     noiseMatrix(0,0) = 0.1;
     noiseMatrix(1,1) = 0.1;
-    noiseMatrix(2,2) = 1;
+    noiseMatrix(2,2) = 3;
     noiseMatrix(3,3) = 0.1;
     noiseMatrix(4,4) = 0.1;
-    noiseMatrix(5,5) = 1;
+    noiseMatrix(5,5) = 3;
     
     observationMatrix = MatrixXf::Zero(2,6);
     observationMatrix(0,0) = 1;

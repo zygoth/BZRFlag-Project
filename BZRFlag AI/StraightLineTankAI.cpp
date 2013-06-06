@@ -33,7 +33,7 @@ void StraightLineTankAI::controlTank()
         }
         else
         {
-            if(secondsElapsed >= 10)
+            if(secondsElapsed >= 13)
             {
                 connection->angvel(tankNumber, 1);
                 connection->speed(tankNumber, 0);

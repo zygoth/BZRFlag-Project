@@ -54,18 +54,18 @@ void ShooterTankAI::controlTank()
     Point targetLocation = targetedEnemy->getCurrentPoint();
     double distanceToEnemy = SearchTools::distance(me.pos[0], me.pos[1], targetLocation.x, targetLocation.y);
     double timeForShotToHit = distanceToEnemy / SHOTSPEED;
-    cout << "time for shot to hit:\t" << timeForShotToHit << endl;
+    //cout << "time for shot to hit:\t" << timeForShotToHit << endl;
     Point futureLocation = targetedEnemy->getTargetPoint(timeForShotToHit);
     double targetAngle = atan2((futureLocation.y - me.pos[1]) , (futureLocation.x - me.pos[0]));
     double angularVelocity = pdController.calculateAngularVelocity(me.angle, targetAngle);
     
-    //cout << "target Location:\t" << targetLocation.x << ",\t " << targetLocation.y << endl;
-    //cout << "predicted location:\t" << futureLocation.x << ",\t " << futureLocation.y << endl;
+    cout << "target Location:\t" << targetLocation.x << ",\t " << targetLocation.y << endl;
+    cout << "predicted location:\t" << futureLocation.x << ",\t " << futureLocation.y << endl;
     //cout << "CURRENT:  " << me.angle << endl;
     //cout << "TARGET:   " << targetAngle << endl;
     
     connection->speed(tankNumber, 0);
-    connection->angvel(tankNumber, angularVelocity / abs(angularVelocity));
+    connection->angvel(tankNumber, angularVelocity * 3);// / abs(angularVelocity));
     
     if(abs(differenceBetweenTwoAngles(me.angle, targetAngle)) < .01)
     {

@@ -7,16 +7,18 @@
 
 #include "TankTargeter.h"
 #include "BZRFlagGame.h"
+#include "GNUPrinter.h"
+#include <time.h>
 
 TankTargeter::TankTargeter(BZRC* connection, int tankNumber)
 {
     socket = connection;
     tankIndex = tankNumber;
     
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &previousTime);
+    
     c = 0.0;
     timeInterval = -1.0;
-    
-    timer = time(&timer);
     
     double x, y;
     vector<otank_t> badTanks;
@@ -62,10 +64,10 @@ TankTargeter::TankTargeter(BZRC* connection, int tankNumber)
     noiseMatrix = MatrixXf::Zero(6,6);
     noiseMatrix(0,0) = 0.1;
     noiseMatrix(1,1) = 0.1;
-    noiseMatrix(2,2) = 25;
+    noiseMatrix(2,2) = 1;
     noiseMatrix(3,3) = 0.1;
     noiseMatrix(4,4) = 0.1;
-    noiseMatrix(5,5) = 25;
+    noiseMatrix(5,5) = 1;
     
     observationMatrix = MatrixXf::Zero(2,6);
     observationMatrix(0,0) = 1;
@@ -100,8 +102,8 @@ Point TankTargeter::getTargetPoint(double time)
     temp(3,5) = squaredTime/2;
     //cout << temp << endl;
     MatrixXf futureValues = temp * targetValues;
-    cout << futureValues << endl << endl;
-    cout << targetValues << endl;
+    //cout << futureValues << endl << endl;
+    //cout << targetValues << endl;
     return Point(futureValues(0,0),futureValues(3,0));
 }
 
@@ -110,22 +112,27 @@ Point TankTargeter::getCurrentPoint()
     return Point(targetValues(0,0), targetValues(3,0));
 }
 
+int debugPrintCounter = 0;
+GNUPrinter debugPrinter;
 void TankTargeter::update()
 {
     if(timeInterval < 0)
     {
         timeInterval = 0.1;
-        timeStamp = double(timer);
+        //timeStamp = double(timer);
         return;
     }
     
-    time_t nowTime = time(&nowTime);
-    double intervalCheck = ((double(nowTime) - timeStamp) / CLOCKS_PER_SEC) * 1000000;
-    timeStamp = double(timer);
+    timespec currentTime;
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &currentTime);
+    double secondsElapsed = (double(currentTime.tv_nsec - previousTime.tv_nsec) / 23000000);
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &previousTime);
     
-    if(timeInterval != intervalCheck)
+    //cout << secondsElapsed << endl;;
+    
+    if(timeInterval != secondsElapsed)
     {
-        timeInterval = intervalCheck;
+        timeInterval = secondsElapsed;
         
         transitionMatrix(0,1) = timeInterval;
         transitionMatrix(1,2) = timeInterval;
@@ -163,7 +170,13 @@ void TankTargeter::update()
     //cout << targetValues << endl;
     //cout << endl;
     //cout << targetChanges << endl;
-    //cout << endl;*/
+    //cout << endl;
+    debugPrinter.insertSquare(targetValues(0,0) + 250, targetValues(3,0) + 250);
+    debugPrintCounter++;
+    if(debugPrintCounter == 300)
+    {
+        debugPrinter.outputToFile("KALMANFILTER");
+    }    
     
     myTanks.clear();
 }

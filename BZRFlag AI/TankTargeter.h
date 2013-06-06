@@ -12,7 +12,8 @@
 #include "Eigen/Dense"
 #include "470bot.h"
 #include "Point.h"
-#include <time.h>
+#include <ctime>
+#include <boost/timer.hpp>
 
 using namespace Eigen;
 
@@ -28,7 +29,9 @@ public:
     static void test();
     
 private:
-    time_t timer;
+    //boost::timer timer;
+    //clock_t timer;
+    timespec previousTime;
     double timeStamp, timeInterval, c;
     BZRC* socket;
     int tankIndex;

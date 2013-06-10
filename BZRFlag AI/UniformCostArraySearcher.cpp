@@ -32,6 +32,11 @@ UniformCostArraySearcher::~UniformCostArraySearcher()
     delete printer;
 }
 
+// returns true when the target point is found and nextTarget is given the value of a point on the path
+// returns false if no path is found or the target point is inside of an object
+//     When false nextTarget is not updated
+
+
 // returns true when target point is found and nextTarget is given the value of a point on the path
 // returns false if no path is found and nextTarget is given the value of a the targetPosition
 bool UniformCostArraySearcher::search(settledGrid_t map, Point startPosition, Point targetPosition,

@@ -1,17 +1,17 @@
 /* 
- * File:   ShooterTankAI.cpp
+ * File:   BehaviorTankAI.cpp
  * Author: zygoth
  * 
- * Created on June 4, 2013, 12:01 PM
+ * Created on June 10, 2013, 2:02 PM
  */
 
-#include "ShooterTankAI.h"
+#include "BehaviorTankAI.h"
 #include "PotentialFieldCalculator.h"
 #include "Point.h"
 #include "SearchTools.h"
 #include "PDController.h"
 
-ShooterTankAI::ShooterTankAI(BZRC* server, int tankNumber, TeamColor myColor,
+BehaviorTankAI::BehaviorTankAI(BZRC* server, int tankNumber, TeamColor myColor,
                 vector<TankTargeter>* enemies) : TankAI(server)
 {
     this->tankNumber = tankNumber;
@@ -39,7 +39,7 @@ ShooterTankAI::ShooterTankAI(BZRC* server, int tankNumber, TeamColor myColor,
 /**
  * Shoots at the first enemy in the enemy list.
  */
-void ShooterTankAI::controlTank()
+void BehaviorTankAI::controlTank()
 {   
     if(enemies->empty())
     {
@@ -73,7 +73,7 @@ void ShooterTankAI::controlTank()
     }
 }
 
-ShooterTankAI::~ShooterTankAI() 
+BehaviorTankAI::~BehaviorTankAI() 
 {
     
 }

@@ -32,6 +32,12 @@ struct uc_compare {
 class UniformCostArraySearcher
 {
 public:
+
+    // commands used for the final
+    UniformCostArraySearcher(bool** world, int width, int height);
+    bool search(Point startPosition, Point targetPosition,
+                Point* nextTarget, int distance);
+    
     
     UniformCostArraySearcher();
     UniformCostArraySearcher(const UniformCostArraySearcher& orig);
@@ -42,6 +48,8 @@ public:
     bool search(settledGrid_t map, Point startPosition, Point targetPosition, 
                 Point* nextTarget);
 private:
+    bool** map;
+    
     node_uc* newNode(double,int,int,node_uc*);
     bool isNextToObject(int,int);
     void addchildren(node_uc*);

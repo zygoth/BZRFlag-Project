@@ -34,7 +34,7 @@ Behavior::Behavior(BZRC* server, int tankNumber, TeamColor myColor,
     }
 }
 
-void Behavior::getNextMove(double* newSpeed, double* newAngularVelocity)
+void Behavior::doMove()
 {
     
 }

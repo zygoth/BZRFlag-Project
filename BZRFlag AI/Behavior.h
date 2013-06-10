@@ -17,7 +17,7 @@ class Behavior
 public:    
     Behavior(BZRC* server, int tankNumber, TeamColor myColor,
                 vector<TankTargeter>* enemies);
-    virtual void getNextMove(double* newSpeed, double* newAngularVelocity);
+    virtual void doMove();
     virtual ~Behavior();
     
 protected: 

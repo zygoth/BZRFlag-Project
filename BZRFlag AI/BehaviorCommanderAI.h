@@ -10,6 +10,8 @@
 
 #include "CommanderAI.h"
 #include "TankTargeter.h"
+#include "470bot.h"
+#include <cmath>
 
 class BehaviorCommanderAI : public CommanderAI
 {
@@ -19,8 +21,14 @@ public:
 	virtual ~BehaviorCommanderAI();
 
 private:
+    void buildWorldOccgrid(vector <obstacle_t> *objects);
+    void drawEdge(int x1, int y1, int x2, int y2);
+    void fillObject(int x, int y);
+    
     vector<TankAI*> tankAIs;
     vector<TankTargeter> tankTargeters;
+    int worldSize;
+    bool* worldMap;
 };
 
 #endif	/* BEHAVIORCOMMANDERAI_H */

@@ -34,6 +34,16 @@ Behavior::Behavior(BZRC* server, int tankNumber, TeamColor myColor,
     }
 }
 
+Behavior::Behavior(const Behavior& other)
+{
+    this->connection = other.connection;
+    this->myColor = other.myColor;
+    this->tankNumber = other.tankNumber;
+    this->enemies = other.enemies;
+    this->SHOTRANGE = other.SHOTRANGE;
+    this->SHOTSPEED = other.SHOTSPEED;
+}
+
 void Behavior::doMove()
 {
     

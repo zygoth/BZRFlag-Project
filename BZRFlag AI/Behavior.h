@@ -17,6 +17,7 @@ class Behavior
 public:    
     Behavior(BZRC* server, int tankNumber, TeamColor myColor,
                 vector<TankTargeter>* enemies);
+    Behavior(const Behavior& other);
     virtual void doMove();
     virtual ~Behavior();
     
@@ -27,7 +28,6 @@ protected:
     vector<TankTargeter>* enemies;
     int SHOTSPEED;
     int SHOTRANGE;
-
 };
 
 #endif	/* BEHAVIOR_H */

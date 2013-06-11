@@ -73,6 +73,22 @@ void BehaviorTankAI::controlTank()
     }
 }
 
+void BehaviorTankAI::setToDefend(Point p)
+{
+    this->currentPriority = DEFEND;
+    this->pointToDefend = p;
+}
+
+void BehaviorTankAI::setToCapture()
+{
+    this->currentPriority = CAPTURE;
+}
+
+void BehaviorTankAI::setToEvade()
+{
+    this->currentPriority = EVADE;
+}
+
 BehaviorTankAI::~BehaviorTankAI() 
 {
     

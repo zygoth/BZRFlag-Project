@@ -14,26 +14,34 @@
 #include "TankTargeter.h"
 #include "PDController.h"
 
-enum Priority
-{
-    CAPTURE, DEFEND, EVADE
-};
+
 
 class BehaviorTankAI : public TankAI
 {
 public:
 	BehaviorTankAI(BZRC* server, int tankNumber, TeamColor myColor,
                 vector<TankTargeter>* enemies);
+        void setToDefend(Point p);
+        void setToCapture();
+        void setToEvade();
         void controlTank();
 	virtual ~BehaviorTankAI();
         
-        Priority currentPriority;
+        
         
 private:
+    
+    enum Priority
+    {
+        CAPTURE, DEFEND, EVADE
+    };
+    
+    Priority currentPriority;
     vector<TankTargeter>* enemies;
     PDController pdController;
     int SHOTSPEED;
     int SHOTRANGE;
+    Point pointToDefend;
 };
 
 

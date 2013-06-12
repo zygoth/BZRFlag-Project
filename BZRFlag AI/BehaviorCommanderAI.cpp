@@ -7,7 +7,6 @@
 
 #include "BehaviorCommanderAI.h"
 #include "BehaviorTankAI.h"
-#include "GNUPrinter.h"
 
 BehaviorCommanderAI::BehaviorCommanderAI(BZRC* connection) : CommanderAI(connection)
 {
@@ -62,9 +61,7 @@ void BehaviorCommanderAI::buildWorldOccgrid(vector <obstacle_t> *objects)
     int thisX, thisY, lastX, lastY;
     obstacle_t temp;
     
-    GNUPrinter* printer = new GNUPrinter();
-    
-    bool mapCopy[worldSize * worldSize];
+     printer = new GNUPrinter();
     
     for(int i = 0; i < objects->size(); i++)
     {
@@ -108,19 +105,16 @@ void BehaviorCommanderAI::buildWorldOccgrid(vector <obstacle_t> *objects)
         
         drawEdge(thisX, thisY, x, y);
         
-        fillObject(x2, y2);
-        objectFinished(mapCopy);
     }
     
     for(int i = 0; i < worldSize*worldSize; i++)
     {
-        bool value = mapCopy[i];
-        worldMap[i] = value;
+        bool value = worldMap[i];
         
         if(value)
         {
-            int x = i%worldSize - worldSize/2;
-            int y = i/worldSize - worldSize/2;
+            int x = i%worldSize;
+            int y = i/worldSize;
             
             printer->insertSquare(x, y);
         }
@@ -136,16 +130,23 @@ void BehaviorCommanderAI::drawEdge(int x1, int y1, int x2, int y2)
     if(width == 0)
     {
         for(int i = 0; i < abs(height); i++)
-            worldMap[(y2 + height/abs(height))*worldSize + x2] = 1;
+        {
+            worldMap[(y2 + i*height/abs(height))*worldSize + x2] = 1;
+            //printer->insertSquare(x2, (y2 + i*height/abs(height)));
+        }
     }
     else if(height == 0)
     {
         for(int i = 0; i < abs(width); i++)
-            worldMap[y2*worldSize + (x2 + width/abs(width))] = 1;
+        {
+            worldMap[y2*worldSize + (x2 + i*width/abs(width))] = 1;
+            //printer->insertSquare((x2 + i*width/abs(width)), y2);
+        }
     }
     else
         cout << "Object has Diagonal Line!" << endl;
     
+//    printer->outputToFile("WORLD_MAP");
 }
 
 void BehaviorCommanderAI::fillObject(int x, int y)
@@ -166,19 +167,6 @@ void BehaviorCommanderAI::fillObject(int x, int y)
     
     if(y < worldSize - 1)
         fillObject(x, y+1);
-}
-
-void BehaviorCommanderAI::objectFinished(bool* copy)
-{
-    bool currentValue;
-    
-    for(int i = 0; i < worldSize*worldSize; i++)
-    {
-        currentValue = worldMap[i];
-        copy[i] = currentValue;
-        if(currentValue)
-            worldMap[i] = false;
-    }
 }
 
 void BehaviorCommanderAI::controlTeam()

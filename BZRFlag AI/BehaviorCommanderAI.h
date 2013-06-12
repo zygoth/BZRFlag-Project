@@ -12,6 +12,7 @@
 #include "TankTargeter.h"
 #include "470bot.h"
 #include <cmath>
+#include "GNUPrinter.h"
 
 class BehaviorCommanderAI : public CommanderAI
 {
@@ -26,6 +27,7 @@ private:
     void fillObject(int x, int y);
     void objectFinished(bool* copy);
     
+    GNUPrinter* printer;
     vector<TankAI*> tankAIs;
     vector<TankTargeter> tankTargeters;
     int worldSize;

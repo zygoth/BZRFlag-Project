@@ -49,6 +49,15 @@ void Behavior::doMove()
     
 }
 
+tank_t Behavior::getMyTank()
+{
+    vector<tank_t> myTanks;
+    connection->get_mytanks(&myTanks);
+    tank_t me = myTanks.at(tankNumber);
+    
+    return me;
+}
+
 Behavior::~Behavior()
 {
 }

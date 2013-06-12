@@ -18,6 +18,7 @@ public:
     Behavior(BZRC* server, int tankNumber, TeamColor myColor,
                 vector<TankTargeter>* enemies);
     Behavior(const Behavior& other);
+    tank_t getMyTank();
     virtual void doMove();
     virtual ~Behavior();
     

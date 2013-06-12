@@ -25,6 +25,7 @@ public:
     
 private:
     Point targetPoint;
+    Point intermediatePoint;
     PDController pdController;
     
     // this is owned by the Commander and used by other TankAIs--don't delete it!

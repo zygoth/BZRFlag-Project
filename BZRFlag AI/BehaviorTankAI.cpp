@@ -12,7 +12,7 @@
 #include "PDController.h"
 
 BehaviorTankAI::BehaviorTankAI(BZRC* server, int tankNumber, TeamColor myColor,
-                vector<TankTargeter>* enemies) : TankAI(server)
+                vector<TankTargeter>* enemies, UniformCostArraySearcher* pathFinder) : TankAI(server)
 {
     this->tankNumber = tankNumber;
     this->enemies = enemies;

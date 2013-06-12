@@ -25,7 +25,26 @@ GoToBehavior::GoToBehavior(const Behavior& orig, UniformCostArraySearcher* pathF
 
 void GoToBehavior::doMove()
 {
+    tank_t me = getMyTank();
+    Point myPosition = Point(me.pos[0], me.pos[1]);
+    double currentAngle = me.angle;
     
+    pathFinder->search(myPosition, targetPoint, &intermediatePoint, 20);    
+    
+    double targetAngle = atan2((intermediatePoint.y - myPosition.y) , (intermediatePoint.x - myPosition.x));
+    double angularVelocity = pdController.calculateAngularVelocity(currentAngle, targetAngle);
+    double speed;
+    if(abs(differenceBetweenTwoAngles(currentAngle, targetAngle)) < 1)
+    {
+        speed = 1;
+    }
+    else
+    {
+        speed = 0;
+    }
+    
+    connection->speed(tankNumber, speed);
+    connection->angvel(tankNumber, angularVelocity);
 }
 
 GoToBehavior::~GoToBehavior()

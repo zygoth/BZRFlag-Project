@@ -13,14 +13,14 @@
 #include "470bot.h"
 #include "TankTargeter.h"
 #include "PDController.h"
-
+#include "UniformCostArraySearcher.h"
 
 
 class BehaviorTankAI : public TankAI
 {
 public:
 	BehaviorTankAI(BZRC* server, int tankNumber, TeamColor myColor,
-                vector<TankTargeter>* enemies);
+                vector<TankTargeter>* enemies, UniformCostArraySearcher* pathFinder);
         void setToDefend(Point p);
         void setToCapture();
         void setToEvade();

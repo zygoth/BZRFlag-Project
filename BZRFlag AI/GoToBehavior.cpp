@@ -8,15 +8,19 @@
 #include "GoToBehavior.h"
 
 GoToBehavior::GoToBehavior(BZRC* server, int tankNumber, TeamColor myColor,
-                vector<TankTargeter>* enemies, UniformCostArraySearcher* pathFinder)
+                vector<TankTargeter>* enemies, UniformCostArraySearcher* pathFinder,
+                Point targetPoint)
                 : Behavior(server, tankNumber, myColor, enemies)
 {
     this->pathFinder = pathFinder;
+    this->targetPoint = targetPoint;
 }
 
-GoToBehavior::GoToBehavior(const GoToBehavior& orig, UniformCostArraySearcher* pathFinder) : Behavior(orig)
+GoToBehavior::GoToBehavior(const Behavior& orig, UniformCostArraySearcher* pathFinder, 
+                           Point targetPoint) : Behavior(orig)
 {
     this->pathFinder = pathFinder;
+    this->targetPoint = targetPoint;
 }
 
 void GoToBehavior::doMove()

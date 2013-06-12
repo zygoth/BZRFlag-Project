@@ -13,6 +13,7 @@
 #include "470bot.h"
 #include <cmath>
 #include "GNUPrinter.h"
+#include "UniformCostArraySearcher.h"
 
 class BehaviorCommanderAI : public CommanderAI
 {
@@ -27,6 +28,7 @@ private:
     void fillObject(int x, int y);
     void objectFinished(bool* copy);
     
+    UniformCostArraySearcher* finder;
     GNUPrinter* printer;
     vector<TankAI*> tankAIs;
     vector<TankTargeter> tankTargeters;

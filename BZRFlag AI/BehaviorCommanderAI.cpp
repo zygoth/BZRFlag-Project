@@ -20,15 +20,6 @@ BehaviorCommanderAI::BehaviorCommanderAI(BZRC* connection) : CommanderAI(connect
         tankTargeters.push_back(t);
     }
     
-    //* Create tank AIs
-    vector<tank_t> myTanks;
-    connection->get_mytanks(&myTanks);
-    
-    for(int i = 0; i < myTanks.size(); i++)
-    {
-        tankAIs.push_back(new BehaviorTankAI(connection, i, myColor, &tankTargeters));
-    }    
-    
     //* Get constants from server
     
     vector<constant_t> constants;
@@ -48,6 +39,19 @@ BehaviorCommanderAI::BehaviorCommanderAI(BZRC* connection) : CommanderAI(connect
     connection->get_obstacles(&objects);
     
     buildWorldOccgrid(&objects);
+    
+    //* Create new Search
+    
+    finder = new UniformCostArraySearcher(worldMap, worldSize, worldSize);
+    
+    //* Create tank AIs
+    vector<tank_t> myTanks;
+    connection->get_mytanks(&myTanks);
+    
+    for(int i = 0; i < myTanks.size(); i++)
+    {
+        tankAIs.push_back(new BehaviorTankAI(connection, i, myColor, &tankTargeters, finder));
+    }    
     
     otherTanks.clear();
     myTanks.clear();
@@ -190,6 +194,10 @@ void BehaviorCommanderAI::controlTeam()
 
 BehaviorCommanderAI::~BehaviorCommanderAI() 
 {
+    delete finder;
+    delete worldMap;
+    delete printer;
+    
     for(int i = 0; i < tankAIs.size(); i++)
     {
         delete tankAIs[i];

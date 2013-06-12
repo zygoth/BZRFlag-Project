@@ -55,6 +55,8 @@ void BehaviorCommanderAI::buildWorldOccgrid(vector <obstacle_t> *objects)
     int thisX, thisY, lastX, lastY;
     obstacle_t temp;
     
+    bool mapCopy[worldSize * worldSize];
+    
     for(int i = 0; i < objects->size(); i++)
     {
         temp = objects->at(i);
@@ -98,7 +100,11 @@ void BehaviorCommanderAI::buildWorldOccgrid(vector <obstacle_t> *objects)
         drawEdge(thisX, thisY, x, y);
         
         fillObject(x2, y2);
+        objectFinished(mapCopy);
     }
+    
+    for(int i = 0; i < worldSize*worldSize; i++)
+        worldMap[i] = copy[i];
 }
 
 void BehaviorCommanderAI::drawEdge(int x1, int y1, int x2, int y2)
@@ -123,7 +129,35 @@ void BehaviorCommanderAI::drawEdge(int x1, int y1, int x2, int y2)
 
 void BehaviorCommanderAI::fillObject(int x, int y)
 {
-    // recursive fill
+    if(worldMap[y*worldSize + x] == 1)
+        return;
+    
+    worldMap[y*worldSize + x] = 1;
+    
+    if(x > 0)
+        fillObject(x-1, y);
+    
+    if(x < worldSize - 1)
+        fillObject(x+1, y);
+    
+    if(y > 0)
+        fillObject(x, y-1);
+    
+    if(y < worldSize - 1)
+        fillObject(x, y+1);
+}
+
+void BehaviorCommanderAI::objectFinished(bool* copy)
+{
+    bool currentValue;
+    
+    for(int i = 0; i < worldSize*worldSize; i++)
+    {
+        currentValue = worldMap[i]
+        copy[i] = currentValue;
+        if(currentValue)
+            worldMap[i] = false;
+    }
 }
 
 void BehaviorCommanderAI::controlTeam()

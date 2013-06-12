@@ -24,6 +24,7 @@ private:
     void buildWorldOccgrid(vector <obstacle_t> *objects);
     void drawEdge(int x1, int y1, int x2, int y2);
     void fillObject(int x, int y);
+    void objectFinished(bool* copy);
     
     vector<TankAI*> tankAIs;
     vector<TankTargeter> tankTargeters;

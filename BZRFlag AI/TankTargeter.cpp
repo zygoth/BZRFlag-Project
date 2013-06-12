@@ -181,6 +181,11 @@ void TankTargeter::update()
     myTanks.clear();
 }
 
+int TankTargeter::getTankIndex()
+{
+    return tankIndex;
+}
+
 void TankTargeter::test()
 {
     BZRC connection("localhost", 60618, false);

@@ -27,6 +27,7 @@ public:
     Point getTargetPoint(double time);
     Point getCurrentPoint();
     static void test();
+    int getTankIndex();
     
 private:
     //boost::timer timer;

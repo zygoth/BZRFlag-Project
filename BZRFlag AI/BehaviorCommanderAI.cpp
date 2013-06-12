@@ -7,6 +7,7 @@
 
 #include "BehaviorCommanderAI.h"
 #include "BehaviorTankAI.h"
+#include "GNUPrinter.h"
 
 BehaviorCommanderAI::BehaviorCommanderAI(BZRC* connection) : CommanderAI(connection)
 {
@@ -61,6 +62,8 @@ void BehaviorCommanderAI::buildWorldOccgrid(vector <obstacle_t> *objects)
     int thisX, thisY, lastX, lastY;
     obstacle_t temp;
     
+    GNUPrinter* printer = new GNUPrinter();
+    
     bool mapCopy[worldSize * worldSize];
     
     for(int i = 0; i < objects->size(); i++)
@@ -110,7 +113,19 @@ void BehaviorCommanderAI::buildWorldOccgrid(vector <obstacle_t> *objects)
     }
     
     for(int i = 0; i < worldSize*worldSize; i++)
-        worldMap[i] = mapCopy[i];
+    {
+        bool value = mapCopy[i];
+        worldMap[i] = value;
+        
+        if(value)
+        {
+            int x = i%worldSize - worldSize/2;
+            int y = i/worldSize - worldSize/2;
+            
+            printer->insertSquare(x, y);
+        }
+    }
+    printer->outputToFile("WORLD_MAP");
 }
 
 void BehaviorCommanderAI::drawEdge(int x1, int y1, int x2, int y2)

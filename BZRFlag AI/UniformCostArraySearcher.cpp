@@ -26,7 +26,7 @@ UniformCostArraySearcher::UniformCostArraySearcher()
 UniformCostArraySearcher::UniformCostArraySearcher(bool* world, int cols, int rows)
 {
     tree = NULL;
-    grid = new bool[width * height];
+    grid = new bool[cols * rows];
     objectGrid = world;
     
 

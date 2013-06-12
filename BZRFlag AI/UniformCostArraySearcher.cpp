@@ -44,6 +44,7 @@ UniformCostArraySearcher::UniformCostArraySearcher(const UniformCostArraySearche
 
 UniformCostArraySearcher::~UniformCostArraySearcher()
 {
+    delete objectGrid;
     delete grid;
     delete printer;
 }

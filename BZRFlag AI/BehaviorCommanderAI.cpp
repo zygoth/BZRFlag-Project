@@ -104,7 +104,7 @@ void BehaviorCommanderAI::buildWorldOccgrid(vector <obstacle_t> *objects)
     }
     
     for(int i = 0; i < worldSize*worldSize; i++)
-        worldMap[i] = copy[i];
+        worldMap[i] = mapCopy[i];
 }
 
 void BehaviorCommanderAI::drawEdge(int x1, int y1, int x2, int y2)
@@ -153,7 +153,7 @@ void BehaviorCommanderAI::objectFinished(bool* copy)
     
     for(int i = 0; i < worldSize*worldSize; i++)
     {
-        currentValue = worldMap[i]
+        currentValue = worldMap[i];
         copy[i] = currentValue;
         if(currentValue)
             worldMap[i] = false;

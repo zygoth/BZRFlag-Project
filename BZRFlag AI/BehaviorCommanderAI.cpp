@@ -195,7 +195,6 @@ void BehaviorCommanderAI::controlTeam()
 BehaviorCommanderAI::~BehaviorCommanderAI() 
 {
     delete finder;
-    delete worldMap;
     delete printer;
     
     for(int i = 0; i < tankAIs.size(); i++)

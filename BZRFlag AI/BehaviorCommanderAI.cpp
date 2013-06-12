@@ -136,7 +136,7 @@ void BehaviorCommanderAI::drawEdge(int x1, int y1, int x2, int y2)
         for(int i = 0; i < abs(height); i++)
         {
             worldMap[(y2 + i*height/abs(height))*worldSize + x2] = 1;
-            //printer->insertSquare(x2, (y2 + i*height/abs(height)));
+            printer->insertSquare(x2, (y2 + i*height/abs(height)));
         }
     }
     else if(height == 0)
@@ -144,13 +144,13 @@ void BehaviorCommanderAI::drawEdge(int x1, int y1, int x2, int y2)
         for(int i = 0; i < abs(width); i++)
         {
             worldMap[y2*worldSize + (x2 + i*width/abs(width))] = 1;
-            //printer->insertSquare((x2 + i*width/abs(width)), y2);
+            printer->insertSquare((x2 + i*width/abs(width)), y2);
         }
     }
     else
         cout << "Object has Diagonal Line!" << endl;
     
-//    printer->outputToFile("WORLD_MAP");
+    printer->outputToFile("WORLD_MAP");
 }
 
 void BehaviorCommanderAI::fillObject(int x, int y)

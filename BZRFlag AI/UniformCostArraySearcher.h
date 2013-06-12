@@ -34,7 +34,7 @@ class UniformCostArraySearcher
 public:
 
     // commands used for the final
-    UniformCostArraySearcher(bool** world, int cols, int rows);
+    UniformCostArraySearcher(bool* world, int cols, int rows);
     bool search(Point startPosition, Point targetPosition,
                 Point* nextTarget, int distance);
     

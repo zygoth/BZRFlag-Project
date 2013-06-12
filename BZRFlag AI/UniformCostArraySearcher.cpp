@@ -23,22 +23,12 @@ UniformCostArraySearcher::UniformCostArraySearcher()
     printer = new GNUPrinter();
 }
 
-UniformCostArraySearcher::UniformCostArraySearcher(bool** world, int cols, int rows)
+UniformCostArraySearcher::UniformCostArraySearcher(bool* world, int cols, int rows)
 {
     tree = NULL;
     grid = new bool[width * height];
-    objectGrid = new bool[width * height];
+    objectGrid = world;
     
-    for(int x = 0; x < width ; x++)
-    {
-        for(int y = 0; y < height; y++)
-        {
-            if(world[x][y] == true)
-                objectGrid[y*width + x] = true;
-            else
-                objectGrid[y*width + x] = false;
-        }
-    }
 
     width = cols;
     height = rows;

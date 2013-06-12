@@ -10,6 +10,7 @@
 
 BehaviorCommanderAI::BehaviorCommanderAI(BZRC* connection) : CommanderAI(connection)
 {
+    //* Create enemy tank targeters
     vector<otank_t> otherTanks;
     connection->get_othertanks(&otherTanks);
     
@@ -19,6 +20,7 @@ BehaviorCommanderAI::BehaviorCommanderAI(BZRC* connection) : CommanderAI(connect
         tankTargeters.push_back(t);
     }
     
+    //* Create tank AIs
     vector<tank_t> myTanks;
     connection->get_mytanks(&myTanks);
     
@@ -26,6 +28,8 @@ BehaviorCommanderAI::BehaviorCommanderAI(BZRC* connection) : CommanderAI(connect
     {
         tankAIs.push_back(new BehaviorTankAI(connection, i, myColor, &tankTargeters));
     }    
+    
+    //* Get constants from server
     
     vector<constant_t> constants;
     connection->get_constants(&constants);
@@ -35,6 +39,8 @@ BehaviorCommanderAI::BehaviorCommanderAI(BZRC* connection) : CommanderAI(connect
         if(constants.at(i).name.compare("worldsize") == 0)
             worldSize = atoi(constants.at(i).value.c_str());
     }
+    
+    //* Build world occgrid
     
     worldMap = new bool[worldSize * worldSize];
     

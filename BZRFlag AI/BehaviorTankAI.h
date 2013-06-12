@@ -14,6 +14,7 @@
 #include "TankTargeter.h"
 #include "PDController.h"
 #include "UniformCostArraySearcher.h"
+#include "Behavior.h"
 
 
 class BehaviorTankAI : public TankAI
@@ -37,6 +38,7 @@ private:
     };
     
     UniformCostArraySearcher* pathFinder;
+    Behavior* currentBehavior;
     Priority currentPriority;
     vector<TankTargeter>* enemies;
     PDController pdController;

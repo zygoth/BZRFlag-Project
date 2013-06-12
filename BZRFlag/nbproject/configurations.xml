@@ -24,6 +24,8 @@
         <itemPath>../BZRFlag AI/TankAI.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="Tools" projectFiles="true">
+        <itemPath>../BZRFlag AI/Behavior.h</itemPath>
+        <itemPath>../BZRFlag AI/BehaviorTankAI.h</itemPath>
         <itemPath>../BZRFlag AI/CornerCalculator.h</itemPath>
         <itemPath>../BZRFlag AI/GNUPrinter.h</itemPath>
         <itemPath>../BZRFlag AI/GridFilter.h</itemPath>
@@ -33,8 +35,6 @@
         <itemPath>../BZRFlag AI/TankTargeter.h</itemPath>
         <itemPath>../BZRFlag AI/TankVector.h</itemPath>
         <itemPath>../BZRFlag AI/TargetPointCalculator.h</itemPath>
-        <itemPath>../BZRFlag AI/Behavior.h</itemPath>
-        <itemPath>../BZRFlag AI/BehaviorTankAI.h</itemPath>
       </logicalFolder>
       <itemPath>../BZRFlag AI/470bot.h</itemPath>
       <itemPath>../BZRFlag AI/BZRFlagGame.h</itemPath>
@@ -465,6 +465,8 @@
         <itemPath>../BZRFlag AI/TankAI.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="Tools" projectFiles="true">
+        <itemPath>../BZRFlag AI/Behavior.cpp</itemPath>
+        <itemPath>../BZRFlag AI/BehaviorTankAI.cpp</itemPath>
         <itemPath>../BZRFlag AI/CornerCalculator.cpp</itemPath>
         <itemPath>../BZRFlag AI/GNUPrinter.cpp</itemPath>
         <itemPath>../BZRFlag AI/GoToBehavior.cpp</itemPath>
@@ -475,8 +477,6 @@
         <itemPath>../BZRFlag AI/TankTargeter.cpp</itemPath>
         <itemPath>../BZRFlag AI/TankVector.cpp</itemPath>
         <itemPath>../BZRFlag AI/TargetPointCalculator.cpp</itemPath>
-        <itemPath>../BZRFlag AI/Behavior.cpp</itemPath>
-        <itemPath>../BZRFlag AI/BehaviorTankAI.cpp</itemPath>
       </logicalFolder>
       <itemPath>../BZRFlag AI/BZRFlagGame.cpp</itemPath>
       <itemPath>../BZRFlag AI/Lab1_Main.cpp</itemPath>

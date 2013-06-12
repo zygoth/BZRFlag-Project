@@ -10,6 +10,7 @@
 #include "Point.h"
 #include "SearchTools.h"
 #include "PDController.h"
+#include "GoToBehavior.h"
 
 BehaviorTankAI::BehaviorTankAI(BZRC* server, int tankNumber, TeamColor myColor,
                 vector<TankTargeter>* enemies, UniformCostArraySearcher* pathFinder) : TankAI(server)
@@ -17,6 +18,8 @@ BehaviorTankAI::BehaviorTankAI(BZRC* server, int tankNumber, TeamColor myColor,
     this->tankNumber = tankNumber;
     this->enemies = enemies;
     this->pathFinder = pathFinder;
+    this->currentPriority = CAPTURE;
+    this->currentBehavior = new GoToBehavior(server, tankNumber, myColor, enemies, pathFinder, Point(0,0));
     
     vector<constant_t> constants;
     connection->get_constants(&constants);
@@ -42,36 +45,7 @@ BehaviorTankAI::BehaviorTankAI(BZRC* server, int tankNumber, TeamColor myColor,
  */
 void BehaviorTankAI::controlTank()
 {   
-    if(enemies->empty())
-    {
-        return;
-    }
-    
-    vector<tank_t> myTanks;
-    connection->get_mytanks(&myTanks);
-    tank_t me = myTanks.at(tankNumber);
-    TankTargeter* targetedEnemy = &(enemies->front());
-    
-    Point targetLocation = targetedEnemy->getCurrentPoint();
-    double distanceToEnemy = SearchTools::distance(me.pos[0], me.pos[1], targetLocation.x, targetLocation.y);
-    double timeForShotToHit = distanceToEnemy / SHOTSPEED;
-    //cout << "time for shot to hit:\t" << timeForShotToHit << endl;
-    Point futureLocation = targetedEnemy->getTargetPoint(timeForShotToHit);
-    double targetAngle = atan2((futureLocation.y - me.pos[1]) , (futureLocation.x - me.pos[0]));
-    double angularVelocity = pdController.calculateAngularVelocity(me.angle, targetAngle);
-    
-    //cout << "target Location:\t" << targetLocation.x << ",\t " << targetLocation.y << endl;
-    //cout << "predicted location:\t" << futureLocation.x << ",\t " << futureLocation.y << endl;
-    //cout << "CURRENT:  " << me.angle << endl;
-    //cout << "TARGET:   " << targetAngle << endl;
-    
-    connection->speed(tankNumber, 0);
-    connection->angvel(tankNumber, angularVelocity * 4);// / abs(angularVelocity));
-    
-    if(abs(differenceBetweenTwoAngles(me.angle, targetAngle)) < .01)
-    {
-        connection->shoot(tankNumber);
-    }
+    currentBehavior->doMove();
 }
 
 void BehaviorTankAI::setToDefend(Point p)

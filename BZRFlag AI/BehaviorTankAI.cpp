@@ -16,6 +16,7 @@ BehaviorTankAI::BehaviorTankAI(BZRC* server, int tankNumber, TeamColor myColor,
 {
     this->tankNumber = tankNumber;
     this->enemies = enemies;
+    this->pathFinder = pathFinder;
     
     vector<constant_t> constants;
     connection->get_constants(&constants);

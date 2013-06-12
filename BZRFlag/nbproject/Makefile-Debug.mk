@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/693638321/DepthNode.o \
 	${OBJECTDIR}/_ext/693638321/DumbCommanderAI.o \
 	${OBJECTDIR}/_ext/693638321/StraightLineTankAI.o \
+	${OBJECTDIR}/_ext/693638321/BehaviorTankAI.o \
 	${OBJECTDIR}/_ext/693638321/f9.o \
 	${OBJECTDIR}/_ext/693638321/Point.o \
 	${OBJECTDIR}/_ext/693638321/BZRFlagGame.o \
@@ -53,9 +54,12 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/693638321/UniformCostArraySearcher.o \
 	${OBJECTDIR}/_ext/693638321/CommanderAI.o \
 	${OBJECTDIR}/_ext/693638321/PotentialFieldPrinter.o \
+	${OBJECTDIR}/_ext/693638321/Behavior.o \
 	${OBJECTDIR}/_ext/693638321/CornerCalculator.o \
 	${OBJECTDIR}/_ext/693638321/EvaderTankAI.o \
 	${OBJECTDIR}/_ext/693638321/TankAI.o \
+	${OBJECTDIR}/_ext/693638321/GoToBehavior.o \
+	${OBJECTDIR}/_ext/693638321/BehaviorCommanderAI.o \
 	${OBJECTDIR}/_ext/693638321/GNUPrinter.o \
 	${OBJECTDIR}/_ext/693638321/Node.o \
 	${OBJECTDIR}/_ext/693638321/ShooterTankAI.o \
@@ -75,8 +79,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=
-CXXFLAGS=
+CCFLAGS=-lrt
+CXXFLAGS=-lrt
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -119,6 +123,11 @@ ${OBJECTDIR}/_ext/693638321/StraightLineTankAI.o: ../BZRFlag\ AI/StraightLineTan
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/StraightLineTankAI.o ../BZRFlag\ AI/StraightLineTankAI.cpp
+
+${OBJECTDIR}/_ext/693638321/BehaviorTankAI.o: ../BZRFlag\ AI/BehaviorTankAI.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/BehaviorTankAI.o ../BZRFlag\ AI/BehaviorTankAI.cpp
 
 ${OBJECTDIR}/_ext/693638321/f9.o: ../BZRFlag\ AI/f9.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
@@ -190,6 +199,11 @@ ${OBJECTDIR}/_ext/693638321/PotentialFieldPrinter.o: ../BZRFlag\ AI/PotentialFie
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/PotentialFieldPrinter.o ../BZRFlag\ AI/PotentialFieldPrinter.cpp
 
+${OBJECTDIR}/_ext/693638321/Behavior.o: ../BZRFlag\ AI/Behavior.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/Behavior.o ../BZRFlag\ AI/Behavior.cpp
+
 ${OBJECTDIR}/_ext/693638321/CornerCalculator.o: ../BZRFlag\ AI/CornerCalculator.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
 	${RM} $@.d
@@ -204,6 +218,16 @@ ${OBJECTDIR}/_ext/693638321/TankAI.o: ../BZRFlag\ AI/TankAI.cpp
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
 	${RM} $@.d
 	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/TankAI.o ../BZRFlag\ AI/TankAI.cpp
+
+${OBJECTDIR}/_ext/693638321/GoToBehavior.o: ../BZRFlag\ AI/GoToBehavior.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/GoToBehavior.o ../BZRFlag\ AI/GoToBehavior.cpp
+
+${OBJECTDIR}/_ext/693638321/BehaviorCommanderAI.o: ../BZRFlag\ AI/BehaviorCommanderAI.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
+	${RM} $@.d
+	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/BehaviorCommanderAI.o ../BZRFlag\ AI/BehaviorCommanderAI.cpp
 
 ${OBJECTDIR}/_ext/693638321/GNUPrinter.o: ../BZRFlag\ AI/GNUPrinter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321

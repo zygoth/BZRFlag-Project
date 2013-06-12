@@ -36,6 +36,7 @@ private:
         CAPTURE, DEFEND, EVADE
     };
     
+    UniformCostArraySearcher* pathFinder;
     Priority currentPriority;
     vector<TankTargeter>* enemies;
     PDController pdController;

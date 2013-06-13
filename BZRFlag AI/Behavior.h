@@ -12,6 +12,11 @@
 #include "PotentialFieldCalculator.h"
 #include "TankTargeter.h"
 
+enum Behavior_t
+{
+    GOTOBEHAVIOR, DEFENDBEHAVIOR, EVADEBEHAVIOR
+};
+
 class Behavior
 {
 public:    
@@ -20,6 +25,7 @@ public:
     Behavior(const Behavior& other);
     tank_t getMyTank();
     virtual void doMove();
+    virtual Behavior_t getType();
     virtual ~Behavior();
     
 protected: 
@@ -29,6 +35,7 @@ protected:
     vector<TankTargeter>* enemies;
     int SHOTSPEED;
     int SHOTRANGE;
+    Behavior_t myType;
 };
 
 #endif	/* BEHAVIOR_H */

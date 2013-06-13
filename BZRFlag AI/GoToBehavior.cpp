@@ -15,6 +15,7 @@ GoToBehavior::GoToBehavior(BZRC* server, int tankNumber, TeamColor myColor,
 {
     this->pathFinder = pathFinder;
     this->targetPoint = targetPoint;
+    this->myType = GOTOBEHAVIOR;
     
     tank_t me = getMyTank();
     this->intermediatePoint = Point(me.pos[0], me.pos[1]);
@@ -25,6 +26,7 @@ GoToBehavior::GoToBehavior(const Behavior& orig, UniformCostArraySearcher* pathF
 {
     this->pathFinder = pathFinder;
     this->targetPoint = targetPoint;
+    this->myType = GOTOBEHAVIOR;
     
     tank_t me = getMyTank();
     this->intermediatePoint = Point(me.pos[0], me.pos[1]);

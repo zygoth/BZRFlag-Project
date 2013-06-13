@@ -11,6 +11,8 @@
 #include "SearchTools.h"
 #include "PDController.h"
 #include "GoToBehavior.h"
+#include "DefendBehavior.h"
+#include "EvadeBehavior.h"
 
 BehaviorTankAI::BehaviorTankAI(BZRC* server, int tankNumber, TeamColor myColor,
                 vector<TankTargeter>* enemies, UniformCostArraySearcher* pathFinder) : TankAI(server)
@@ -56,10 +58,36 @@ void BehaviorTankAI::controlTank()
     currentBehavior->doMove();
 }
 
+void BehaviorTankAI::doCapture()
+{
+    
+}
+
+void BehaviorTankAI::doDefend()
+{
+    tank_t me = getMyTank();
+    Point myLocation(me.pos[0], me.pos[1]);
+    
+    //  if we're close, start the defense behavior
+    if(SearchTools::distance(myLocation, pointToDefend) < 10 && 
+            currentBehavior->getType() != DEFENDBEHAVIOR)
+    {
+        Behavior* newBehavior = new DefendBehavior(*currentBehavior);
+        delete currentBehavior;
+        currentBehavior = newBehavior;
+    }
+}
+
 void BehaviorTankAI::setToDefend(Point p)
 {
     this->currentPriority = DEFEND;
     this->pointToDefend = p;
+    
+    
+    // Start them going towards the point to defend.
+    Behavior* newBehavior = new GoToBehavior(*currentBehavior, pathFinder, p);
+    delete currentBehavior;
+    currentBehavior = newBehavior;
 }
 
 void BehaviorTankAI::setToCapture()
@@ -70,6 +98,15 @@ void BehaviorTankAI::setToCapture()
 void BehaviorTankAI::setToEvade()
 {
     this->currentPriority = EVADE;
+}
+
+tank_t BehaviorTankAI::getMyTank()
+{
+    vector<tank_t> myTanks;
+    connection->get_mytanks(&myTanks);
+    tank_t me = myTanks.at(tankNumber);
+    
+    return me;
 }
 
 BehaviorTankAI::~BehaviorTankAI() 

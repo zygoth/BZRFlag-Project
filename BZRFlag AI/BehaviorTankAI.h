@@ -25,6 +25,7 @@ public:
         void setToDefend(Point p);
         void setToCapture();
         void setToEvade();
+        tank_t getMyTank();
         void controlTank();
 	virtual ~BehaviorTankAI();
         
@@ -45,6 +46,9 @@ private:
     int SHOTSPEED;
     int SHOTRANGE;
     Point pointToDefend;
+    
+    void doCapture();
+    void doDefend();
 };
 
 

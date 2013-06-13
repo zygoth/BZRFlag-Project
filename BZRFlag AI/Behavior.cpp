@@ -44,6 +44,11 @@ Behavior::Behavior(const Behavior& other)
     this->SHOTSPEED = other.SHOTSPEED;
 }
 
+Behavior_t Behavior::getType()
+{
+    return myType;
+}
+
 void Behavior::doMove()
 {
     

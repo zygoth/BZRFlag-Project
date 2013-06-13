@@ -111,8 +111,8 @@ bool UniformCostArraySearcher::search(Point startPosition, Point targetPosition,
         distance--;
     }
     
-    nextTarget->x = check.x;
-    nextTarget->y = check.y;
+    nextTarget->x = check.x - width/2;
+    nextTarget->y = check.y - height/2;
     
     path.clear();
     clearNode(tree);

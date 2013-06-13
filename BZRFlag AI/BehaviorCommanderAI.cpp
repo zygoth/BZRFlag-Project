@@ -142,49 +142,47 @@ void BehaviorCommanderAI::drawEdge(int x1, int y1, int x2, int y2)
 {
     int width = x1 - x2;
     int height = y1 - y2;
+    int yInput;
+    int xInput;
     
-    if(width == 0)
+    double rise, run;
+    if(abs(width) > abs(height))
     {
-        for(int i = 0; i < abs(height); i++)
+        rise = (double)height/(double)abs(width);
+        run = (double)width/(double)abs(width);
+        
+        for(int i = -4; i < abs(width)+4; i++)
         {
-            worldMap[(y2 + i*height/abs(height))*worldSize + x2] = 1;
-            //printer->insertSquare(x2, (y2 + i*height/abs(height)));
-        }
-    }
-    else if(height == 0)
-    {
-        for(int i = 0; i < abs(width); i++)
-        {
-            worldMap[y2*worldSize + (x2 + i*width/abs(width))] = 1;
-            //printer->insertSquare((x2 + i*width/abs(width)), y2);
+            for(int k = -4; k < 5; k++)
+            {
+                yInput = y2 + k + i*rise;
+                xInput = x2 + i*run;
+                if(yInput >= 0 && yInput < worldSize &&
+                   xInput >= 0 && xInput < worldSize) {
+                    worldMap[(yInput)*worldSize + (xInput)] = 1;
+                }
+            }
         }
     }
     else
     {
-        double rise, run;
-        if(abs(width) > abs(height))
+        rise = (double)height/(double)abs(height);
+        run = (double)width/(double)abs(height);
+        for(int i = -4; i < abs(height)+4; i++)
         {
-            rise = (double)height/(double)abs(width);
-            run = (double)width/(double)abs(width);
-            
-            for(int i = 0; i < abs(width); i++)
+            for(int k = -4; k < 5; k++)
             {
-                worldMap[(int)(y2 + i*rise)*worldSize + (int)(x2 + i*run)] = 1;
-                worldMap[(int)(y2 + 1 + i*rise)*worldSize + (int)(x2 + i*run)] = 1;
+                yInput = y2 + i*rise;
+                xInput = x2 + k + i*run;
+                if(yInput >= 0 && yInput < worldSize &&
+                   xInput >= 0 && xInput < worldSize) {
+                    worldMap[(yInput)*worldSize + (xInput)] = 1;
+                }
             }
         }
-        else
-        {
-            rise = (double)height/(double)abs(height);
-            run = (double)width/(double)abs(height);
-            for(int i = 0; i < abs(height); i++)
-            {
-                worldMap[(int)(y2 + i*rise)*worldSize + (int)(x2 + i*run)] = 1;
-                worldMap[(int)(y2 + i*rise)*worldSize + (int)(x2 + 1 + i*run)] = 1;
-            }
-        }
-
     }
+
+    
     
     //printer->outputToFile("WORLD_MAP");
 }

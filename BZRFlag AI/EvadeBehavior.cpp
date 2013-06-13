@@ -10,12 +10,12 @@
 EvadeBehavior::EvadeBehavior(BZRC* server, int tankNumber, TeamColor myColor,
                 vector<TankTargeter>* enemies) : Behavior(server, tankNumber, myColor, enemies)
 {
-    
+    myType = EVADEBEHAVIOR;
 }
 
 EvadeBehavior::EvadeBehavior(const EvadeBehavior& orig) : Behavior(orig)
 {
-    
+    myType = EVADEBEHAVIOR;
 }
 
 void EvadeBehavior::doMove()

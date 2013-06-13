@@ -13,12 +13,14 @@ DefendBehavior::DefendBehavior(BZRC* server, int tankNumber, TeamColor myColor,
 {
     currentTarget = NULL;
     DEADSTRING = "dead";
+    this->myType = DEFENDBEHAVIOR;
 }
 
-DefendBehavior::DefendBehavior(const DefendBehavior& orig) : Behavior(orig)
+DefendBehavior::DefendBehavior(const Behavior& orig) : Behavior(orig)
 {
     currentTarget = NULL;
     DEADSTRING = "dead";
+    this->myType = DEFENDBEHAVIOR;
 }
 
 void DefendBehavior::doMove()

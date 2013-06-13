@@ -16,7 +16,7 @@ class DefendBehavior : public Behavior
 public:
     DefendBehavior(BZRC* server, int tankNumber, TeamColor myColor,
                 vector<TankTargeter>* enemies);
-    DefendBehavior(const DefendBehavior& orig);
+    DefendBehavior(const Behavior& orig);
     virtual void doMove();
     virtual ~DefendBehavior();
     

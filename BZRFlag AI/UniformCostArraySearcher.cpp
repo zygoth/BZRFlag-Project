@@ -26,7 +26,7 @@ UniformCostArraySearcher::UniformCostArraySearcher()
 UniformCostArraySearcher::UniformCostArraySearcher(bool* world, int cols, int rows)
 {
     tree = NULL;
-    grid = new bool[cols * rows];
+    grid = NULL;
     objectGrid = world;
     
 
@@ -44,9 +44,9 @@ UniformCostArraySearcher::UniformCostArraySearcher(const UniformCostArraySearche
 
 UniformCostArraySearcher::~UniformCostArraySearcher()
 {
-    delete objectGrid;
-    delete grid;
-    delete printer;
+//    delete objectGrid;
+//    delete grid;
+//    delete printer;
 }
 
 // returns true when the target point is found and nextTarget is given the value of a point on the path
@@ -56,10 +56,13 @@ bool UniformCostArraySearcher::search(Point startPosition, Point targetPosition,
                                       Point* nextTarget, int distance)
 {
     printer = new GNUPrinter();
+    printCounter = 0;
     
+    tree = NULL;
     targetX = targetPosition.x + width/2;
     targetY = targetPosition.y + height/2;
     
+    grid = new bool[width * height];
     for(int i = 0; i < width*height; i++)
         grid[i] = objectGrid[i];
     
@@ -88,6 +91,7 @@ bool UniformCostArraySearcher::search(Point startPosition, Point targetPosition,
         addchildren(tempNode);
         
     }
+    printer->outputToFile("BEHAVIOR_PATH");
     
     if(tempNode->x != targetX && tempNode->y != targetY)
         return false;
@@ -99,13 +103,13 @@ bool UniformCostArraySearcher::search(Point startPosition, Point targetPosition,
         int x = tempNode->x;
         int y = tempNode->y;
         
-        printer->insertSquare(x,y);
+        //printer->insertSquare(x,y);
         Point pathPoint(x, y); 
         path.push_back(pathPoint);
         tempNode = parent;
         parent = parent->parent;
     }
-    printer->outputToFile("BEHAVIOR_PATH");
+    //printer->outputToFile("BEHAVIOR_PATH");
     
     Point check = path.back();
     while(path.empty() == false && distance > 0)
@@ -120,6 +124,8 @@ bool UniformCostArraySearcher::search(Point startPosition, Point targetPosition,
     
     path.clear();
     clearNode(tree);
+    delete grid;
+    grid = NULL;
     delete printer;
     
     return true;
@@ -429,7 +435,7 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
                 else
                     child = newNode(currentCost, x-1, y, parent);
                 
-                //printer->insertLine(x, y, x-1, y, true);
+                printer->insertLine(x, y, x-1, y, true);
                 grid[(y)*width + (x-1)] = 1;
                 
                 addChild(parent, child);
@@ -455,7 +461,7 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
                 else
                     child = newNode(currentCost, x+1, y, parent);
                 
-                //printer->insertLine(x, y, x+1, y, true);
+                printer->insertLine(x, y, x+1, y, true);
                 grid[(y)*width + (x+1)] = 1;
                 
                 addChild(parent, child);
@@ -481,7 +487,7 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
                 else
                     child = newNode(currentCost, x, y+1, parent);
                 
-                //printer->insertLine(x, y, x, y+1, true);
+                printer->insertLine(x, y, x, y+1, true);
                 grid[(y+1)*width + (x)] = 1;
                 
                 addChild(parent, child);
@@ -507,7 +513,7 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
                 else
                     child = newNode(currentCost, x, y-1, parent);
                 
-                //printer->insertLine(x, y, x, y-1, true);
+                printer->insertLine(x, y, x, y-1, true);
                 grid[(y-1)*width + (x)] = 1;
                 
                 addChild(parent, child);
@@ -534,7 +540,7 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
                 else
                     child = newNode(currentCost, x-1, y+1, parent);
                 
-                //printer->insertLine(x, y, x-1, y+1, true);
+                printer->insertLine(x, y, x-1, y+1, true);
                 grid[(y+1)*width + (x-1)] = 1;
                 
                 addChild(parent, child);
@@ -562,7 +568,7 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
                 else
                     child = newNode(currentCost, x+1, y+1, parent);
                 
-                //printer->insertLine(x, y, x+1, y+1, true);
+                printer->insertLine(x, y, x+1, y+1, true);
                 grid[(y+1)*width + (x+1)] = 1;
                 
                 addChild(parent, child);
@@ -590,7 +596,7 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
                 else
                     child = newNode(currentCost, x-1, y-1, parent);
                 
-                //printer->insertLine(x, y, x-1, y-1, true);
+                printer->insertLine(x, y, x-1, y-1, true);
                 grid[(y-1)*width + (x-1)] = 1;
                 
                 addChild(parent, child);
@@ -619,7 +625,7 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
                 else
                     child = newNode(currentCost, x+1, y-1, parent);
                 
-                //printer->insertLine(x, y, x+1, y-1, true);
+                printer->insertLine(x, y, x+1, y-1, true);
                 grid[(y-1)*width + (x+1)] = 1;
                 
                 addChild(parent, child);
@@ -629,11 +635,11 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
     }
     
     
-/*    printCounter++;
+    printCounter++;
     if(printCounter > 1000){
         printCounter = 0;
         printer->insertPause(.000001);
-    }*/
+    }
 }
 
 double UniformCostArraySearcher::getPenalty(node_uc* parent, int x, int y)

@@ -232,7 +232,11 @@ void BehaviorCommanderAI::fillObject(int x, int y)
 }
 
 void BehaviorCommanderAI::controlTeam()
-{    
+{   
+    UniformCostArraySearcher* temp = new UniformCostArraySearcher(worldMap, worldSize, worldSize);
+    *finder = *temp;
+    delete temp;
+    
     /**
      * Update enemy positions
      */
@@ -254,6 +258,7 @@ BehaviorCommanderAI::~BehaviorCommanderAI()
 {
     delete finder;
     delete printer;
+    delete worldMap;
     
     for(int i = 0; i < tankAIs.size(); i++)
     {

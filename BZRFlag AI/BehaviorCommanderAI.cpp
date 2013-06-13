@@ -153,7 +153,7 @@ void BehaviorCommanderAI::drawEdge(int x1, int y1, int x2, int y2)
         
         for(int i = -4; i < abs(width)+4; i++)
         {
-            for(int k = -4; k < 5; k++)
+            for(int k = -2; k < 3; k++)
             {
                 yInput = y2 + k + i*rise;
                 xInput = x2 + i*run;
@@ -170,7 +170,7 @@ void BehaviorCommanderAI::drawEdge(int x1, int y1, int x2, int y2)
         run = (double)width/(double)abs(height);
         for(int i = -4; i < abs(height)+4; i++)
         {
-            for(int k = -4; k < 5; k++)
+            for(int k = -2; k < 3; k++)
             {
                 yInput = y2 + i*rise;
                 xInput = x2 + k + i*run;

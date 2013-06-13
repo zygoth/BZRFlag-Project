@@ -9,6 +9,7 @@
 #define	DEFENDBEHAVIOR_H
 
 #include "Behavior.h"
+#include "PDController.h"
 
 class DefendBehavior : public Behavior
 {
@@ -18,8 +19,13 @@ public:
     DefendBehavior(const DefendBehavior& orig);
     virtual void doMove();
     virtual ~DefendBehavior();
+    
 private:
-
+    
+    string DEADSTRING;
+    TankTargeter* currentTarget;
+    PDController pdController;
+    void selectTarget(vector<otank_t>* otherTanks, tank_t me);
 };
 
 #endif	/* DEFENDBEHAVIOR_H */

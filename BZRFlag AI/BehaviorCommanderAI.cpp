@@ -129,10 +129,10 @@ void BehaviorCommanderAI::buildWorldOccgrid(vector <obstacle_t> *objects)
         
         if(value)
         {
-            int x = i%worldSize;
-            int y = i/worldSize;
+            int x3 = i%worldSize;
+            int y3 = i/worldSize;
             
-            printer->insertSquare(x, y);
+            printer->insertSquare(x3, y3);
         }
     }
     printer->outputToFile("WORLD_MAP");

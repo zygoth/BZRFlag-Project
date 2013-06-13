@@ -6,6 +6,7 @@
  */
 
 #include "GoToBehavior.h"
+#include "SearchTools.h"
 
 GoToBehavior::GoToBehavior(BZRC* server, int tankNumber, TeamColor myColor,
                 vector<TankTargeter>* enemies, UniformCostArraySearcher* pathFinder,
@@ -14,6 +15,9 @@ GoToBehavior::GoToBehavior(BZRC* server, int tankNumber, TeamColor myColor,
 {
     this->pathFinder = pathFinder;
     this->targetPoint = targetPoint;
+    
+    tank_t me = getMyTank();
+    this->intermediatePoint = Point(me.pos[0], me.pos[1]);
 }
 
 GoToBehavior::GoToBehavior(const Behavior& orig, UniformCostArraySearcher* pathFinder, 
@@ -21,6 +25,9 @@ GoToBehavior::GoToBehavior(const Behavior& orig, UniformCostArraySearcher* pathF
 {
     this->pathFinder = pathFinder;
     this->targetPoint = targetPoint;
+    
+    tank_t me = getMyTank();
+    this->intermediatePoint = Point(me.pos[0], me.pos[1]);
 }
 
 void GoToBehavior::doMove()
@@ -29,7 +36,10 @@ void GoToBehavior::doMove()
     Point myPosition = Point(me.pos[0], me.pos[1]);
     double currentAngle = me.angle;
     
-    pathFinder->search(myPosition, targetPoint, &intermediatePoint, 20);    
+    if(SearchTools::distance(myPosition, intermediatePoint) < 15)
+    {
+        pathFinder->search(myPosition, targetPoint, &intermediatePoint, 20);
+    }
     
     double targetAngle = atan2((intermediatePoint.y - myPosition.y) , (intermediatePoint.x - myPosition.x));
     double angularVelocity = pdController.calculateAngularVelocity(currentAngle, targetAngle);

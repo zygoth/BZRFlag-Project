@@ -55,8 +55,8 @@ UniformCostArraySearcher::~UniformCostArraySearcher()
 bool UniformCostArraySearcher::search(Point startPosition, Point targetPosition,
                                       Point* nextTarget, int distance)
 {
-    targetX = targetPosition.x;
-    targetY = targetPosition.y;
+    targetX = targetPosition.x + width/2;
+    targetY = targetPosition.y + height/2;
     
     if(grid[targetY*width + targetX] == 1)
         return false;
@@ -64,8 +64,8 @@ bool UniformCostArraySearcher::search(Point startPosition, Point targetPosition,
     for(int i = 0; i < width*height; i++)
         grid[i] = objectGrid[i];
     
-    int tempX = startPosition.x;
-    int tempY = startPosition.y;
+    int tempX = startPosition.x + width/2;
+    int tempY = startPosition.y + height/2;
     
     node_uc* tempNode;
     tempNode = newNode(0.0 + getDistance(tempX,tempY), 

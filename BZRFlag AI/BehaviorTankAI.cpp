@@ -41,10 +41,18 @@ BehaviorTankAI::BehaviorTankAI(BZRC* server, int tankNumber, TeamColor myColor,
 }
 
 /**
- * Shoots at the first enemy in the enemy list.
+ * 
  */
 void BehaviorTankAI::controlTank()
 {   
+    /**
+     * switch(currentPriority)
+     *  case CAPTURE: doCapture()
+     *  case DEFEND:  doDefense()
+     *  case EVADE:  doEvade()
+     * 
+     * 
+     */
     currentBehavior->doMove();
 }
 

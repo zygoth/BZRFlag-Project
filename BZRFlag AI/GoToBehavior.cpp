@@ -38,7 +38,14 @@ void GoToBehavior::doMove()
     
     if(SearchTools::distance(myPosition, intermediatePoint) < 15)
     {
-        pathFinder->search(myPosition, targetPoint, &intermediatePoint, 20);
+        if(pathFinder->search(myPosition, targetPoint, &intermediatePoint, 20) == false)
+        {
+            cout << "couldn't find path" << endl;
+        }
+        else
+        {
+            cout << "found path" << endl;
+        }
     }
     
     double targetAngle = atan2((intermediatePoint.y - myPosition.y) , (intermediatePoint.x - myPosition.x));

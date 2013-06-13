@@ -53,13 +53,13 @@ void GoToBehavior::doMove()
     double targetAngle = atan2((intermediatePoint.y - myPosition.y) , (intermediatePoint.x - myPosition.x));
     double angularVelocity = pdController.calculateAngularVelocity(currentAngle, targetAngle);
     double speed;
-    if(abs(differenceBetweenTwoAngles(currentAngle, targetAngle)) < 1)
+    if(abs(differenceBetweenTwoAngles(currentAngle, targetAngle)) < .5)
     {
         speed = 1;
     }
     else
     {
-        speed = 0;
+        speed = .3;
     }
     
     connection->speed(tankNumber, speed);

@@ -55,14 +55,16 @@ UniformCostArraySearcher::~UniformCostArraySearcher()
 bool UniformCostArraySearcher::search(Point startPosition, Point targetPosition,
                                       Point* nextTarget, int distance)
 {
+    printer = new GNUPrinter();
+    
     targetX = targetPosition.x + width/2;
     targetY = targetPosition.y + height/2;
     
-    if(grid[targetY*width + targetX] == 1)
-        return false;
-    
     for(int i = 0; i < width*height; i++)
         grid[i] = objectGrid[i];
+    
+    if(grid[targetY*width + targetX] == 1)
+        return false;
     
     int tempX = startPosition.x + width/2;
     int tempY = startPosition.y + height/2;
@@ -97,11 +99,13 @@ bool UniformCostArraySearcher::search(Point startPosition, Point targetPosition,
         int x = tempNode->x;
         int y = tempNode->y;
         
+        printer->insertSquare(x,y);
         Point pathPoint(x, y); 
         path.push_back(pathPoint);
         tempNode = parent;
         parent = parent->parent;
     }
+    printer->outputToFile("BEHAVIOR_PATH");
     
     Point check = path.back();
     while(path.empty() == false && distance > 0)
@@ -116,6 +120,7 @@ bool UniformCostArraySearcher::search(Point startPosition, Point targetPosition,
     
     path.clear();
     clearNode(tree);
+    delete printer;
     
     return true;
 }

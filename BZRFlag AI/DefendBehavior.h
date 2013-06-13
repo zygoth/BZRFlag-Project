@@ -22,9 +22,10 @@ public:
     
 private:
     
+    string DEADSTRING;
     TankTargeter* currentTarget;
     PDController pdController;
-    void selectTarget();
+    void selectTarget(vector<otank_t>* otherTanks, tank_t me);
 };
 
 #endif	/* DEFENDBEHAVIOR_H */

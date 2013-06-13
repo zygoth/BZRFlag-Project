@@ -12,26 +12,29 @@ DefendBehavior::DefendBehavior(BZRC* server, int tankNumber, TeamColor myColor,
                 vector<TankTargeter>* enemies) : Behavior(server, tankNumber, myColor, enemies)
 {
     currentTarget = NULL;
+    DEADSTRING = "dead";
 }
 
 DefendBehavior::DefendBehavior(const DefendBehavior& orig) : Behavior(orig)
 {
     currentTarget = NULL;
+    DEADSTRING = "dead";
 }
 
 void DefendBehavior::doMove()
 {
     vector<otank_t> otherTanks;
     connection->get_othertanks(&otherTanks);
-    string DEADSTRING = "dead";
+    
     tank_t me = getMyTank();
     
     // Check if the currentTarget needs to be changed
-    // Change it if we have no target, if the enemy tank is already dead, or
-    // the tank is out of range.
-    if(currentTarget == NULL || DEADSTRING.compare(otherTanks[currentTarget->getTankIndex()].status) == 0)
+
+    selectTarget(&otherTanks, me);
+    
+    if(currentTarget == NULL)
     {
-        selectTarget();
+        return;
     }
     
     // Aim and fire
@@ -52,9 +55,27 @@ void DefendBehavior::doMove()
     }
 }
 
-void DefendBehavior::selectTarget()
+/**
+ * Changes currentTarget to be the closest alive tank.
+ * @param otherTanks
+ */
+void DefendBehavior::selectTarget(vector<otank_t>* otherTanks, tank_t me)
 {
+    Point myPosition(me.pos[0], me.pos[1]);
+    Point enemyPosition;
+    int minDistance = 1000000;
     
+    for(int i = 0; i < otherTanks->size(); i++)
+    {
+        enemyPosition.x = otherTanks->at(i).pos[0];
+        enemyPosition.y = otherTanks->at(i).pos[1];
+        
+        if(SearchTools::distance(myPosition, enemyPosition) < minDistance &&
+                !DEADSTRING.compare(otherTanks->at(i).status) == 0)
+        {
+            currentTarget = &enemies->at(i);
+        }
+    }
 }
 
 DefendBehavior::~DefendBehavior()

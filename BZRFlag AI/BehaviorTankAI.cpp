@@ -19,7 +19,7 @@ BehaviorTankAI::BehaviorTankAI(BZRC* server, int tankNumber, TeamColor myColor,
     this->enemies = enemies;
     this->pathFinder = pathFinder;
     this->currentPriority = CAPTURE;
-    this->currentBehavior = new GoToBehavior(server, tankNumber, myColor, enemies, pathFinder, Point(0,0));
+    this->currentBehavior = new GoToBehavior(server, tankNumber, myColor, enemies, pathFinder, Point(30,-60));
     
     vector<constant_t> constants;
     connection->get_constants(&constants);

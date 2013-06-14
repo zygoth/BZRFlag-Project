@@ -22,9 +22,10 @@ public:
     GoToBehavior(const Behavior& orig, UniformCostArraySearcher* pathFinder, Point targetPoint);
     virtual void doMove();
     virtual ~GoToBehavior();
+    Point targetPoint;
     
 private:
-    Point targetPoint;
+    
     Point intermediatePoint;
     PDController pdController;
     

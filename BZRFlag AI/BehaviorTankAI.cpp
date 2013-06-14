@@ -13,6 +13,7 @@
 #include "GoToBehavior.h"
 #include "DefendBehavior.h"
 #include "EvadeBehavior.h"
+#include "BZRCTools.h"
 
 BehaviorTankAI::BehaviorTankAI(BZRC* server, int tankNumber, TeamColor myColor,
                 vector<TankTargeter>* enemies, UniformCostArraySearcher* pathFinder) : TankAI(server)
@@ -59,8 +60,63 @@ void BehaviorTankAI::controlTank()
 }
 
 void BehaviorTankAI::doCapture()
-{
+{    
+    // Start them going towards the flag, or towards the enemy base if the flag
+    // is already captured.
+    flag_t enemyFlag;
+    Point targetPoint;
     
+    tank_t me = getMyTank();
+    bool iHaveFlag = !(me.flag.compare("-") == 0);
+    vector<flag_t> flags;
+    connection->get_flags(&flags);
+    
+    
+    for(int i = 0; i < flags.size(); i++)
+    {
+        if(stringToTeamColor(flags[i].color) == myColor)
+        {
+            continue;
+        }
+        
+        if(flags[i].poss_color.compare("none") != 0 && !iHaveFlag) // somebody else has the flag, so camp at enemy base
+        {
+            vector<base_t> bases;
+            connection->get_bases(&bases);
+            
+            for(int j = 0; j < bases.size(); j++)
+            {
+                if(stringToTeamColor(bases[j].color) == stringToTeamColor(flags[i].color))
+                {
+                    targetPoint = Point(bases[j].base_corner[0][0], bases[j].base_corner[0][1]);
+                }
+            }
+        }
+        else
+        {
+            if(iHaveFlag) // GO HOME!!!!
+            {
+                base_t myBase = BZRCTools::getBase(connection, myColor);
+                targetPoint = Point(myBase.base_corner[0][0] + 20, myBase.base_corner[0][1] - 20);
+            }
+            else  // Grab the enemy flag!
+            {
+                targetPoint = Point(flags[i].pos[0], flags[i].pos[1]);
+            }
+        }
+    }
+    
+    // TODO: if we're in danger, switch to evasion mode
+    
+    // we don't need to change the target point.
+    if(currentBehavior->getType() == GOTOBEHAVIOR && targetPoint.Compare( ((GoToBehavior*)currentBehavior) -> targetPoint) == 0)
+    {
+        return;
+    }
+    
+    Behavior* newBehavior = new GoToBehavior(*currentBehavior, pathFinder, targetPoint);
+    delete currentBehavior;
+    currentBehavior = newBehavior;
 }
 
 void BehaviorTankAI::doDefend()
@@ -93,6 +149,45 @@ void BehaviorTankAI::setToDefend(Point p)
 void BehaviorTankAI::setToCapture()
 {
     this->currentPriority = CAPTURE;
+    
+    // Start them going towards the flag, or towards the enemy base if the flag
+    // is already captured.
+    flag_t enemyFlag;
+    Point targetPoint;
+    
+    vector<flag_t> flags;
+    connection->get_flags(&flags);
+    
+    
+    for(int i = 0; i < flags.size(); i++)
+    {
+        if(stringToTeamColor(flags[i].color) == myColor)
+        {
+            continue;
+        }
+        
+        if(flags[i].poss_color.compare("none") != 0)
+        {
+            vector<base_t> bases;
+            connection->get_bases(&bases);
+            
+            for(int j = 0; j < bases.size(); j++)
+            {
+                if(stringToTeamColor(bases[j].color) == stringToTeamColor(flags[i].color))
+                {
+                    targetPoint = Point(bases[j].base_corner[0][0], bases[j].base_corner[0][1]);
+                }
+            }
+        }
+        else
+        {
+            targetPoint = Point(flags[i].pos[0], flags[i].pos[1]);
+        }
+    }
+    
+    Behavior* newBehavior = new GoToBehavior(*currentBehavior, pathFinder, targetPoint);
+    delete currentBehavior;
+    currentBehavior = newBehavior;
 }
 
 void BehaviorTankAI::setToEvade()

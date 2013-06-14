@@ -29,12 +29,12 @@ class PotentialFieldCalculator {
         void calculateEnemyTanks(int, int);
         void calculateTargetVector(int, int, TeamColor, int);
         void avoidObjects(tank_t, GridFilter*);
-        double getAngleBetween(double, double);
 public:
 	PotentialFieldCalculator(BZRC*);
 	virtual ~PotentialFieldCalculator();
         TankVector* calculateVector(int, int, TeamColor, int);
         TankVector* calculateSearcherVector(int x, int y, int index, GridFilter* grid);
+        static double getAngleBetween(double, double);
 };
 
 #endif /* POTENTIALFIELDCALCULATOR_H_ */

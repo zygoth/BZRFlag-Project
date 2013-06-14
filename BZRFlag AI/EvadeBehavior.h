@@ -9,6 +9,7 @@
 #define	EVADEBEHAVIOR_H
 
 #include "Behavior.h"
+#include "PDController.h"
 
 class EvadeBehavior : public Behavior
 {
@@ -20,6 +21,8 @@ public:
     virtual ~EvadeBehavior();
 private:
     int action;
+    double targetAngle;
+    PDController pdController;
     
 };
 

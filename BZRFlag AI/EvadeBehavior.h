@@ -19,7 +19,8 @@ public:
     virtual void doMove();
     virtual ~EvadeBehavior();
 private:
-
+    int action;
+    
 };
 
 #endif	/* EVADEBEHAVIOR_H */

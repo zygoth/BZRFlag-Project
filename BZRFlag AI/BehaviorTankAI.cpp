@@ -92,7 +92,7 @@ void BehaviorTankAI::doCapture()
             {
                 if(stringToTeamColor(bases[j].color) == stringToTeamColor(flags[i].color))
                 {
-                    targetPoint = Point(bases[j].base_corner[0][0], bases[j].base_corner[0][1]);
+                    targetPoint = BZRCTools::getBaseCenter(connection, stringToTeamColor(flags[i].color));
                 }
             }
         }
@@ -100,8 +100,7 @@ void BehaviorTankAI::doCapture()
         {
             if(iHaveFlag) // GO HOME!!!!
             {
-                base_t myBase = BZRCTools::getBase(connection, myColor);
-                targetPoint = Point(myBase.base_corner[0][0] + 10, myBase.base_corner[0][1] + 10);
+                targetPoint = BZRCTools::getBaseCenter(connection, myColor);
             }
             else  // Grab the enemy flag!
             {
@@ -111,9 +110,10 @@ void BehaviorTankAI::doCapture()
     }    
     
     // if the current behavior is different, change it.
-    if(!(currentBehavior->getType() == GOTOBEHAVIOR) || 
-            !(targetPoint.Compare( ((GoToBehavior*)currentBehavior) -> targetPoint) == 0))
+    if((currentBehavior->getType() != GOTOBEHAVIOR) || 
+            (SearchTools::distance(targetPoint, ((GoToBehavior*)currentBehavior) -> targetPoint) > 15))
     {
+        cout << "New target:  " << targetPoint.x << ", " << targetPoint.y << endl;
         Behavior* newBehavior = new GoToBehavior(*currentBehavior, pathFinder, targetPoint);
         delete currentBehavior;
         currentBehavior = newBehavior;

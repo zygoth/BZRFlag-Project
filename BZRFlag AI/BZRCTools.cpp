@@ -29,6 +29,26 @@ base_t BZRCTools::getBase(BZRC* connection, TeamColor color)
     throw "You called getBase with a color that doesn't exist in game.";
 }
 
+Point BZRCTools::getBaseCenter(BZRC* connection, TeamColor color)
+{
+    int baseX;
+    int baseY;
+    
+    base_t base = getBase(connection, color);
+    
+    baseX = base.base_corner[0][0]
+                  - base.base_corner[2][0];
+            baseY = base.base_corner[0][1]
+                  - base.base_corner[2][1];
+            
+            baseX = base.base_corner[2][0]
+                    + baseX/2;
+            baseY = base.base_corner[2][1]
+                    + baseY/2;
+            
+            return Point(baseX, baseY);
+}
+
 BZRCTools::~BZRCTools()
 {
 }

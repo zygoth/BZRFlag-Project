@@ -38,28 +38,34 @@ void GoToBehavior::doMove()
     Point myPosition = Point(me.pos[0], me.pos[1]);
     double currentAngle = me.angle;
     
-    if(SearchTools::distance(myPosition, intermediatePoint) < 15)
+    //if(SearchTools::distance(myPosition, intermediatePoint) < 15)
     {
-        if(pathFinder->search(myPosition, targetPoint, &intermediatePoint, 20) == false)
+        if(pathFinder->search(myPosition, targetPoint, &intermediatePoint, 10) == false)
         {
             cout << "couldn't find path" << endl;
         }
         else
         {
-            cout << "found path" << endl;
+            //cout << "found path" << endl;
         }
     }
     
     double targetAngle = atan2((intermediatePoint.y - myPosition.y) , (intermediatePoint.x - myPosition.x));
     double angularVelocity = pdController.calculateAngularVelocity(currentAngle, targetAngle);
     double speed;
-    if(abs(differenceBetweenTwoAngles(currentAngle, targetAngle)) < .5)
+    if(abs(differenceBetweenTwoAngles(currentAngle, targetAngle)) < .9)
     {
         speed = 1;
     }
     else
     {
         speed = .3;
+    }
+    
+    if(SearchTools::distance(myPosition, targetPoint) < 8)
+    {
+        speed = .3;
+        cout << "I have arrived!" << endl;
     }
     
     connection->speed(tankNumber, speed);

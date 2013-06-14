@@ -6,6 +6,8 @@
  */
 
 #include "BZRCTools.h"
+#include "SearchTools.h"
+#include <cmath>
 
 BZRCTools::BZRCTools()
 {
@@ -31,3 +33,28 @@ BZRCTools::~BZRCTools()
 {
 }
 
+bool BZRCTools::hitCheck(tank_t me, shot_t bullet, int range)
+{
+    int shotX = bullet.pos[0];
+    int shotY = bullet.pos[1];
+    int tankX = me.pos[0];
+    int tankY = me.pos[1];
+    
+    if(SearchTools::distance(tankX, tankY, shotX, shotY) >= range)
+        return false;
+    
+    if((tankX - shotX) * bullet.velocity[0] < 0)
+        return false;
+    if((tankY - shotY) * bullet.velocity[1] < 0)
+        return false;
+        
+    for(int i = 0; i < 300; i++)
+    {
+        if(SearchTools::distance(shotX + i*bullet.velocity[0],
+                                 shotY + i*bullet.velocity[1],
+                                 tankX + i*me.velocity[0],
+                                 tankY + i*me.velocity[1]) <= 5)
+            return true;
+    }
+    return false;
+}

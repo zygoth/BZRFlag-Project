@@ -62,6 +62,7 @@ BehaviorCommanderAI::BehaviorCommanderAI(BZRC* connection) : CommanderAI(connect
     for(int i = 0; i < myTanks.size(); i++)
     {
         tankAIs.push_back(new BehaviorTankAI(connection, i, myColor, &tankTargeters, finder));
+        ((BehaviorTankAI*)tankAIs.back())->setToCapture();
     }    
     
     otherObjects.clear();

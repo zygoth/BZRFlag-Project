@@ -37,6 +37,8 @@ public:
     UniformCostArraySearcher(bool* world, int cols, int rows);
     bool search(Point startPosition, Point targetPosition,
                 Point* nextTarget, int distance);
+    bool* objectGrid;
+    int width;
     
     
     UniformCostArraySearcher();
@@ -58,10 +60,9 @@ private:
     
     GNUPrinter* printer;
     bool* grid;
-    bool* objectGrid;
     bool aStar, penaltyMode;
     int targetX, targetY;
-    int width, height, printCounter;
+    int height, printCounter;
     node_uc* tree;
     //priority_queue <node_uc*> pathOptions;
     priority_queue <node_uc*, vector<node_uc*>, uc_compare> pathOptions;

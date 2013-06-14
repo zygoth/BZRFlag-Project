@@ -16,7 +16,7 @@ class BZRCTools
 public:
     BZRCTools();
     static base_t getBase(BZRC* connection, TeamColor color);
-    static bool hitCheck(tank_t me, shot_t bullet);
+    static bool hitCheck(tank_t me, shot_t bullet, int);
     virtual ~BZRCTools();
 private:
 

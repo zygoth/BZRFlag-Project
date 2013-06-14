@@ -7,7 +7,7 @@
 
 #include "EvadeBehavior.h"
 #include "SearchTools.h"
-#include <cmath>
+#include "BZRCTools.h"
 
 EvadeBehavior::EvadeBehavior(BZRC* server, int tankNumber, TeamColor myColor,
                 vector<TankTargeter>* enemies) : Behavior(server, tankNumber, myColor, enemies)
@@ -35,10 +35,10 @@ void EvadeBehavior::doMove()
     {
         for(int i = 0; i < bullets.size(); i++)
         {
-            if(SearchTools::distance(target.pos[0], target.pos[1], 
-                                     bullets[i].pos[0], bullets[i].pos[1]) < SHOTRANGE);
+            
             {
-//                avoidCheck(target, bullets[i]);
+//                if(BZRCTools::hitCheck(target, bullets[i]))
+                    
             }
         }
     }

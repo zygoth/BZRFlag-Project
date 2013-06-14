@@ -55,25 +55,6 @@ void EvadeBehavior::doMove()
     myTanks.clear();
 }
 
-/*bool EvadeBehavior::avoidCheck(tank_t me, shot_t bullet)
-{
-    int shotX = bullet.pos[0];
-    int shotY = bullet.pos[1];
-    int tankX = me.pos[0];
-    int tankY = me.pos[1];
-    
-    if((tankX - shotX) * bullet.velocity[0] < 0)
-        return false;
-    if((tankY - shotY) * bullet.velocity[1] < 0)
-        return false;
-        
-    for(int i = 0; i < 300; i++)
-    {
-            
-        
-    }
-}*/
-
 EvadeBehavior::~EvadeBehavior()
 {
     

@@ -394,7 +394,7 @@ bool UniformCostArraySearcher::isNextToObject(int x,int y)
         if(objectGrid[(y)*width + (x+1)] == true)
             return true;
         
-        if(y>height-1){
+        if(y<height-1){
             // check upper-right
             if(objectGrid[(y+1)*width + (x+1)] == true)
                 return true;

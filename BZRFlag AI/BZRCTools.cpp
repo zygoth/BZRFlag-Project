@@ -7,6 +7,7 @@
 
 #include "BZRCTools.h"
 #include "SearchTools.h"
+#include "UniformCostArraySearcher.h"
 #include <cmath>
 
 BZRCTools::BZRCTools()
@@ -53,7 +54,7 @@ BZRCTools::~BZRCTools()
 {
 }
 
-bool BZRCTools::hitCheck(tank_t me, shot_t bullet, int range)
+bool BZRCTools::hitCheck(tank_t me, shot_t bullet, int range, UniformCostArraySearcher* path)
 {
     int shotX = bullet.pos[0];
     int shotY = bullet.pos[1];
@@ -68,10 +69,16 @@ bool BZRCTools::hitCheck(tank_t me, shot_t bullet, int range)
     if((tankY - shotY) * bullet.velocity[1] < 0)
         return false;
         
+    int xMovement, yMovement;
     for(int i = 0; i < 300; i++)
     {
-        if(SearchTools::distance(shotX + i*bullet.velocity[0],
-                                 shotY + i*bullet.velocity[1],
+        xMovement = shotX + i*bullet.velocity[0];
+        yMovement = shotY + i*bullet.velocity[1];
+        if(path->objectGrid[yMovement*path->width + xMovement] == 1)
+            return false;
+            
+        if(SearchTools::distance(xMovement,
+                                 yMovement,
                                  tankX + i*me.velocity[0],
                                  tankY + i*me.velocity[1]) <= 5)
             return true;

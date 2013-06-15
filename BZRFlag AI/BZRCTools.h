@@ -10,6 +10,7 @@
 
 #include "470bot.h"
 #include "PotentialFieldCalculator.h"
+#include "UniformCostArraySearcher.h"
 #include "Point.h"
 
 class BZRCTools
@@ -18,7 +19,7 @@ public:
     BZRCTools();
     static base_t getBase(BZRC* connection, TeamColor color);
     static Point getBaseCenter(BZRC* connection, TeamColor color);
-    static bool hitCheck(tank_t me, shot_t bullet, int);
+    static bool hitCheck(tank_t me, shot_t bullet, int, UniformCostArraySearcher*);
     virtual ~BZRCTools();
 private:
 

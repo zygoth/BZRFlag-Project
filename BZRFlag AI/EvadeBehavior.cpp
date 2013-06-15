@@ -12,16 +12,19 @@
 #include <cmath>
 
 EvadeBehavior::EvadeBehavior(BZRC* server, int tankNumber, TeamColor myColor,
-                vector<TankTargeter>* enemies) : Behavior(server, tankNumber, myColor, enemies)
+                vector<TankTargeter>* enemies, 
+                UniformCostArraySearcher* pathFinder) : Behavior(server, tankNumber, myColor, enemies)
 {
     myType = EVADEBEHAVIOR;
     action = 0;
+    path = pathFinder;
 }
 
 EvadeBehavior::EvadeBehavior(const EvadeBehavior& orig) : Behavior(orig)
 {
     myType = EVADEBEHAVIOR;
     action = 0;
+    this->path = orig.path;
 }
 
 void EvadeBehavior::doMove()
@@ -37,7 +40,7 @@ void EvadeBehavior::doMove()
     {
         for(int i = 0; i < bullets.size(); i++)
         {
-            if(BZRCTools::hitCheck(target, bullets[i], SHOTRANGE))
+            if(BZRCTools::hitCheck(target, bullets[i], SHOTRANGE, path))
             {
                 double angle = atan2((bullets[i].pos[1] - target.pos[1]), 
                                      (bullets[i].pos[0] - target.pos[0]));

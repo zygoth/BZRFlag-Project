@@ -15,6 +15,9 @@
 #include "PDController.h"
 #include "UniformCostArraySearcher.h"
 #include "Behavior.h"
+#include <ctime>
+#include <boost/timer.hpp>
+
 
 
 class BehaviorTankAI : public TankAI
@@ -41,11 +44,13 @@ private:
     UniformCostArraySearcher* pathFinder;
     Behavior* currentBehavior;
     Priority currentPriority;
+    Priority lastPriority;
     vector<TankTargeter>* enemies;
     PDController pdController;
     int SHOTSPEED;
     int SHOTRANGE;
     Point pointToDefend;
+    timespec previousTime;
     
     void doCapture();
     void doDefend();

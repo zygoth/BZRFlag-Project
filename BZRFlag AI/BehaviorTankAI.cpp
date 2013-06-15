@@ -125,7 +125,7 @@ void BehaviorTankAI::doCapture()
     
     for(int i = 0; i < bullets.size(); i++) {
         if(BZRCTools::hitCheck(me, bullets[i],SHOTRANGE,pathFinder))
-            currentPriority = EVADE;
+            setToEvade();
     }
     bullets.clear();
 }
@@ -150,7 +150,7 @@ void BehaviorTankAI::doDefend()
     
     for(int i = 0; i < bullets.size(); i++) {
         if(BZRCTools::hitCheck(me, bullets[i],SHOTRANGE,pathFinder))
-            currentPriority = EVADE;
+            setToEvade();
     }
     bullets.clear();
 }
@@ -160,6 +160,19 @@ void BehaviorTankAI::doEvad()
     if(currentBehavior->getType() != EVADEBEHAVIOR)
     {
         Behavior* newBehavior = new EvadeBehavior(*currentBehavior,pathFinder);
+        delete currentBehavior;
+        currentBehavior = newBehavior;
+        
+        clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &previousTime);
+    }
+    
+    timespec currentTime;
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &currentTime);
+    double secondsElapsed = (double(currentTime.tv_nsec - previousTime.tv_nsec) / 23000000);
+    
+    if(secondsElapsed > .5)
+    {
+        currentPriority = lastPriority;
     }
 }
 
@@ -182,6 +195,7 @@ void BehaviorTankAI::setToCapture()
 
 void BehaviorTankAI::setToEvade()
 {
+    this->lastPriority = this->currentPriority;
     this->currentPriority = EVADE;
 }
 

@@ -20,6 +20,7 @@ public:
     static base_t getBase(BZRC* connection, TeamColor color);
     static Point getBaseCenter(BZRC* connection, TeamColor color);
     static bool hitCheck(tank_t me, shot_t bullet, int, UniformCostArraySearcher*);
+    static bool objectBetween(int x1, int y1, int x2, int y2, UniformCostArraySearcher*);
     virtual ~BZRCTools();
 private:
 

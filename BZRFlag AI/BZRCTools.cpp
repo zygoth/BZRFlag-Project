@@ -74,8 +74,12 @@ bool BZRCTools::hitCheck(tank_t me, shot_t bullet, int range, UniformCostArraySe
     {
         xMovement = shotX + i*bullet.velocity[0];
         yMovement = shotY + i*bullet.velocity[1];
-        if(path->objectGrid[yMovement*path->width + xMovement] == 1)
-            return false;
+        if(yMovement >= 0 && yMovement < path->width &&
+           xMovement >= 0 && xMovement < path->width)
+        {
+            if(path->objectGrid[yMovement*path->width + xMovement] == 1)
+                return false;
+        }
             
         if(SearchTools::distance(xMovement,
                                  yMovement,
@@ -84,4 +88,9 @@ bool BZRCTools::hitCheck(tank_t me, shot_t bullet, int range, UniformCostArraySe
             return true;
     }
     return false;
+}
+
+bool BZRCTools::objectBetween(int x1, int y1, int x2, int y2, UniformCostArraySearcher*)
+{
+    
 }

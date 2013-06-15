@@ -351,52 +351,52 @@ node_uc* UniformCostArraySearcher::newNode(double cost,int x,int y, node_uc* par
 bool UniformCostArraySearcher::isNextToObject(int x,int y)
 {
     // left side
-    if(x>0){
-        if(y>0){
+    if(x>4){
+        if(y>4){
             // check lower-left
-            if(objectGrid[(y-1)*width + (x-1)] == true)
+            if(objectGrid[(y-5)*width + (x-5)] == true)
                 return true;
         }
         
         // check left
-        if(objectGrid[(y)*width + (x-1)] == true)
+        if(objectGrid[(y)*width + (x-5)] == true)
             return true;
         
-        if(y<height-1){
+        if(y<height-5){
             // check upper-left
-            if(objectGrid[(y+1)*width + (x-1)] == true)
+            if(objectGrid[(y+5)*width + (x-5)] == true)
                 return true;
         }
     }
     
     // middle
-    if(y>0){
+    if(y>4){
         // check down
-        if(objectGrid[(y-1)*width + (x)] == true)
+        if(objectGrid[(y-5)*width + (x)] == true)
             return true;
     }
     
-    if(y<height-1){
+    if(y<height-5){
         // check up
-        if(objectGrid[(y+1)*width + (x)] == true)
+        if(objectGrid[(y+5)*width + (x)] == true)
             return true;
     }
     
     // right
-    if(x<width-1){
-        if(y<0){
+    if(x<width-5){
+        if(y<4){
             // check lower-right
-            if(objectGrid[(y-1)*width + (x+1)] == true)
+            if(objectGrid[(y-5)*width + (x+5)] == true)
                 return true;
         }
         
         // check right
-        if(objectGrid[(y)*width + (x+1)] == true)
+        if(objectGrid[(y)*width + (x+5)] == true)
             return true;
         
-        if(y>height-1){
+        if(y>height-5){
             // check upper-right
-            if(objectGrid[(y+1)*width + (x+1)] == true)
+            if(objectGrid[(y+5)*width + (x+5)] == true)
                 return true;
         }
     }
@@ -423,25 +423,25 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
     node_uc* child;
     
     // check left
-    if(x>0){
-        if(grid[(y)*width + (x-1)] == false){
+    if(x>4){
+        if(grid[(y)*width + (x-5)] == false){
                 if(penaltyMode){
                     currentCost = amount + 1.0 
-                                * getPenalty(parent, x-1, y);
+                                * getPenalty(parent, x-5, y);
                 }
                 else
                     currentCost = amount + 1.0;
                 
                 if(aStar){
-                    child = newNode(currentCost + getDistance(x-1, y), 
-                                    x-1, y, parent);
+                    child = newNode(currentCost + getDistance(x-5, y), 
+                                    x-5, y, parent);
                     child->pathCost = currentCost;
                 }
                 else
-                    child = newNode(currentCost, x-1, y, parent);
+                    child = newNode(currentCost, x-5, y, parent);
                 
-                //printer->insertLine(x, y, x-1, y, true);
-                grid[(y)*width + (x-1)] = 1;
+                //printer->insertLine(x, y, x-5, y, true);
+                grid[(y)*width + (x-5)] = 1;
                 
                 addChild(parent, child);
                 pathOptions.push(child);
@@ -449,25 +449,25 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
     }
     
     // check right
-    if(x<width-1){
-        if(grid[(y)*width + (x+1)] == false){
+    if(x<width-5){
+        if(grid[(y)*width + (x+5)] == false){
                 if(penaltyMode){
                     currentCost = amount + 1.0 
-                                * getPenalty(parent, x+1, y);
+                                * getPenalty(parent, x+5, y);
                 }
                 else
                     currentCost = amount + 1.0;
                 
                 if(aStar){
-                    child = newNode(currentCost + getDistance(x+1, y), 
-                                    x+1, y, parent);
+                    child = newNode(currentCost + getDistance(x+5, y), 
+                                    x+5, y, parent);
                     child->pathCost = currentCost;
                 }
                 else
-                    child = newNode(currentCost, x+1, y, parent);
+                    child = newNode(currentCost, x+5, y, parent);
                 
                 //printer->insertLine(x, y, x+1, y, true);
-                grid[(y)*width + (x+1)] = 1;
+                grid[(y)*width + (x+5)] = 1;
                 
                 addChild(parent, child);
                 pathOptions.push(child);
@@ -475,25 +475,25 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
     }
     
     // check up
-    if(y<height-1){
-        if(grid[(y+1)*width + (x)] == false){
+    if(y<height-5){
+        if(grid[(y+5)*width + (x)] == false){
                 if(penaltyMode){
                     currentCost = amount + 1.0 
-                                * getPenalty(parent, x, y+1);
+                                * getPenalty(parent, x, y+5);
                 }
                 else
                     currentCost = amount + 1.0;
                 
                 if(aStar){
-                    child = newNode(currentCost + getDistance(x, y+1), 
-                                    x, y+1, parent);
+                    child = newNode(currentCost + getDistance(x, y+5), 
+                                    x, y+5, parent);
                     child->pathCost = currentCost;
                 }
                 else
-                    child = newNode(currentCost, x, y+1, parent);
+                    child = newNode(currentCost, x, y+5, parent);
                 
-                //printer->insertLine(x, y, x, y+1, true);
-                grid[(y+1)*width + (x)] = 1;
+                //printer->insertLine(x, y, x, y+5, true);
+                grid[(y+5)*width + (x)] = 1;
                 
                 addChild(parent, child);
                 pathOptions.push(child);
@@ -501,32 +501,32 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
     }
     
     // check down
-    if(y>0){
-        if(grid[(y-1)*width + (x)] == false){
+    if(y>4){
+        if(grid[(y-5)*width + (x)] == false){
                 if(penaltyMode){
                     currentCost = amount + 1.0 
-                                * getPenalty(parent, x, y-1);
+                                * getPenalty(parent, x, y-5);
                 }
                 else
                     currentCost = amount + 1.0;
                 
                 if(aStar){
-                    child = newNode(currentCost + getDistance(x, y-1), 
-                                    x, y-1, parent);
+                    child = newNode(currentCost + getDistance(x, y-5), 
+                                    x, y-5, parent);
                     child->pathCost = currentCost;
                 }
                 else
-                    child = newNode(currentCost, x, y-1, parent);
+                    child = newNode(currentCost, x, y-5, parent);
                 
-                //printer->insertLine(x, y, x, y-1, true);
-                grid[(y-1)*width + (x)] = 1;
+                //printer->insertLine(x, y, x, y-5, true);
+                grid[(y-5)*width + (x)] = 1;
                 
                 addChild(parent, child);
                 pathOptions.push(child);
             }
     }
     
-    // check upper-left
+/*    // check upper-left
     if(x>0){
         if(y<height-1){
             if(grid[(y+1)*width + (x-1)] == false){
@@ -637,7 +637,7 @@ void UniformCostArraySearcher::addchildren(node_uc* parent)
                 pathOptions.push(child);
             }
         }
-    }
+    }*/
     
     
     /*printCounter++;

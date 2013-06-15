@@ -12,6 +12,7 @@
 #include "PotentialFieldCalculator.h"
 #include "UniformCostArraySearcher.h"
 #include "Point.h"
+#include "TankTargeter.h"
 
 class BZRCTools
 {
@@ -21,6 +22,8 @@ public:
     static Point getBaseCenter(BZRC* connection, TeamColor color);
     static bool hitCheck(tank_t me, shot_t bullet, int, UniformCostArraySearcher*);
     static bool objectBetween(int x1, int y1, int x2, int y2, UniformCostArraySearcher*);
+    static bool shouldShoot(BZRC* connection, vector<TankTargeter>* enemies, tank_t me);
+    static bool simpleShouldShoot(BZRC* connection, vector<TankTargeter>* enemies, tank_t me);
     virtual ~BZRCTools();
 private:
 

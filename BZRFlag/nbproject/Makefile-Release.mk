@@ -41,6 +41,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/693638321/StraightLineTankAI.o \
 	${OBJECTDIR}/_ext/693638321/BehaviorTankAI.o \
 	${OBJECTDIR}/_ext/693638321/f9.o \
+	${OBJECTDIR}/_ext/693638321/EvadeBehavior.o \
 	${OBJECTDIR}/_ext/693638321/Point.o \
 	${OBJECTDIR}/_ext/693638321/BZRFlagGame.o \
 	${OBJECTDIR}/_ext/693638321/GridFilter.o \
@@ -48,6 +49,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/693638321/DFSArraySearcher.o \
 	${OBJECTDIR}/_ext/693638321/PDController.o \
 	${OBJECTDIR}/_ext/693638321/TargetPointCalculator.o \
+	${OBJECTDIR}/_ext/693638321/CaptureBehavior.o \
 	${OBJECTDIR}/_ext/693638321/BFSArraySearcher.o \
 	${OBJECTDIR}/_ext/693638321/PotentialFieldCommanderAI.o \
 	${OBJECTDIR}/_ext/693638321/EvaderCommanderAI.o \
@@ -58,6 +60,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/693638321/CornerCalculator.o \
 	${OBJECTDIR}/_ext/693638321/EvaderTankAI.o \
 	${OBJECTDIR}/_ext/693638321/TankAI.o \
+	${OBJECTDIR}/_ext/693638321/DefendBehavior.o \
 	${OBJECTDIR}/_ext/693638321/GoToBehavior.o \
 	${OBJECTDIR}/_ext/693638321/BehaviorCommanderAI.o \
 	${OBJECTDIR}/_ext/693638321/GNUPrinter.o \
@@ -72,15 +75,16 @@ OBJECTFILES= \
 	${OBJECTDIR}/_ext/693638321/DepthLimitedArraySearcher.o \
 	${OBJECTDIR}/_ext/693638321/SearchTools.o \
 	${OBJECTDIR}/_ext/693638321/TankTargeter.o \
-	${OBJECTDIR}/_ext/693638321/TankVector.o
+	${OBJECTDIR}/_ext/693638321/TankVector.o \
+	${OBJECTDIR}/_ext/693638321/BZRCTools.o
 
 
 # C Compiler Flags
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=
-CXXFLAGS=
+CCFLAGS=-lrt
+CXXFLAGS=-lrt
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -134,6 +138,11 @@ ${OBJECTDIR}/_ext/693638321/f9.o: ../BZRFlag\ AI/f9.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/f9.o ../BZRFlag\ AI/f9.cpp
 
+${OBJECTDIR}/_ext/693638321/EvadeBehavior.o: ../BZRFlag\ AI/EvadeBehavior.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/EvadeBehavior.o ../BZRFlag\ AI/EvadeBehavior.cpp
+
 ${OBJECTDIR}/_ext/693638321/Point.o: ../BZRFlag\ AI/Point.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
 	${RM} $@.d
@@ -168,6 +177,11 @@ ${OBJECTDIR}/_ext/693638321/TargetPointCalculator.o: ../BZRFlag\ AI/TargetPointC
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/TargetPointCalculator.o ../BZRFlag\ AI/TargetPointCalculator.cpp
+
+${OBJECTDIR}/_ext/693638321/CaptureBehavior.o: ../BZRFlag\ AI/CaptureBehavior.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/CaptureBehavior.o ../BZRFlag\ AI/CaptureBehavior.cpp
 
 ${OBJECTDIR}/_ext/693638321/BFSArraySearcher.o: ../BZRFlag\ AI/BFSArraySearcher.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
@@ -218,6 +232,11 @@ ${OBJECTDIR}/_ext/693638321/TankAI.o: ../BZRFlag\ AI/TankAI.cpp
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/TankAI.o ../BZRFlag\ AI/TankAI.cpp
+
+${OBJECTDIR}/_ext/693638321/DefendBehavior.o: ../BZRFlag\ AI/DefendBehavior.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/DefendBehavior.o ../BZRFlag\ AI/DefendBehavior.cpp
 
 ${OBJECTDIR}/_ext/693638321/GoToBehavior.o: ../BZRFlag\ AI/GoToBehavior.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
@@ -293,6 +312,11 @@ ${OBJECTDIR}/_ext/693638321/TankVector.o: ../BZRFlag\ AI/TankVector.cpp
 	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/TankVector.o ../BZRFlag\ AI/TankVector.cpp
+
+${OBJECTDIR}/_ext/693638321/BZRCTools.o: ../BZRFlag\ AI/BZRCTools.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/693638321
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/_ext/693638321/BZRCTools.o ../BZRFlag\ AI/BZRCTools.cpp
 
 # Subprojects
 .build-subprojects:

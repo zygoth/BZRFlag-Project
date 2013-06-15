@@ -48,17 +48,29 @@ BehaviorTankAI::BehaviorTankAI(BZRC* server, int tankNumber, TeamColor myColor,
  */
 void BehaviorTankAI::controlTank()
 {   
+    // do nothing if you're dead
+    tank_t me = getMyTank();
+    if(me.status.compare("dead") == 0)
+    {
+        return;
+    }
     
      switch(currentPriority)
              
      {
         case CAPTURE: doCapture(); break;
         case DEFEND:  doDefend(); break;
-        //case EVADE:  doEvade(); break;
+        case EVADE:  doEvade(); cout << "doing evade" << endl; break;
      }
         
      currentBehavior->doMove();
-    //currentBehavior->doMove();
+     
+     
+     if(BZRCTools::simpleShouldShoot(connection, enemies, me))
+     {
+         connection->shoot(tankNumber);
+     }
+     
 }
 
 void BehaviorTankAI::doCapture()
@@ -120,14 +132,17 @@ void BehaviorTankAI::doCapture()
     }
     
     // check for incoming shots
-    vector<shot_t> bullets;
-    connection->get_shots(&bullets);
+    //vector<shot_t> bullets;
+    //connection->get_shots(&bullets);
     
+    
+    /*
     for(int i = 0; i < bullets.size(); i++) {
         if(BZRCTools::hitCheck(me, bullets[i],SHOTRANGE,pathFinder))
             setToEvade();
     }
     bullets.clear();
+     */
 }
 
 void BehaviorTankAI::doDefend()
@@ -145,17 +160,20 @@ void BehaviorTankAI::doDefend()
     }
     
     // check for incoming shots
-    vector<shot_t> bullets;
-    connection->get_shots(&bullets);
+    //vector<shot_t> bullets;
+    //connection->get_shots(&bullets);
     
+    
+    /*
     for(int i = 0; i < bullets.size(); i++) {
         if(BZRCTools::hitCheck(me, bullets[i],SHOTRANGE,pathFinder))
             setToEvade();
     }
     bullets.clear();
+     */
 }
 
-void BehaviorTankAI::doEvad()
+void BehaviorTankAI::doEvade()
 {
     if(currentBehavior->getType() != EVADEBEHAVIOR)
     {

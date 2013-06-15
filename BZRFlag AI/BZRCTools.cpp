@@ -8,6 +8,7 @@
 #include "BZRCTools.h"
 #include "SearchTools.h"
 #include "UniformCostArraySearcher.h"
+#include "PotentialFieldCalculator.h"
 #include <cmath>
 
 BZRCTools::BZRCTools()
@@ -87,6 +88,66 @@ bool BZRCTools::hitCheck(tank_t me, shot_t bullet, int range, UniformCostArraySe
                                  tankY + i*me.velocity[1]) <= 5)
             return true;
     }
+    return false;
+}
+
+bool BZRCTools::shouldShoot(BZRC* connection, vector<TankTargeter>* enemies, tank_t me)
+{    
+    for(int i = 0; i < enemies->size(); i++)
+    {
+        // It's too far away, forget it
+        if(SearchTools::distance((*enemies)[i].getCurrentPoint(), Point(me.pos[0], me.pos[1])) > 350)
+        {
+            continue;
+        }
+        
+        
+        TankTargeter* targetedEnemy = &(*enemies)[i];
+        
+        Point targetLocation = targetedEnemy->getCurrentPoint();
+        double distanceToEnemy = SearchTools::distance(me.pos[0], me.pos[1], targetLocation.x, targetLocation.y);
+        double timeForShotToHit = distanceToEnemy / 100;
+        Point futureLocation = targetedEnemy->getTargetPoint(timeForShotToHit);
+        double targetAngle = atan2((futureLocation.y - me.pos[1]) , (futureLocation.x - me.pos[0]));
+        
+        // original value: .785
+        double envelope = 1 / pow(distanceToEnemy, .5);
+        
+        if(abs(PotentialFieldCalculator::getAngleBetween(me.angle, targetAngle)) < envelope)
+        {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+bool BZRCTools::simpleShouldShoot(BZRC* connection, vector<TankTargeter>* enemies, tank_t me)
+{
+    for(int i = 0; i < enemies->size(); i++)
+    {
+        // It's too far away, forget it
+        if(SearchTools::distance((*enemies)[i].getCurrentPoint(), Point(me.pos[0], me.pos[1])) > 150)
+        {
+            continue;
+        }        
+        
+        TankTargeter* targetedEnemy = &(*enemies)[i];
+        
+        Point targetLocation = targetedEnemy->getCurrentPoint();
+        double distanceToEnemy = SearchTools::distance(me.pos[0], me.pos[1], targetLocation.x, targetLocation.y);
+        
+        double targetAngle = atan2((targetLocation.y - me.pos[1]) , (targetLocation.x - me.pos[0]));
+        
+        // original value: .785
+        double envelope = 1 / pow(distanceToEnemy, .5);
+        
+        if(abs(PotentialFieldCalculator::getAngleBetween(me.angle, targetAngle)) < envelope)
+        {
+            return true;
+        }
+    }
+    
     return false;
 }
 

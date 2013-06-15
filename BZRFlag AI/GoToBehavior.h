@@ -28,6 +28,7 @@ private:
     
     Point intermediatePoint;
     PDController pdController;
+    int searchCounter;
     
     // this is owned by the Commander and used by other TankAIs--don't delete it!
     UniformCostArraySearcher* pathFinder;

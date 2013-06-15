@@ -24,9 +24,11 @@
         <itemPath>../BZRFlag AI/TankAI.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="Tools" projectFiles="true">
+        <itemPath>../BZRFlag AI/BZRCTools.h</itemPath>
         <itemPath>../BZRFlag AI/Behavior.h</itemPath>
         <itemPath>../BZRFlag AI/BehaviorTankAI.h</itemPath>
         <itemPath>../BZRFlag AI/CornerCalculator.h</itemPath>
+        <itemPath>../BZRFlag AI/EvadeBehavior.h</itemPath>
         <itemPath>../BZRFlag AI/GNUPrinter.h</itemPath>
         <itemPath>../BZRFlag AI/GridFilter.h</itemPath>
         <itemPath>../BZRFlag AI/PDController.h</itemPath>
@@ -465,9 +467,13 @@
         <itemPath>../BZRFlag AI/TankAI.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="Tools" projectFiles="true">
+        <itemPath>../BZRFlag AI/BZRCTools.cpp</itemPath>
         <itemPath>../BZRFlag AI/Behavior.cpp</itemPath>
         <itemPath>../BZRFlag AI/BehaviorTankAI.cpp</itemPath>
+        <itemPath>../BZRFlag AI/CaptureBehavior.cpp</itemPath>
         <itemPath>../BZRFlag AI/CornerCalculator.cpp</itemPath>
+        <itemPath>../BZRFlag AI/DefendBehavior.cpp</itemPath>
+        <itemPath>../BZRFlag AI/EvadeBehavior.cpp</itemPath>
         <itemPath>../BZRFlag AI/GNUPrinter.cpp</itemPath>
         <itemPath>../BZRFlag AI/GoToBehavior.cpp</itemPath>
         <itemPath>../BZRFlag AI/GridFilter.cpp</itemPath>
@@ -514,6 +520,7 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <commandLine>-lrt</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

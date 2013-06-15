@@ -234,8 +234,6 @@ void BehaviorCommanderAI::fillObject(int x, int y)
 
 void BehaviorCommanderAI::controlTeam()
 {   
-    
-    
     /**
      * Update enemy positions
      */

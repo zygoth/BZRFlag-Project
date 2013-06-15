@@ -17,7 +17,7 @@ class EvadeBehavior : public Behavior
 public:
     EvadeBehavior(BZRC* server, int tankNumber, TeamColor myColor,
                 vector<TankTargeter>* enemies, UniformCostArraySearcher* pathFinder);
-    EvadeBehavior(const EvadeBehavior& orig);
+    EvadeBehavior(const Behavior& orig, UniformCostArraySearcher* pathFinder);
     virtual void doMove();
     virtual ~EvadeBehavior();
 private:

@@ -49,6 +49,7 @@ private:
     
     void doCapture();
     void doDefend();
+    void doEvad();
 };
 
 

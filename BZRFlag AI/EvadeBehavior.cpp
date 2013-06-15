@@ -20,11 +20,11 @@ EvadeBehavior::EvadeBehavior(BZRC* server, int tankNumber, TeamColor myColor,
     path = pathFinder;
 }
 
-EvadeBehavior::EvadeBehavior(const EvadeBehavior& orig) : Behavior(orig)
+EvadeBehavior::EvadeBehavior(const Behavior& orig, UniformCostArraySearcher* pathFinder) : Behavior(orig)
 {
     myType = EVADEBEHAVIOR;
     action = 0;
-    this->path = orig.path;
+    path = pathFinder;
 }
 
 void EvadeBehavior::doMove()

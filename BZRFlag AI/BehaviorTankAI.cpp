@@ -118,6 +118,16 @@ void BehaviorTankAI::doCapture()
         delete currentBehavior;
         currentBehavior = newBehavior;
     }
+    
+    // check for incoming shots
+    vector<shot_t> bullets;
+    connection->get_shots(&bullets);
+    
+    for(int i = 0; i < bullets.size(); i++) {
+        if(BZRCTools::hitCheck(me, bullets[i],SHOTRANGE,pathFinder))
+            currentPriority = EVADE;
+    }
+    bullets.clear();
 }
 
 void BehaviorTankAI::doDefend()
@@ -132,6 +142,24 @@ void BehaviorTankAI::doDefend()
         Behavior* newBehavior = new DefendBehavior(*currentBehavior);
         delete currentBehavior;
         currentBehavior = newBehavior;
+    }
+    
+    // check for incoming shots
+    vector<shot_t> bullets;
+    connection->get_shots(&bullets);
+    
+    for(int i = 0; i < bullets.size(); i++) {
+        if(BZRCTools::hitCheck(me, bullets[i],SHOTRANGE,pathFinder))
+            currentPriority = EVADE;
+    }
+    bullets.clear();
+}
+
+void BehaviorTankAI::doEvad()
+{
+    if(currentBehavior->getType() != EVADEBEHAVIOR)
+    {
+        Behavior* newBehavior = new EvadeBehavior(*currentBehavior,pathFinder);
     }
 }
 

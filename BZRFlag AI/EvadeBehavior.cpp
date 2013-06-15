@@ -74,7 +74,7 @@ void EvadeBehavior::doMove()
     }
     if(action == 1)
     {
-        connection->speed(tankNumber,0.1);
+        connection->speed(tankNumber,0.8);
     }
     
     bullets.clear();

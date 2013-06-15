@@ -7,6 +7,7 @@
 
 #include "BehaviorCommanderAI.h"
 #include "BehaviorTankAI.h"
+#include "BZRCTools.h"
 
 BehaviorCommanderAI::BehaviorCommanderAI(BZRC* connection) : CommanderAI(connection)
 {
@@ -62,7 +63,14 @@ BehaviorCommanderAI::BehaviorCommanderAI(BZRC* connection) : CommanderAI(connect
     for(int i = 0; i < myTanks.size(); i++)
     {
         tankAIs.push_back(new BehaviorTankAI(connection, i, myColor, &tankTargeters, finder));
-        ((BehaviorTankAI*)tankAIs.back())->setToCapture();
+        if(i%1 == 0)
+        {
+            ((BehaviorTankAI*)tankAIs.back())->setToDefend(BZRCTools::getBaseCenter(connection, myColor));
+        }
+        else
+        {
+            ((BehaviorTankAI*)tankAIs.back())->setToCapture();
+        }
     }    
     
     otherObjects.clear();
@@ -234,6 +242,19 @@ void BehaviorCommanderAI::fillObject(int x, int y)
 
 void BehaviorCommanderAI::controlTeam()
 {   
+    int liveEnemyCount = 0;
+    
+    /**
+     * Check enemy tank status
+     */
+    vector<otank_t> enemies;
+    connection->get_othertanks(&enemies);
+    for(int i = 0; i < enemies.size(); i++)
+    {
+        if(enemies[i].status.compare("alive") == 0)
+            liveEnemyCount++;
+    }
+    
     /**
      * Update enemy positions
      */
@@ -250,6 +271,10 @@ void BehaviorCommanderAI::controlTeam()
         UniformCostArraySearcher* temp = new UniformCostArraySearcher(worldMap, worldSize, worldSize);
         *finder = *temp;
         delete temp;
+        
+        if(liveEnemyCount == 0)
+            ((BehaviorTankAI*)tankAIs[i])->setToCapture();
+        
         tankAIs[i]->controlTank();
     }
 }

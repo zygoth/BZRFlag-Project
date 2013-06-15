@@ -23,6 +23,7 @@ BehaviorTankAI::BehaviorTankAI(BZRC* server, int tankNumber, TeamColor myColor,
     this->pathFinder = pathFinder;
     this->currentPriority = CAPTURE;
     this->currentBehavior = new GoToBehavior(server, tankNumber, myColor, enemies, pathFinder, Point(30,-60));
+    this->myColor = myColor;
     
     vector<constant_t> constants;
     connection->get_constants(&constants);
@@ -71,6 +72,7 @@ void BehaviorTankAI::controlTank()
          connection->shoot(tankNumber);
      }
      
+     
 }
 
 void BehaviorTankAI::doCapture()
@@ -107,42 +109,59 @@ void BehaviorTankAI::doCapture()
                     targetPoint = BZRCTools::getBaseCenter(connection, stringToTeamColor(flags[i].color));
                 }
             }
+            
+            Behavior* newBehavior = new DefendBehavior(*currentBehavior);
+            delete currentBehavior;
+            currentBehavior = newBehavior;
         }
         else
         {
             if(iHaveFlag) // GO HOME!!!!
             {
                 targetPoint = BZRCTools::getBaseCenter(connection, myColor);
+
+                if ((currentBehavior->getType() != GOTOBEHAVIOR) ||
+                        (SearchTools::distance(targetPoint, ((GoToBehavior*) currentBehavior) -> targetPoint) > 15)) 
+                {
+
+                    //cout << "New target:  " << targetPoint.x << ", " << targetPoint.y << endl;
+                    Behavior* newBehavior = new GoToBehavior(*currentBehavior, pathFinder, targetPoint);
+                    delete currentBehavior;
+                    currentBehavior = newBehavior;
+                }
             }
             else  // Grab the enemy flag!
             {
                 targetPoint = Point(flags[i].pos[0], flags[i].pos[1]);
+
+                if ((currentBehavior->getType() != GOTOBEHAVIOR) ||
+                        (SearchTools::distance(targetPoint, ((GoToBehavior*) currentBehavior) -> targetPoint) > 15)) 
+                {
+                    
+                    //cout << "New target:  " << targetPoint.x << ", " << targetPoint.y << endl;
+                    Behavior* newBehavior = new GoToBehavior(*currentBehavior, pathFinder, targetPoint);
+                    delete currentBehavior;
+                    currentBehavior = newBehavior;
+                }
             }
         }
     }    
     
     // if the current behavior is different, change it.
-    if((currentBehavior->getType() != GOTOBEHAVIOR) || 
-            (SearchTools::distance(targetPoint, ((GoToBehavior*)currentBehavior) -> targetPoint) > 15))
-    {
-        cout << "New target:  " << targetPoint.x << ", " << targetPoint.y << endl;
-        Behavior* newBehavior = new GoToBehavior(*currentBehavior, pathFinder, targetPoint);
-        delete currentBehavior;
-        currentBehavior = newBehavior;
-    }
+    
     
     // check for incoming shots
-    //vector<shot_t> bullets;
-    //connection->get_shots(&bullets);
+    vector<shot_t> bullets;
+    connection->get_shots(&bullets);
     
     
-    /*
+    
     for(int i = 0; i < bullets.size(); i++) {
         if(BZRCTools::hitCheck(me, bullets[i],SHOTRANGE,pathFinder))
             setToEvade();
     }
     bullets.clear();
-     */
+     
 }
 
 void BehaviorTankAI::doDefend()
@@ -151,26 +170,13 @@ void BehaviorTankAI::doDefend()
     Point myLocation(me.pos[0], me.pos[1]);
     
     //  if we're close, start the defense behavior
-    if(SearchTools::distance(myLocation, pointToDefend) < 10 && 
+    if(SearchTools::distance(myLocation, pointToDefend) < 15 && 
             currentBehavior->getType() != DEFENDBEHAVIOR)
     {
         Behavior* newBehavior = new DefendBehavior(*currentBehavior);
         delete currentBehavior;
         currentBehavior = newBehavior;
     }
-    
-    // check for incoming shots
-    //vector<shot_t> bullets;
-    //connection->get_shots(&bullets);
-    
-    
-    /*
-    for(int i = 0; i < bullets.size(); i++) {
-        if(BZRCTools::hitCheck(me, bullets[i],SHOTRANGE,pathFinder))
-            setToEvade();
-    }
-    bullets.clear();
-     */
 }
 
 void BehaviorTankAI::doEvade()

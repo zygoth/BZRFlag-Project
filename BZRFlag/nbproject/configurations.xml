@@ -30,6 +30,7 @@
         <itemPath>../BZRFlag AI/CornerCalculator.h</itemPath>
         <itemPath>../BZRFlag AI/EvadeBehavior.h</itemPath>
         <itemPath>../BZRFlag AI/GNUPrinter.h</itemPath>
+        <itemPath>../BZRFlag AI/GoToBehavior.h</itemPath>
         <itemPath>../BZRFlag AI/GridFilter.h</itemPath>
         <itemPath>../BZRFlag AI/PDController.h</itemPath>
         <itemPath>../BZRFlag AI/PotentialFieldCalculator.h</itemPath>

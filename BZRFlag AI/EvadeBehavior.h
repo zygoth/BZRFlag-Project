@@ -22,7 +22,7 @@ public:
     virtual ~EvadeBehavior();
 private:
     int action;
-    double targetAngle;
+    double targetAngle, targetSpeed;
     PDController pdController;
     UniformCostArraySearcher* path;
     

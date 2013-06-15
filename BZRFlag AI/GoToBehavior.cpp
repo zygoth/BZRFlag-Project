@@ -38,11 +38,11 @@ void GoToBehavior::doMove()
     Point myPosition = Point(me.pos[0], me.pos[1]);
     double currentAngle = me.angle;
     
-    if(SearchTools::distance(myPosition, intermediatePoint) < 15)
+    //if(SearchTools::distance(myPosition, intermediatePoint) < 15)
     //searchCounter++;
     //if(searchCounter % 5 == 0)
     {
-        if(pathFinder->search(myPosition, targetPoint, &intermediatePoint, 30) == false)
+        if(pathFinder->search(myPosition, targetPoint, &intermediatePoint, 1) == false)
         {
             //cout << "couldn't find path" << endl;
         }
@@ -64,11 +64,29 @@ void GoToBehavior::doMove()
         speed = .3;
     }
     
-    if(SearchTools::distance(myPosition, targetPoint) < 8)
+    if(SearchTools::distance(myPosition, targetPoint) < 30)
     {
-        speed = .3;
+        speed = .2;
         //cout << "I have arrived!" << endl;
     }
+    
+    //If we're too close to an ally, move away    
+     vector<tank_t> mytanks;
+     connection->get_mytanks(&mytanks);
+     for(int i = 0; i < mytanks.size(); i++)
+     {
+         if(i == tankNumber)
+         {
+             continue;
+         }
+         
+         if(SearchTools::distance(Point(me.pos[0], me.pos[1]), Point(mytanks[i].pos[0], mytanks[i].pos[1])) < 12)
+         {
+             angularVelocity = .5;
+         }
+     }
+     
+
     
     connection->speed(tankNumber, speed);
     connection->angvel(tankNumber, angularVelocity);

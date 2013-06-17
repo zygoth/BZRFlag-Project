@@ -51,6 +51,7 @@ private:
     int SHOTRANGE;
     Point pointToDefend;
     timespec previousTime;
+    int shotCounter;
     
     void doCapture();
     void doDefend();

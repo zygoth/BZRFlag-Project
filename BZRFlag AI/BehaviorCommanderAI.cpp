@@ -63,7 +63,7 @@ BehaviorCommanderAI::BehaviorCommanderAI(BZRC* connection) : CommanderAI(connect
     for(int i = 0; i < myTanks.size(); i++)
     {
         tankAIs.push_back(new BehaviorTankAI(connection, i, myColor, &tankTargeters, finder));
-        if(i%1 == 0)
+        if(i%4 == 0)
         {
             ((BehaviorTankAI*)tankAIs.back())->setToDefend(BZRCTools::getBaseCenter(connection, myColor));
         }

@@ -97,7 +97,7 @@ void BehaviorTankAI::doCapture()
             continue;
         }
         
-        if(flags[i].poss_color.compare("none") != 0 && !iHaveFlag) // somebody else has the flag, so camp at enemy base
+        if(flags[i].poss_color.compare("none") != 0 && !iHaveFlag) // somebody else has the flag, so defend where you are
         {
             vector<base_t> bases;
             connection->get_bases(&bases);
@@ -149,7 +149,7 @@ void BehaviorTankAI::doCapture()
     
     // if the current behavior is different, change it.
     
-    
+    /*
     // check for incoming shots
     vector<shot_t> bullets;
     connection->get_shots(&bullets);
@@ -161,7 +161,7 @@ void BehaviorTankAI::doCapture()
             setToEvade();
     }
     bullets.clear();
-     
+    */
 }
 
 void BehaviorTankAI::doDefend()

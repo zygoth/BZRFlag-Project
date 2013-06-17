@@ -89,9 +89,10 @@ void DefendBehavior::selectTarget(vector<otank_t>* otherTanks, tank_t me)
         enemyPosition.y = otherTanks->at(i).pos[1];
         
         if(SearchTools::distance(myPosition, enemyPosition) < minDistance &&
-                !DEADSTRING.compare(otherTanks->at(i).status) == 0)
+                !(DEADSTRING.compare(otherTanks->at(i).status) == 0))
         {
             currentTarget = &enemies->at(i);
+            minDistance = SearchTools::distance(myPosition, enemyPosition);
         }
     }
 }
